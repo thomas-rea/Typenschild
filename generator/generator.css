@@ -88,7 +88,7 @@
 .plate-qr a.qr-image svg{width:19mm!important;height:19mm!important}
 .sheet-page.print-clean .plate-qr a.qr-link,.sheet-page.print-clean .plate-qr a.qr-link:visited{color:#111!important}
 .sheet-page.print-original .plate-qr a.qr-link,.sheet-page.print-original .plate-qr a.qr-link:visited{color:#1757bb!important}
-.sheet-page.print-clean .paper-plate svg{filter:grayscale(1)!important}
+.sheet-page.print-clean .paper-plate svg{filter:none!important}
 .paper-question.read{flex:0 0 auto!important;min-height:0!important;padding:0!important;gap:.3mm!important}
 .paper-question.read .reading-answer{margin-left:5.3mm;width:39%;height:5.5mm;flex:0 0 auto;border-bottom:1px solid #8f9690}
 .paper-question.calc{flex:1 1 0!important;min-height:22mm!important}
@@ -99,7 +99,35 @@
  .plate-qr{flex-direction:row!important}
  .sheet-page.print-clean .plate-qr a.qr-link,.sheet-page.print-clean .plate-qr a.qr-link:visited{color:#111!important}
  .sheet-page.print-original .plate-qr a.qr-link,.sheet-page.print-original .plate-qr a.qr-link:visited{color:#1757bb!important}
- .sheet-page.print-clean .paper-plate svg{filter:grayscale(1)!important}
+ .sheet-page.print-clean .paper-plate svg{filter:none!important}
  .paper-question.calc{flex:1 1 0!important}
  .paper-question.read{flex:0 0 auto!important}
+}
+
+
+/* V1.0.1 – Vektor-Typenschilder ohne CSS-Filter, gut lesbare Loesungen in Dreiergruppen. */
+.sheet-page.print-clean .paper-plate svg{filter:none!important}
+.solution-page{background:white;width:210mm;height:297mm;box-sizing:border-box;padding:12mm 14mm 11mm;display:flex;flex-direction:column;overflow:hidden;break-after:page;page-break-after:always;font-family:Arial,Helvetica,sans-serif}
+.solution-page .solution-header{flex:none;margin:0 0 4mm}
+.solution-page .solution-header h2{font-size:15pt;line-height:1.1;margin:0 0 1.5mm}
+.solution-page .solution-header p{font-size:8.5pt;line-height:1.22;margin:0;color:#555}
+.solution-batch{min-height:0;flex:1;display:flex;flex-direction:column;gap:2.6mm;justify-content:flex-start}
+.solution-page .solution-block{flex:0 0 auto;min-width:0;margin:0;padding:1mm 0 2mm;break-inside:avoid;border-bottom:1px solid #d8dedb}
+.solution-page .solution-block-title{gap:2.5mm!important;margin:0}
+.solution-page .solution-block h3{font-size:10.3pt;line-height:1.15;margin:0 0 1mm}
+.solution-page .solution-list{font-size:9.7pt;line-height:1.24;padding-left:5mm;margin:0}
+.solution-page .solution-list li{margin:0 0 .9mm}
+.solution-page .solution-answer{font-weight:600}
+.solution-page .solution-calc{font-size:8.8pt;color:#444;margin-left:1.5mm}
+.solution-page .solution-code{flex:0 0 22.5mm;width:22.5mm;gap:0!important}
+.solution-page .solution-code svg{width:16.5mm;height:16.5mm}
+.solution-page .solution-code a,.solution-page .solution-code span{font-size:6.4pt!important;line-height:1.12}
+.solution-page .solution-code .sheet-short-code{font-size:7.2pt!important}
+.solution-page .solution-code .retry-label{margin-top:1mm}
+.solution-page .solution-continued{font-size:8pt;color:#666;margin:0 0 2mm}
+@media print{
+  #printSolutionsRoot{padding:0!important;margin:0!important;max-width:none!important;width:210mm!important;box-shadow:none!important;break-before:page;page-break-before:always}
+  body[data-print-mode="solutions"] #printSolutionsRoot{break-before:auto;page-break-before:auto}
+  .solution-page{margin:0!important;box-shadow:none!important;break-after:page;page-break-after:always}
+  .solution-page:last-child{break-after:auto;page-break-after:auto}
 }

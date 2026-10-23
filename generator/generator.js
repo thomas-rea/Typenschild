@@ -180,7 +180,17 @@ function compactSolutions(sheet){
  return `<section class="solution-block"><div class="solution-block-title"><div class="solutions-text"><h3>Motor ${sheet.no}</h3><ol class="solution-list">${rows}</ol></div><div class="solution-code"><a href="${esc(exactUrl(sheet,true))}" aria-label="Lösungen online: Motor ${sheet.no}">${qrVector(exactUrl(sheet,true))}</a><a class="qr-link" href="${esc(exactUrl(sheet,true))}">Lösungen online</a><span class="solution-id sheet-short-code">${sheet.solutionCode}</span><a class="retry-label" href="${esc(exactUrl(sheet))}">Erneut üben</a><span class="practice-id sheet-short-code">${sheet.practiceCode}</span></div></div></section>`;
 }
 function solutionDoc(sheets){
- return `<div class="solution-header"><h2>Lösungen · Motortypenschilder</h2><p>Kurzantworten in der Reihenfolge der Arbeitsblätter. Ausführliche Erklärungen und Rechenwege stehen über die QR-Codes bereit.</p></div>${sheets.map(compactSolutions).join('')}`;
+ // Maximal drei Motoreinheiten auf einer festen A4-Seite. Das vermeidet,
+ // dass der Umbruch je nach Antwortlaenge bereits nach Motor 2 erfolgt.
+ const pages=[];
+ for(let i=0;i<sheets.length;i+=3){
+  const batch=sheets.slice(i,i+3);
+  const intro=i===0
+   ? `<div class="solution-header"><h2>Lösungen · Motortypenschilder</h2><p>Kurzantworten in der Reihenfolge der Arbeitsblätter. Ausführliche Erklärungen und Rechenwege stehen über die QR-Codes bereit.</p></div>`
+   : `<p class="solution-continued">Lösungen · Fortsetzung</p>`;
+  pages.push(`<section class="solution-page" data-solution-page="${Math.floor(i/3)+1}" data-motors="${batch.map(s=>s.no).join(',')}">${intro}<div class="solution-batch">${batch.map(compactSolutions).join('')}</div></section>`);
+ }
+ return pages.join('');
 }
 function linkDoc(sheets){
  return `<div class="links-header"><h2>Digitale Lösungen</h2><p>Zu jedem Motor führt der QR-Code zu den passenden Antworten und Erklärungen.</p></div>${sheets.map(sheet=>`<section class="link-item"><a href="${esc(exactUrl(sheet,true))}">${qrVector(exactUrl(sheet,true))}</a><div><h3>Motor ${sheet.no}</h3><p><a href="${esc(exactUrl(sheet,true))}">Lösungen online · ${sheet.solutionCode}</a></p><p><a href="${esc(exactUrl(sheet))}">Erneut üben · ${sheet.practiceCode}</a></p></div></section>`).join('')}`;

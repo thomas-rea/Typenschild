@@ -3,5 +3,64 @@
 #printRoot{max-width:920px;margin:10px auto 60px}.sheet-page{position:relative;background:white;width:210mm;height:297mm;margin:0 auto 22px;box-shadow:0 4px 25px #1934242b;overflow:hidden;padding:12mm 14mm 11mm;color:#222;display:flex;flex-direction:column;font-family:Arial,Helvetica,sans-serif;line-height:1.35}.sheet-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8mm;min-height:23mm}.sheet-title h2{font-size:18pt;letter-spacing:-.3px;margin:0 0 3mm;line-height:1.12}.sheet-id{font-size:9pt;color:#5b6a62}.identity{display:flex;gap:9mm;font-size:10pt;margin:0 0 4mm;white-space:nowrap}.identity span{display:block}.identity b{font-weight:400}.plate-row{display:flex;gap:5mm;align-items:center;justify-content:center;margin:1mm 0 5mm;min-height:68mm}.paper-plate{display:grid;align-items:center;justify-items:center;width:100%;min-width:0;max-height:75mm}.paper-plate svg{display:block;height:auto;width:100%;max-height:75mm;max-width:177mm;filter:none!important}.plate-qr{width:27mm;flex:0 0 27mm;text-align:center;margin-left:2mm}.plate-qr svg{width:27mm;height:27mm;display:block}.plate-qr span{font-size:7.4pt;color:#536157}.questions-title{font-size:12pt;font-weight:700;border-bottom:1px solid #c8cec9;padding-bottom:2mm;margin:0 0 2mm}.paper-questions{display:flex;flex:1;flex-direction:column;gap:2.1mm;min-height:0}.paper-question{break-inside:avoid;display:flex;flex-direction:column;gap:1.4mm;border-bottom:1px solid #e5ebe7;padding-bottom:2.1mm;flex:1;min-height:0}.paper-question:last-child{border:0}.paper-qtext{font-size:10pt;line-height:1.37;font-weight:700;display:flex;gap:2mm}.paper-qtext .num{flex:0 0 6mm}.paper-choices{display:grid;grid-template-columns:1fr 1fr;column-gap:4mm;row-gap:1.8mm;padding-left:6mm}.paper-choice{font-size:8.5pt;line-height:1.22;display:flex;align-items:baseline;gap:2mm;overflow-wrap:anywhere}.paper-choice:before{content:'';width:3mm;height:3mm;border:1px solid #434943;flex:0 0 3mm;position:relative;top:.3mm}.writing-space{flex:1;min-height:12mm;display:flex;flex-direction:column;justify-content:space-evenly;padding-left:6mm}.writing-space i{display:block;border-bottom:1px solid #e1e5e2;width:100%;height:1px}.paper-foot{font-size:8pt;color:#7a807c;border-top:1px solid #edf0ed;padding-top:2mm;margin-top:2mm;display:flex;justify-content:space-between}.sheet-page.back .sheet-header{min-height:20mm}.sheet-page.back .paper-questions{gap:4.5mm}.sheet-page.back .paper-question{padding-bottom:3mm}.sheet-page.back .paper-choice{font-size:9.5pt}.sheet-page.back .writing-space{min-height:24mm}
 #printSolutionsRoot,#printLinksRoot{background:#fff;max-width:210mm;margin:20px auto;box-shadow:0 5px 25px #173d2519;padding:15mm 14mm;color:#222;font:10.5pt/1.42 Arial,Helvetica,sans-serif}#printSolutionsRoot:empty,#printLinksRoot:empty,#printSheetsRoot:empty{display:none}.solution-header h2,.links-header h2{font-size:17pt;margin:0 0 4mm}.solution-header p,.links-header p{color:#666;font-size:9pt;margin:0 0 8mm}.solution-block{padding:2mm 0 5mm;border-bottom:1px solid #cbd3ce;break-inside:avoid;page-break-inside:avoid}.solution-block-title{display:flex;justify-content:space-between;align-items:center;gap:8mm;margin-bottom:2mm}.solution-block h3{font-size:12pt;margin:0}.solution-list{padding-left:6mm;margin:1mm 0}.solution-list li{margin:0 0 1.5mm}.solution-answer{font-weight:700}.solution-calc{color:#4f6358;font-size:9pt;margin-left:3mm}.solution-code{width:22mm;flex:0 0 22mm;text-align:center}.solution-code svg{width:22mm;height:22mm;display:block}.solution-code span{font-size:7pt;color:#6c7770}.link-item{display:flex;align-items:center;gap:6mm;padding:5mm 0;border-bottom:1px solid #dde4df;break-inside:avoid}.link-item svg{width:30mm;height:30mm;flex:0 0 30mm}.link-item h3{margin:0 0 2mm;font-size:11pt}.link-item p{margin:0;color:#5a6b5f;font-size:9pt}
 @media(max-width:740px){.config-layout{grid-template-columns:1fr}.two-up{grid-template-columns:1fr}.top-line{min-height:63px}.shell{padding:0 13px}.card{padding:17px}.preview-toolbar{align-items:stretch}.preview-buttons button{flex:1 1 170px}#printRoot{overflow:auto}.sheet-page{transform:scale(.67);transform-origin:top center;margin-bottom:-85mm}.sheet-page:last-child{margin-bottom:0}}
+
+/* V21 – kompakte A4-Arbeitsblätter mit bedarfsgerechtem Raum und 5-mm-Karierung. */
+.field select{border:1px solid #b4cabd;padding:11px;border-radius:9px;background:#fff;color:#192922;font-size:14px;font-weight:500;max-width:100%;width:100%}
+.sheet-header{min-height:31mm;align-items:flex-start;gap:5mm}
+.sheet-title{flex:1;min-width:0}.sheet-title h2{margin:0 0 4mm;font-size:18pt}
+.identity{display:flex;flex-direction:column;gap:1.5mm;margin:0;white-space:nowrap;font-size:10pt}
+.plate-qr{width:28mm;flex:0 0 28mm;margin:0;text-align:center;display:grid;justify-items:center;gap:.3mm}
+.plate-qr a,.solution-code a{color:#214634;text-decoration:none}
+.plate-qr svg{width:27mm;height:27mm}.plate-qr .qr-link{font-size:8pt;white-space:nowrap;font-weight:650}
+.sheet-short-code{font:700 9pt/1.3 ui-monospace,Consolas,monospace!important;letter-spacing:.02em;color:#252525!important;white-space:nowrap}
+.short-code-only{font-size:9pt;text-align:right}
+.plate-row{margin:0 0 3mm;min-height:58mm;max-height:75mm}
+.paper-plate{max-height:75mm}.paper-plate svg{max-width:180mm}
+.questions-title{display:none}
+.paper-questions{display:flex;flex:1;min-height:0;flex-direction:column;gap:3.4mm}
+.paper-question{border:0;padding:0;gap:1.5mm;flex:0 0 auto;min-height:0}
+.paper-question.mc{flex:0 0 auto}
+.paper-question.num{flex:1 1 0;min-height:23mm}
+.paper-qtext{font-size:10pt;line-height:1.4}
+.paper-choices{row-gap:1.7mm;column-gap:5mm;padding-left:6mm}
+.writing-space{display:block;flex:1;min-height:15mm;overflow:hidden;padding-left:0;margin-left:6mm;border:none}
+.writing-space svg{display:block;overflow:hidden}
+.sheet-page.back .sheet-header{min-height:20mm}
+.sheet-page.back .paper-questions{gap:4.2mm}
+.sheet-page.back .paper-question{padding:0}
+.sheet-page.back .writing-space{min-height:20mm}
+.sheet-page.back .paper-question.num{min-height:30mm}
+.solution-code{width:27mm;flex:0 0 27mm;display:grid;justify-items:center;gap:.4mm}
+.solution-code svg{width:22mm;height:22mm}.solution-code .qr-link{font-size:7pt}
+.link-item a>svg{width:30mm;height:30mm}
+.link-item a{color:#214634}
+@media print{.paper-questions{gap:3.4mm}.sheet-page{padding:12mm 14mm 11mm}.writing-space svg{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
 @page{size:A4 portrait;margin:0}
 @media print{html,body{background:#fff!important;margin:0!important;padding:0!important;color:black!important}body{print-color-adjust:exact;-webkit-print-color-adjust:exact}.top,.control-area,#motorEngine{display:none!important}#printRoot{max-width:none;margin:0;padding:0;background:white!important}#printSheetsRoot,#printSolutionsRoot,#printLinksRoot{display:none!important}body[data-print-mode="worksheets"] #printSheetsRoot,body[data-print-mode="combined"] #printSheetsRoot,body[data-print-mode="combined"] #printSolutionsRoot,body[data-print-mode="solutions"] #printSolutionsRoot,body[data-print-mode="links"] #printLinksRoot{display:block!important}.sheet-page{width:210mm;height:297mm;margin:0!important;padding:12mm 14mm 11mm;box-shadow:none!important;break-after:page;page-break-after:always;transform:none!important}.sheet-page:last-child{break-after:page}#printSolutionsRoot,#printLinksRoot{box-shadow:none;max-width:none;width:210mm;padding:15mm 14mm;margin:0!important;font-size:10.5pt;break-before:page;page-break-before:always}body[data-print-mode="solutions"] #printSolutionsRoot,body[data-print-mode="links"] #printLinksRoot{break-before:auto;page-break-before:auto}.solution-block{break-inside:avoid;page-break-inside:avoid}}
+
+/* V22: kompakter einzeiliger Kopf, QR oben rechts, Code nur in der Fusszeile. */
+.sheet-header{min-height:25mm!important;display:flex;justify-content:space-between;align-items:flex-start;gap:3mm}
+.sheet-page.back .sheet-header{min-height:15mm!important}
+.sheet-header-main{min-width:0;flex:1}
+.sheet-header-main h2{font-size:18pt;letter-spacing:-.25px;margin:0 0 4mm;line-height:1.15}
+.identity{display:flex!important;flex-direction:row!important;align-items:baseline;white-space:nowrap;gap:5mm!important;font-size:9pt!important;margin:0!important}
+.identity span{display:inline-block}
+.plate-qr{flex:0 0 auto;width:auto;display:flex!important;flex-direction:row!important;align-items:flex-start!important;gap:2mm!important;margin:0!important;text-align:right!important}
+.plate-qr a.qr-link{font-size:8pt!important;line-height:1.1!important;white-space:nowrap;padding-top:0.6mm}
+.plate-qr a.qr-image{display:block;width:19mm;height:19mm;flex:0 0 19mm}
+.plate-qr a.qr-image svg{display:block;width:19mm;height:19mm}
+.paper-foot .footer-code{color:#252525;font-family:Consolas,'DejaVu Sans Mono',monospace;font-weight:750;font-size:8.4pt;letter-spacing:.03em;white-space:nowrap}
+.paper-qtext{gap:.7mm!important}
+.paper-qtext .num{flex:0 0 4.5mm!important}
+.paper-choices{padding-left:5.3mm!important}
+.writing-space{margin-left:5.3mm!important}
+.solution-block-title{align-items:flex-start!important;gap:3mm!important}
+.solution-block-title .solutions-text{flex:1;min-width:0}
+.solution-code{width:27mm;flex:0 0 27mm;gap:.2mm}
+.solution-code svg{width:19mm;height:19mm}
+.solution-code a,.solution-code span{font-size:7.1pt!important;white-space:nowrap}
+.solution-code .sheet-short-code{font:700 8pt/1.2 Consolas,monospace!important;white-space:nowrap}
+.solution-code .retry-label{margin-top:1.8mm;text-decoration:underline}
+.solution-block{padding:2mm 0 4mm}
+@media print{.sheet-header{min-height:25mm!important}.sheet-page.back .sheet-header{min-height:15mm!important}}

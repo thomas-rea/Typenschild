@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="generator.css">
 </head>
 <body>
-<header class="top"><div class="shell top-line"><div class="brand"><span class="logo">⚡</span><div>Motortypenschild <small>Arbeitsblatt-Generator</small></div></div><a href="../">↗ Zum Lerntrainer</a></div></header>
+<header class="top"><div class="shell top-line"><div class="brand"><span class="logo">⚡</span><div>Motortypenschild <small>Arbeitsblatt-Generator · V22</small></div></div><a href="../">↗ Zum Lerntrainer</a></div></header>
 <main class="shell control-area" id="controlArea">
  <div class="intro"><h1>Arbeitsblätter erstellen</h1><p>Für jede Motorart ein realitätsnahes Typenschild mit passenden Aufgaben – wahlweise auf einer oder zwei A4-Seiten. Übungslinks öffnen dieselben Daten im Lerntrainer.</p></div>
  <div class="config-layout">
@@ -34,6 +34,11 @@
    <label class="radio"><input type="radio" name="solution" value="links"> Nur Lösungslinks als QR-Codes</label>
   </div>
   <hr>
+  <h3>Darstellung der Typenschilder</h3>
+  <label class="field" for="plateStyle">Druckbild
+   <select id="plateStyle"><option value="clean" selected>Schwarz-Weiß · druckoptimiert</option><option value="original">Originaldarstellung (Farben und Patina)</option></select>
+  </label>
+  <hr>
   <label class="checkbox"><input id="practiceQR" type="checkbox" checked> Übungs-QR-Code auf jedem Arbeitsblatt</label>
   <p class="small">Die Lösungen enthalten nur richtige Antworten und kurze Rechenansätze. Ausführliche Erklärungen sind über die digitalen Links verfügbar.</p>
   <div class="summary" id="summary">5 Typenschilder · 10 Arbeitsblattseiten</div>
@@ -47,7 +52,7 @@
  </section>
 </main>
 <div id="printRoot" aria-live="off"><div id="printSheetsRoot"></div><div id="printSolutionsRoot"></div><div id="printLinksRoot"></div></div>
-<iframe id="motorEngine" src="../v20/index.html" title="Interne Motordatenquelle" aria-hidden="true" tabindex="-1" hidden></iframe>
+<iframe id="motorEngine" src="../v22/index.html" title="Interne Motordatenquelle" aria-hidden="true" tabindex="-1" hidden></iframe>
 <script src="qr-engine.js"></script>
 <script src="generator.js"></script>
 </body></html>

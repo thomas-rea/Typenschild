@@ -1,6 +1,6 @@
 'use strict';
 /* Generiert ausschließlich lokal im Browser; die Datenquelle ist das archivierte
-   Lerntrainer-Snapshot /v20/index.html auf derselben GitHub-Pages-Origin. */
+   Lerntrainer-Snapshot /v22/index.html auf derselben GitHub-Pages-Origin. */
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
@@ -20,7 +20,7 @@ function renderTypes(){
    row.querySelector('input').addEventListener('change',e=>{if(e.target.checked)state.enabled.add(kind);else if(state.enabled.size>1)state.enabled.delete(kind);renderTypes();});
   }else{
    row.innerHTML=`<span>${esc(labels[kind])}</span><div class="count-controls"><button type="button" data-minus aria-label="${esc(labels[kind])} reduzieren">−</button><input type="number" data-value="${kind}" min="0" max="30" value="${state.counts[kind]}" aria-label="Anzahl ${esc(labels[kind])}"><button type="button" data-plus aria-label="${esc(labels[kind])} erhöhen">+</button></div>`;
-   const set=v=>{state.counts[kind]=Math.max(0,Math.min(30,Math.trunc(Number(v)||0)));renderTypes();};
+   const set=v=>{state.counts[kind]=Math.max(0,Math.min(30,Math.trunc(Number(v)||0)));row.querySelector('input').value=state.counts[kind];updateStatus();};
    row.querySelector('[data-minus]').onclick=()=>set(state.counts[kind]-1);
    row.querySelector('[data-plus]').onclick=()=>set(state.counts[kind]+1);
    row.querySelector('input').onchange=e=>set(e.target.value);
@@ -29,7 +29,7 @@ function renderTypes(){
  }
  updateStatus();
 }
-function configurationKey(){return JSON.stringify({count:nMotors(),pages:sides(),mode:state.mode,enabled:selectedList(),counts:kinds.map(k=>state.counts[k]),solutions:solutionMode(),qr:$('#practiceQR').checked});}
+function configurationKey(){return JSON.stringify({count:nMotors(),printStyle:$('#plateStyle').value,pages:sides(),mode:state.mode,enabled:selectedList(),counts:kinds.map(k=>state.counts[k]),solutions:solutionMode(),qr:$('#practiceQR').checked});}
 function updateStatus(){
  if(state.sheets.length&&state.generatedKey!==configurationKey()){
   state.sheets=[];state.generatedKey=null;
@@ -51,7 +51,7 @@ $('#motorCount').oninput=updateStatus;
 $('#motorCount').onchange=()=>{$('#motorCount').value=nMotors();updateStatus();};
 document.querySelectorAll('[name="distribution"]').forEach(r=>r.onchange=()=>{state.mode=r.value;renderTypes();});
 document.querySelectorAll('[name="pages"],[name="solution"]').forEach(r=>r.onchange=updateStatus);
-$('#practiceQR').onchange=updateStatus;
+$('#practiceQR').onchange=updateStatus;$('#plateStyle').onchange=updateStatus;
 renderTypes();
 const iframe=$('#motorEngine');
 // Der versteckte Frame steht im HTML vor den Skripten. Bei schnellem Laden
@@ -64,24 +64,24 @@ function activateMotorEngine(){
   const api=iframe.contentWindow?.__motorlab;
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
   state.ready=true;
-  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V20.';
+  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V22.';
   updateStatus();
   return true;
  }catch(error){return false;}
 }
 iframe.addEventListener('load',()=>{
  if(!activateMotorEngine()){
-  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v20/ prüfen.';
+  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v22/ prüfen.';
  }
 });
 iframe.addEventListener('error',()=>{
- if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v20/ prüfen.';
+ if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v22/ prüfen.';
 });
 if(!activateMotorEngine()){
  const probe=setInterval(()=>{if(activateMotorEngine())clearInterval(probe);},250);
  setTimeout(()=>{
   clearInterval(probe);
-  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v20/ prüfen.';
+  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v22/ prüfen.';
  },12000);
 }
 function seededRandom(){
@@ -113,18 +113,11 @@ function selectQuestions(bank,count){
  return shuffle(chosen).slice(0,count);
 }
 function exactUrl(sheet,solutions=false){
- // /v20/ ist ein unveränderliches Archiv; /index.html bleibt updatefähig.
- const url=new URL('../v20/',document.baseURI);
- url.searchParams.set('motor',sheet.kind);
- url.searchParams.set('types',sheet.kind);
- url.searchParams.set('seed',sheet.seed);
- url.searchParams.set('quiz',sheet.quizSeed);
- url.searchParams.set('sheet','1');
- url.searchParams.set('items',sheet.selected.map(s=>s.i).join(','));
- if(solutions)url.searchParams.set('solutions','1');
+ const url=new URL('../v22/',document.baseURI);
+ url.searchParams.set('code',solutions?sheet.solutionCode:sheet.practiceCode);
  return url.href;
 }
-function nameplateSnapshot(doc){
+function nameplateSnapshot(doc,clean=false){
  const plate=doc.querySelector('#plate');if(!plate)throw Error('SVG-Typenschild fehlt');
  const clone=plate.cloneNode(true);clone.removeAttribute('id');clone.setAttribute('aria-hidden','true');
  // Ursprungsschild verwendet CSS für Gravurschrift, Farben und die unterschiedlichen
@@ -132,6 +125,13 @@ function nameplateSnapshot(doc){
  const style=document.createElementNS('http://www.w3.org/2000/svg','style');
  style.textContent=doc.querySelector('style')?.textContent||'';
  clone.insertBefore(style,clone.firstChild);
+ if(clean){
+  clone.classList.add('print-clean');
+  const rules=document.createElementNS('http://www.w3.org/2000/svg','style');
+  rules.textContent=`.plate.print-clean rect:not(.hit){fill:#ffffff!important} .plate.print-clean rect.hit{fill:transparent!important;stroke:transparent!important} .plate.print-clean text{fill:#161616!important;opacity:1!important;stroke:none!important} .plate.print-clean path,.plate.print-clean line,.plate.print-clean polyline{stroke:#444!important} .plate.print-clean path[fill]:not([fill="none"]),.plate.print-clean polygon{fill:#fff!important} .plate.print-clean stop{stop-color:#ffffff!important} .plate.print-clean pattern *{opacity:0!important} .plate.print-clean circle,.plate.print-clean ellipse{fill:#fff!important;stroke:#666!important}`;
+  clone.appendChild(rules);
+ }
+
  return new XMLSerializer().serializeToString(clone);
 }
 function solutionText(q){
@@ -142,18 +142,18 @@ function solutionText(q){
 }
 function questionHtml(selection,n){
  const q=selection.q;
- const answers=q.type==='mc'?`<div class="paper-choices">${q.choices.map(s=>`<div class="paper-choice">${esc(s)}</div>`).join('')}</div>`:`<div class="writing-space"><i></i><i></i><i></i></div>`;
+ const answers=q.type==='mc'?`<div class="paper-choices">${q.choices.map(s=>`<div class="paper-choice">${esc(s)}</div>`).join('')}</div>`:`<div class="writing-space" aria-label="Kariertes Rechenfeld"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-${n}" patternUnits="userSpaceOnUse" width="18.897638" height="18.897638"><path d="M 18.897638 0 H 0 V 18.897638" fill="none" stroke="#c6cdd0" stroke-width=".7" /></pattern></defs><rect width="100%" height="100%" fill="url(#grid-${n})" /></svg></div>`;
  return `<article class="paper-question ${q.type}"><div class="paper-qtext"><span class="num">${n}.</span><span>${esc(q.text)}${q.type==='num'?` <span class="unit">[${esc(q.unit)}]</span>`:''}</span></div>${answers}</article>`;
 }
 function frontHeader(sheet,isBack=false){
- return `<header class="sheet-header"><div class="sheet-title"><h2>Motortypenschild auswerten</h2><div class="sheet-id">Motor ${sheet.no} · ${sides()===1?'Arbeitsblatt':isBack?'Rückseite':'Vorderseite'} · ${esc(labels[sheet.kind])}</div></div></header>${isBack?'':`<div class="identity"><span>Name: __________________________</span><span>Klasse: ______________</span><span>Datum: ____________</span></div>`}`;
+ const qr=$('#practiceQR').checked&&!isBack
+ ? `<div class="plate-qr"><a class="qr-link" href="${esc(exactUrl(sheet))}">Online bearbeiten</a><a class="qr-image" href="${esc(exactUrl(sheet))}" aria-label="Online bearbeiten: Motor ${sheet.no}">${qrVector(exactUrl(sheet))}</a></div>` : '';
+ return `<header class="sheet-header"><div class="sheet-header-main"><h2>Motortypenschild</h2>${isBack?'':`<div class="identity"><span>Name: __________________</span><span>Klasse: __________</span><span>Datum: __________</span></div>`}</div>${qr}</header>`;
 }
 function paperPage(sheet,sels,first,last){
- const isBack=!first;
- const qr=(!first||!$('#practiceQR').checked)?'':`<div class="plate-qr">${qrVector(exactUrl(sheet,false))}<span>Übung öffnen</span></div>`;
- const plate=first?`<div class="plate-row"><div class="paper-plate">${sheet.svg}</div>${qr}</div>`:'';
- const pageNo=first?1:2;
- return `<section class="sheet-page ${isBack?'back':''}" data-sheet="${sheet.no}" data-page="${pageNo}">${frontHeader(sheet,isBack)}${plate}<div class="questions-title">Aufgaben</div><div class="paper-questions">${sels.map((p,j)=>questionHtml(p,j+(first?1:5))).join('')}</div><footer class="paper-foot"><span>Motor ${sheet.no} · ${pageNo} / ${last?2:1}</span><span>Motortypenschild-Lerntrainer</span></footer></section>`;
+ const isBack=!first,pageNo=first?1:2;
+ const plate=first?`<div class="plate-row"><div class="paper-plate">${sheet.svg}</div></div>`:'';
+ return `<section class="sheet-page ${isBack?'back':''}" data-sheet="${sheet.no}" data-page="${pageNo}">${frontHeader(sheet,isBack)}${plate}<div class="paper-questions">${sels.map((p,j)=>questionHtml(p,j+(first?1:5))).join('')}</div><footer class="paper-foot"><span>Motor ${sheet.no} · Seite ${pageNo} von ${last?2:1}</span><span class="footer-code">Blattcode: ${sheet.practiceCode}</span></footer></section>`;
 }
 function worksheetPages(sheet){
  if(sides()===1)return paperPage(sheet,sheet.selected,true,false);
@@ -165,13 +165,13 @@ function compactSolutions(sheet){
    const calc=q.type==='num'&&q.calc?String(q.calc).split('\n').map(x=>x.trim()).find(x=>x.length>=8&&x.length<105):'';
    return `<li><span class="solution-answer">${esc(ans)}</span>${calc?`<span class="solution-calc"> · ${esc(calc)}</span>`:''}</li>`;
  }).join('');
- return `<section class="solution-block"><div class="solution-block-title"><div><h3>Motor ${sheet.no} · ${esc(labels[sheet.kind])}</h3><ol class="solution-list">${rows}</ol></div><div class="solution-code">${qrVector(exactUrl(sheet,true))}<span>Erklärungen</span></div></div></section>`;
+ return `<section class="solution-block"><div class="solution-block-title"><div class="solutions-text"><h3>Motor ${sheet.no}</h3><ol class="solution-list">${rows}</ol></div><div class="solution-code"><a href="${esc(exactUrl(sheet,true))}" aria-label="Lösungen online: Motor ${sheet.no}">${qrVector(exactUrl(sheet,true))}</a><a class="qr-link" href="${esc(exactUrl(sheet,true))}">Lösungen online</a><span class="solution-id sheet-short-code">${sheet.solutionCode}</span><a class="retry-label" href="${esc(exactUrl(sheet))}">Erneut üben</a><span class="practice-id sheet-short-code">${sheet.practiceCode}</span></div></div></section>`;
 }
 function solutionDoc(sheets){
  return `<div class="solution-header"><h2>Lösungen · Motortypenschilder</h2><p>Kurzantworten in der Reihenfolge der Arbeitsblätter. Ausführliche Erklärungen und Rechenwege stehen über die QR-Codes bereit.</p></div>${sheets.map(compactSolutions).join('')}`;
 }
 function linkDoc(sheets){
- return `<div class="links-header"><h2>Digitale Lösungen</h2><p>Zu jedem Motor führt der QR-Code zu den passenden Antworten und Erklärungen.</p></div>${sheets.map(sheet=>`<section class="link-item">${qrVector(exactUrl(sheet,true))}<div><h3>Motor ${sheet.no}</h3><p>${esc(labels[sheet.kind])} · ${sheet.selected.length} Aufgaben</p></div></section>`).join('')}`;
+ return `<div class="links-header"><h2>Digitale Lösungen</h2><p>Zu jedem Motor führt der QR-Code zu den passenden Antworten und Erklärungen.</p></div>${sheets.map(sheet=>`<section class="link-item"><a href="${esc(exactUrl(sheet,true))}">${qrVector(exactUrl(sheet,true))}</a><div><h3>Motor ${sheet.no}</h3><p><a href="${esc(exactUrl(sheet,true))}">Lösungen online · ${sheet.solutionCode}</a></p><p><a href="${esc(exactUrl(sheet))}">Erneut üben · ${sheet.practiceCode}</a></p></div></section>`).join('')}`;
 }
 function generate(){
  if(!state.ready||!updateStatus())return;
@@ -180,12 +180,12 @@ function generate(){
   const kindsToGenerate=distribute(),engine=iframe.contentWindow.__motorlab,doc=iframe.contentDocument;
   const count=sides()===1?4:8;
   const sheets=kindsToGenerate.map((kind,i)=>{
-   const seed=seededRandom(),quizSeed=seededRandom();
+   const seed=seededRandom(),quizSeed=(seed^0x9E3779B9)>>>0;
    engine.newMotor({selection:kind,seed,quizSeed});
-   const bank=engine.questions();
-   if(bank.length<count)throw Error('Fragenpool zu klein für '+kind);
-   const selected=selectQuestions(bank,count);
-   return {no:i+1,kind,seed,quizSeed,selected,svg:nameplateSnapshot(doc)};
+   const selected=engine.worksheetSelection(count,seed);
+   const practiceCode=engine.makeWorksheetCode(kind,seed,count,false);
+   const solutionCode=engine.makeWorksheetCode(kind,seed,count,true);
+   return {no:i+1,kind,seed,quizSeed,selected,practiceCode,solutionCode,svg:nameplateSnapshot(doc,$('#plateStyle').value==='clean')};
   });
   state.sheets=sheets;state.generatedKey=configurationKey();
   $('#printSheetsRoot').innerHTML=sheets.map(worksheetPages).join('');

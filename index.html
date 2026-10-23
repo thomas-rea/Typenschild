@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#14251f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23163f30'/%3E%3Ctext x='24' y='34' font-size='28' text-anchor='middle' fill='white'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
-<title>Motortypenschild verstehen · AP2 Lerntrainer V14a</title>
+<title>Motortypenschild verstehen · AP2 Lerntrainer V15</title>
 <style>
 :root{color-scheme:light;--ink:#192922;--mute:#62746a;--bg:#f4f6f2;--paper:#fff;--line:#dce5df;--forest:#163f30;--green:#17774f;--soft:#eaf4ed;--red:#a53624;--redbg:#fceee9;--gold:#c09537;--rad:15px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #4ca47c;outline-offset:3px}a{color:var(--green)}.wrap{width:min(1100px,calc(100% - 36px));margin:auto}.top{background:#14271e;color:#eef9f2;border-bottom:1px solid #345344}.top .wrap{min-height:69px;display:flex;align-items:center;gap:18px;justify-content:space-between}.mark{display:flex;gap:12px;align-items:center}.logo{background:#d9eee1;color:#133927;width:39px;height:39px;border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:22px}.brand{font-weight:790;line-height:1.1;letter-spacing:-.4px}.brand small{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;color:#b4cbbd;margin-top:4px;text-transform:uppercase}.topbadge{border:1px solid #52715d;border-radius:100px;font-size:12px;padding:5px 12px;color:#d8e6de}
@@ -137,19 +137,36 @@ main.wrap{padding-top:14px}
 .motor-select option:checked{color:#192922!important;background:#e4f1e9!important}
 .motor-select:focus{color:#192922!important;background:#fff!important}
 .plate-actions{align-items:center;gap:10px;flex-wrap:wrap}
-.zoom-dialog{border:1px solid #bccdc1;border-radius:16px;width:min(1100px,96vw);max-width:96vw;max-height:94vh;padding:15px;background:#f5f8f4;color:#192922;box-shadow:0 16px 75px #081a1388}
-.zoom-dialog::backdrop{background:#09180ed6}
-.zoom-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-.zoom-view{overflow:auto;background:radial-gradient(circle at top,#536d5b,#263b31 75%);padding:24px;border-radius:13px}
-#zoomSvg{display:block;width:max(100%,900px);height:auto;filter:drop-shadow(0 11px 12px #0009);pointer-events:none}
-.zoom-note{font-size:12px;color:#536d5b;margin:11px 3px 0}
-@media(max-width:680px){.plate-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.motor-select-label{grid-column:1/-1}.motor-select{grid-column:1/-1;width:100%;min-width:0}.plate-actions #newMotor{min-width:0;white-space:normal}.plate-actions #zoomPlate{min-width:0;white-space:normal}.zoom-view{padding:12px}}
-@media(max-width:420px){.plate-actions .btn{font-size:12px;padding:9px}.plate-actions #zoomPlate{font-size:12px}}
+/* V15: Motorwahl und Knopf ohne ungenutzte Zoom-Schaltfläche. */
+@media(max-width:680px){.plate-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.motor-select-label{grid-column:1/-1}.motor-select{grid-column:1/-1;width:100%;min-width:0}.plate-actions #newMotor{grid-column:1/-1;justify-self:end;min-width:0;white-space:normal}}
+/* V15: Der Fortschritt zeigt jede Antwort einzeln, statt alle Fortschritte grün einzufärben. */
+.progress{display:flex;align-items:stretch;gap:3px;height:11px;background:none;overflow:visible;margin:16px 0 12px}
+.progress .progress-segment{display:block;flex:1;min-width:0;border-radius:3px;background:#e6eee8;transition:background .15s}
+.progress .progress-segment.right{background:#188757}
+.progress .progress-segment.wrong{background:#c24837}
+.progress .progress-segment.active{outline:2px solid #658d76;outline-offset:1px}
+.progress.summary-progress{margin:20px auto 12px;max-width:550px;height:14px}
+.progress-legend{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;color:#62746a;font-size:12px;margin:2px 0 14px}
+.progress-legend span{display:inline-flex;align-items:center;gap:6px}
+.progress-legend i{width:11px;height:11px;display:inline-block;border-radius:3px;background:#e6eee8}
+.progress-legend .right{background:#188757}.progress-legend .wrong{background:#c24837}
+.review-detail{text-align:left;border:1px solid #e2c2b8;background:#fff8f5;border-radius:10px;padding:12px 14px;margin-top:10px}
+.review-detail summary{cursor:pointer;color:#803426;font-weight:700;line-height:1.5}
+.review-detail[open] summary{margin-bottom:12px}
+.review-detail .feedback{margin-top:10px}
+.review-detail .user-answer{font-size:13px;color:#4f6054;margin:0 0 8px}
+.review-detail .user-answer strong{color:#26382d}
+.year-overview{margin-top:16px}
+.year-overview .ref-table{min-width:260px}
+.year-overview details{border:1px solid var(--line);border-radius:9px;padding:11px 13px;margin-top:10px;background:#f8fbf8}
+.year-overview summary{font-weight:730;cursor:pointer;color:#174c34}
+.year-overview details p{margin:9px 0 0}
+.year-overview .sources{font-size:12px;margin-top:11px}
 </style>
 </head>
 <body>
 
-<main class="wrap"><div class="plate-actions"><label for="motorKind" class="motor-select-label">Motorart</label><select id="motorKind" class="motor-select" aria-label="Motorart auswählen"><option value="random" selected>Zufall (alle)</option><option value="standard">Standard · modern</option><option value="historical">Standard · historisch</option><option value="dahlander-delta">Dahlander Δ/YY</option><option value="dahlander-star">Dahlander Y/YY</option><option value="dual">Zwei getrennte Wicklungen Y/Y</option></select><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button><button type="button" class="btn ghost" id="zoomPlate" aria-label="Typenschild vergrößern" title="Typenschild vergrößern">⤢ Vergrößern</button></div>
+<main class="wrap"><div class="plate-actions"><label for="motorKind" class="motor-select-label">Motorart</label><select id="motorKind" class="motor-select" aria-label="Motorart auswählen"><option value="random" selected>Zufall (alle)</option><option value="standard">Standard · modern</option><option value="historical">Standard · historisch</option><option value="dahlander-delta">Dahlander Δ/YY</option><option value="dahlander-star">Dahlander Y/YY</option><option value="dual">Zwei getrennte Wicklungen Y/Y</option></select><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button></div>
 <div class="plate-wrap"><svg class="plate" id="plate" viewBox="0 0 1000 490" role="group" aria-label="Motortypenschild mit technischen Nenndaten" xmlns="http://www.w3.org/2000/svg"></svg></div>
 <div class="tabs" role="tablist" aria-label="Lernmodus wählen"><button type="button" id="tabLearn" class="tab" role="tab" aria-selected="false" aria-controls="learn">Schild verstehen</button><button type="button" id="tabQuiz" class="tab" role="tab" aria-selected="true" aria-controls="quiz">Prüfungsfragen</button></div>
 <section id="learn" class="panel" hidden role="tabpanel" aria-labelledby="tabLearn"><div class="learning"><div class="card"><h2 id="exTitle">Die Angaben auf dem Motorschild</h2><div id="exValue" class="bigvalue">Δ / Y</div><div id="exBody" class="info-text"></div><div id="exMath"></div><div id="exDiagram"></div><div id="exNote"></div></div><div class="card"><h3>Alle Angaben entdecken</h3><div class="field-nav" id="fieldNav"></div><div class="divider"></div><h3>Die wichtigsten Formeln</h3><div class="formula-stack"><div class="formula-line"><span class="name">Aufgenommene Wirkleistung</span><span class="val" data-formula="lineP"></span></div><div class="formula-line"><span class="name">Wirkungsgrad</span><span class="val" data-formula="eta"></span></div><div class="formula-line"><span class="name">Synchrondrehzahl</span><span class="val" data-formula="ns"></span></div><div class="formula-line"><span class="name">Schlupf</span><span class="val" data-formula="slip"></span></div><div class="formula-line torque-formula">
@@ -165,7 +182,7 @@ main.wrap{padding-top:14px}
 <section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Neue Fragen</button></div><div id="quizAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div><div class="quizframe"><div class="card" id="questionCard"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
 </main>
 <div class="tipfloat" id="tip" role="tooltip"></div>
-<dialog id="zoomDialog" class="zoom-dialog" aria-label="Vergrößertes Motortypenschild"><div class="zoom-top"><strong>Motortypenschild · vergrößerte Ansicht</strong><button class="btn ghost sm" type="button" id="closeZoom">Schließen ×</button></div><div class="zoom-view"><svg id="zoomSvg" xmlns="http://www.w3.org/2000/svg" aria-label="Vergrößertes Typenschild" role="img"></svg></div><p class="zoom-note">Die Vergrößerung zeigt nur das Typenschild und keine Lösungen. Auf kleinen Displays kann seitlich gescrollt werden.</p></dialog>
+
 <script>
 'use strict';
 const $=s=>document.querySelector(s);
@@ -412,11 +429,11 @@ function validateSwitchMotor(m){
  if(m.kind==='dahlander'&&m.stages[1].ratings[0].connection!=='doubleStar')throw Error('Dahlander YY');
  return true;
 }
-const multiFieldKeys=['connection','volt','power','current','rpm','cos','frequency','winding','torque','duty','ip','ins','mount','year'];
+const multiFieldKeys=['motorType','connection','volt','power','current','rpm','cos','frequency','winding','torque','duty','ip','ins','mount','year'];
 const multVal=(m,key)=>{
  const [a,b]=m.stages,rs=m.stages.map(s=>s.ratings[0]);
  const pair=(x,y,dec=2)=>`${f(x,dec)} / ${f(y,dec)}`;
- const map={connection:m.kind==='dual'?'Y/Y':m.variant,volt:`${rs[0].voltageV} V`,
+ const map={motorType:m.kind==='dual'?'Zwei getrennte Wicklungen':`Dahlandermotor ${m.variant}`,connection:m.kind==='dual'?'Y/Y':m.variant,volt:`${rs[0].voltageV} V`,
   power:pair(a.powerKW,b.powerKW)+' kW',current:pair(rs[0].displayCurrentA,rs[1].displayCurrentA)+' A',
   rpm:`${fi(a.rpm)} / ${fi(b.rpm)} min⁻¹`,cos:pair(a.cosPhi,b.cosPhi),frequency:`${m.freq} Hz`,
   winding:m.kind==='dual'?'2 unabhängig':'1 polumschaltbar',
@@ -425,6 +442,10 @@ const multVal=(m,key)=>{
  return map[key]||'–';
 };
 const multiFields={
+ motorType:{name:'Motorart erkennen',body:m=>m.kind==='dual'
+  ?'<p>Das aktuelle Typenschild gehört zu einem <b>polumschaltbaren Drehstrom-Asynchronmotor mit zwei getrennten Statorwicklungen</b>. Jede Wicklung besitzt eine eigene Polzahl und eigene Bemessungswerte; jeweils nur eines der beiden Wicklungssysteme wird gespeist.</p><p>Die Kennzeichnung <b>Y/Y</b> beschreibt hier die Sternschaltung beider Wicklungssysteme. Im Gegensatz zum Dahlandermotor wird nicht eine gemeinsame Wicklung umgeschaltet. Das Verhältnis der Nenndrehzahlen muss daher nicht 1:2 betragen.</p>'
+  :`<p>Das aktuelle Typenschild gehört zu einem <b>Dahlandermotor</b>, also einem polumschaltbaren Drehstrom-Asynchronmotor mit <b>einer gemeinsamen umschaltbaren Statorwicklung</b>.</p><p>Die Kennzeichnung <b>${m.variant}</b> steht für die beiden Schaltungen bei niedriger und hoher Drehzahl. Durch die Umschaltung halbiert sich die Polzahl; deshalb steigt die synchrone Drehzahl auf das Doppelte. Die Nenndrehzahlen weichen wegen des Schlupfs etwas vom exakten Verhältnis 1:2 ab.</p><p>${m.variant==='Δ/YY'?'Die Ausführung Δ/YY eignet sich typischerweise für annähernd konstantes Lastmoment.':'Die Ausführung Y/YY ist für typische Lüfter- und Pumpenanwendungen vorgesehen.'} Es handelt sich <b>nicht</b> um einen gewöhnlichen Stern-Dreieck-Anlauf.</p>`,
+  note:()=> 'Die Motorklassifikation wird im Lernmodus erklärt; im Prüfungsmodus soll sie aus den Typenschildangaben erschlossen werden. Bei echten Maschinen gelten Typenbezeichnung und Herstellerunterlagen.'},
  connection:{name:'Schaltungskennzeichnung',body:m=>m.kind==='dual'
   ?'<p>Y/Y kennzeichnet in diesem Beispiel zwei voneinander unabhängige Drehstromwicklungen mit eigenen Bemessungsdaten. Beide sind in Stern verschaltet; jeweils nur eine Wicklung wird gespeist.</p><p>Das ist kein Stern-Dreieck-Anlauf und keine Dahlanderwicklung.</p>'
   :`<p><b>${m.variant}</b> kennzeichnet die Verschaltung derselben, umschaltbaren Statorwicklung: links niedrige, rechts hohe Drehzahl. Die schnellere Stufe arbeitet in Doppelstern (YY).</p><p>${m.variant==='Δ/YY'?'Die typische Δ/YY-Ausführung eignet sich für etwa konstantes Lastmoment.':'Die typische Y/YY-Ausführung wird bei Lüfter- und Pumpenanwendungen eingesetzt.'} Beide Stufen sind unterschiedliche Bemessungspunkte und kein Stern-Dreieck-Anlauf.</p>`,
@@ -471,7 +492,7 @@ function infoMulti(key){
  if(!multiFields[key])key='connection';selected=key;
  const d=multiFields[key],m=motor;
  $('#exTitle').textContent=d.name;$('#exValue').textContent=d.value(m);
- $('#exBody').innerHTML=d.body(m);$('#exMath').innerHTML=d.formula(m)?mathSection(key,d.formula(m)):'';
+ $('#exBody').innerHTML=d.body(m);$('#exMath').innerHTML=(d.formula(m)?mathSection(key,d.formula(m)):'')+(key==='year'?yearReference(m):'');
  $('#exDiagram').innerHTML=['connection','winding'].includes(key)?switchTerminalDiagram(m):'';
  $('#exNote').innerHTML=`<div class="note">${d.note(m)}</div>`;
  $('#fieldNav').innerHTML=multiFieldKeys.map(k=>`<button type="button" class="fieldbtn" data-key="${k}" aria-pressed="${selected===k}"><b>${esc(multiFields[k].name)}</b><small>${esc(multiFields[k].value(m))}</small></button>`).join('');
@@ -529,13 +550,14 @@ function buildSwitchQuestions(m){
  const T=s=>9550*s.powerKW/s.rpm;
  const currentRatio=br.displayCurrentA/ar.displayCurrentA;
  const nsa=120*m.freq/a.poles,nsb=120*m.freq/b.poles;
- const sayKind=m.kind==='dual'?'Zwei getrennte Wicklungssysteme':'Eine Wicklung, deren Polzahl umgeschaltet wird';
+ const sayKind=m.kind==='dual'?'Ein Zweidrehzahl-Asynchronmotor mit zwei getrennten Statorwicklungen':'Ein Dahlandermotor mit einer polumschaltbaren Statorwicklung';
  const out=[];
  const q=(...args)=>out.push(mc(...args));
  const r=(...args)=>out.push(num(...args));
- q('multiKind','Motorart','Was lässt sich aus der Schaltungsangabe des Typenschilds zur Wicklungsbauart erschließen?',
-  [sayKind,'Ein Gleichstrommotor mit Bürsten','Eine rein elektronische Drehzahländerung ohne Wicklungsumschaltung','Zwei mechanisch gekoppelte separate Motoren'],0,
-  m.kind==='dual'?'Y/Y beschreibt hier zwei unabhängige Dreiphasenwicklungen mit jeweils eigenen Nennwerten.':`${m.variant} kennzeichnet eine Dahlander-Polumschaltung derselben Statorwicklung.`);
+ q('multiKind','Motorart','Um welche Motorbauart handelt es sich bei diesem Typenschild?',
+  [sayKind,m.kind==='dual'?'Ein Dahlandermotor mit nur einer umschaltbaren Statorwicklung':'Ein Motor mit zwei vollständig getrennten Statorwicklungen',
+   'Ein gewöhnlicher eintouriger Asynchronmotor mit Stern-Dreieck-Anlauf','Ein Gleichstrommotor mit Bürsten und Fremderregung'],0,
+  m.kind==='dual'?'Die zwei getrennten Wicklungssysteme besitzen eigene Polzahlen und Nennwerte. Die Y/Y-Kennzeichnung und die Zahlenpaare sind hier keine bloßen Stern-Dreieck-Nennspannungen.':`Die Kennzeichnung ${m.variant} mit zwei Leistungs- und Drehzahlstufen beschreibt eine Dahlander-Polumschaltung derselben Statorwicklung, keinen gewöhnlichen Stern-Dreieck-Anlauf.`);
  q('multiMeaning','Schaltung',`Wie ist die Angabe ${m.kind==='dual'?'Y/Y':m.variant} am Motor einzuordnen?`,
   ['Schaltzeichen für die beiden Drehzahlstufen','Zwei Netzfrequenzen 50/60 Hz','Zwei beliebig parallel nutzbare Stromversorgungen','Kennzeichnung der Schutzart'],0,
   'Die Kennzeichnung beschreibt die Wicklungsverschaltung je Drehzahlstufe, nicht automatisch einen Stern-Dreieck-Anlauf.');
@@ -776,7 +798,30 @@ function additionalReference(key,m){
  return out?`<div id="ref-${esc(key)}">${out}</div>`:'';
 }
 
-const fns={volt:{name:'Spannung und Schaltung',short:'U',value:m=>`${m.Vd} / ${m.Vy} V`,body:m=>`<p>Die beiden Werte bezeichnen die Bemessungs-<b>Außenleiterspannungen</b> des üblichen Zweispannungs-Asynchronmotors: <b>${m.Vd} V in Dreieck (Δ)</b> und <b>${m.Vy} V in Stern (Y)</b>. Die Wicklungen benötigen in beiden Nennschaltungen ungefähr ${m.Vd} V.</p><p>Im Dreieck liegt jede Wicklung direkt zwischen zwei Außenleitern. Im Stern erhält jede Wicklung die Außenleiterspannung geteilt durch √3.</p>`,formula:m=>`Δ: U_Wicklung = U_Netz = ${m.Vd} V\nY: U_Wicklung = ${m.Vy} V / √3 ≈ ${f(m.Vy/SQRT3,1)} V`,note:m=>m.historical?'Historisches Typenschild: Die Bemessungsspannungen gehören zur früheren Netzspannungsreihe. Ob ein Betrieb an heutigen 400 V zulässig ist, ist anhand von Herstellerunterlagen, Spannungstoleranz, Isolationszustand und Betriebsbedingungen zu prüfen. Der bloße Vergleich 380 V zu 400 V genügt nicht.':m.Vd===230?'Bei 400 V Netzspannung gehört dieser Motor im Nennbetrieb in Stern. Ein Stern-Dreieck-Anlauf am 400-V-Netz ist nicht zulässig, weil die Wicklung dann in Dreieck 400 V statt 230 V erhielte.':'An einem 400-V-Netz gehört dieser Motor im Nennbetrieb in Dreieck. Stern-Dreieck-Anlauf ist hinsichtlich der Wicklungsspannung möglich, wenn Last, Anlaufmoment und Schaltung dafür geeignet sind.'},
+// V15: derselbe historische Kontext erscheint beim Baujahr jedes Motortyps.
+// Normhistorie und Spannungsumstellung sind getrennte Sachverhalte.
+function yearReference(m){
+ const nominal=m.kind==='standard'?`${m.Vd}/${m.Vy} V`:`${m.stages[0].ratings[0].voltageV} V`;
+ const old=m.historical;
+ const topic=`Bei diesem Motor (${m.year}) lautet die Bemessungsangabe ${nominal}. ${old?'Seine Spannungsreihe ist historisch.':'Sie gehört zur neueren Spannungsreihe.'}`;
+ const deviation=f((400-380)/380*100,2);
+ return `<section class="reference year-overview" aria-label="Historische und heutige Motor-Nennspannungen"><h3>Historische und heutige Spannungsangaben</h3>
+ <p>${topic} Um auch ein anderes Typenschild einordnen zu können, zeigt die folgende Übersicht beide Spannungsreihen.</p>
+ <div class="ref-table-wrap"><table class="ref-table"><thead><tr><th>Ältere typische Motorangaben</th><th>Entsprechende neuere Angaben</th></tr></thead><tbody>
+ <tr><td>220/380 V (Δ/Y)</td><td>230/400 V (Δ/Y)</td></tr>
+ <tr><td>380/660 V (Δ/Y)</td><td>400/690 V (Δ/Y)</td></tr></tbody></table></div>
+ <p>Die öffentliche Netz-Nennspannung wurde in Europa schrittweise von 220/380 V auf 230/400 V harmonisiert. Ein historisches Motorschild wird dadurch nicht automatisch auf die neueren Spannungswerte umgeschrieben.</p>
+ <details><summary>Mehr erfahren: Normen, Baujahr und Effizienzvorgaben</summary>
+ <p><b>Spannungsnormung:</b> Die neue Spannungsreihe wurde Ende der 1980er-Jahre genormt; die europaweite Umstellung erfolgte über eine längere Übergangszeit bis in die 2000er-Jahre. Alte und neue Aufdrucke konnten daher zeitweise nebeneinander auftreten.</p>
+ <p><b>Motorvorschriften:</b> Die Normenreihe IEC/EN 60034 behandelt elektrische Maschinen. Die Effizienzanforderungen entwickelten sich gesondert: EU-Mindestanforderungen für bestimmte Motoren gelten seit 2011 und wurden unter anderem 2021 sowie 2023 verschärft. Je nach Motorart, Leistung und Anwendungsbereich gelten Ausnahmen. Dahlander- und andere Mehrdrehzahlmotoren dürfen nicht einfach wie eintourige Standardmotoren eingestuft werden.</p>
+ <p><b>Spannungstoleranz:</b> Nach der heutigen Einteilung in DIN EN 60034-1 liegen bei fest gestempelter Bemessungsspannung und gleicher Frequenz Bereich A bei ±5 % und Bereich B bei ±10 %. Von 380 V auf 400 V sind es +${deviation} %: knapp außerhalb A, aber innerhalb B. Das ist keine allgemeine Freigabe für alte Motoren. In Bereich B sind größere Abweichungen der Betriebsgrößen möglich; der Dauerbetrieb wird dort nicht allgemein empfohlen.</p>
+ <p><b>Baujahr ist kein Normennachweis:</b> Welche Vorgaben bei einem realen Motor galten, hängt nicht nur vom Herstellungsjahr ab, sondern unter anderem vom Zeitpunkt des Inverkehrbringens, der Bauart, dem Anwendungsbereich und der damals geltenden Fassung. Alte Schilder sind anhand von Herstellerunterlagen und ihrem tatsächlichen Zustand zu bewerten.</p>
+ <p class="sources">Quellen: <a href="https://de.electrical-installation.org/dewiki/Festlegung_von_Normspannungen" target="_blank" rel="noopener noreferrer">Schneider Electric, Normspannungen</a> · <a href="https://www.dke.de/resource/blob/2354606/8c088a954d21cfe43e5eaa96e9238036/normauslegung---spannungstoleranz-von-wechselstrommotoren---pdf-data.pdf" target="_blank" rel="noopener noreferrer">DKE, Toleranzbereiche</a> · <a href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX%3A02019R1781-20210701" target="_blank" rel="noopener noreferrer">EU 2019/1781</a>.</p></details></section>`;
+}
+
+const fns={motorType:{name:'Motorart erkennen',short:'Motorart',value:()=> 'Drehstrom-Asynchronmotor',
+ body:m=>`<p>Dieses Schild beschreibt einen <b>eintourigen Drehstrom-Asynchronmotor</b> mit einer mechanischen Bemessungsdrehzahl bei ${m.freq} Hz. Der Läufer folgt dem Drehfeld wegen des Schlupfs nicht ganz synchron.</p><p>Die beiden Spannungsangaben <b>${m.Vd}/${m.Vy} V</b> gehören beim üblichen Zweispannungsmotor zu <b>zwei Anschlussarten derselben Statorwicklung (Δ/Y)</b>, nicht zu zwei unterschiedlichen Drehzahlstufen. Das unterscheidet dieses Schild von Dahlander- und Zweiwicklungs-Motoren, die eigene Bemessungswerte für ihre Drehzahlstufen besitzen.</p>`,
+ formula:()=>'',note:()=> 'Eine Motorart sollte aus der Gesamtheit der Typenschildangaben und bei realen Maschinen aus der Herstellerdokumentation bestimmt werden.'},volt:{name:'Spannung und Schaltung',short:'U',value:m=>`${m.Vd} / ${m.Vy} V`,body:m=>`<p>Die beiden Werte bezeichnen die Bemessungs-<b>Außenleiterspannungen</b> des üblichen Zweispannungs-Asynchronmotors: <b>${m.Vd} V in Dreieck (Δ)</b> und <b>${m.Vy} V in Stern (Y)</b>. Die Wicklungen benötigen in beiden Nennschaltungen ungefähr ${m.Vd} V.</p><p>Im Dreieck liegt jede Wicklung direkt zwischen zwei Außenleitern. Im Stern erhält jede Wicklung die Außenleiterspannung geteilt durch √3.</p>`,formula:m=>`Δ: U_Wicklung = U_Netz = ${m.Vd} V\nY: U_Wicklung = ${m.Vy} V / √3 ≈ ${f(m.Vy/SQRT3,1)} V`,note:m=>m.historical?'Historisches Typenschild: Die Bemessungsspannungen gehören zur früheren Netzspannungsreihe. Ob ein Betrieb an heutigen 400 V zulässig ist, ist anhand von Herstellerunterlagen, Spannungstoleranz, Isolationszustand und Betriebsbedingungen zu prüfen. Der bloße Vergleich 380 V zu 400 V genügt nicht.':m.Vd===230?'Bei 400 V Netzspannung gehört dieser Motor im Nennbetrieb in Stern. Ein Stern-Dreieck-Anlauf am 400-V-Netz ist nicht zulässig, weil die Wicklung dann in Dreieck 400 V statt 230 V erhielte.':'An einem 400-V-Netz gehört dieser Motor im Nennbetrieb in Dreieck. Stern-Dreieck-Anlauf ist hinsichtlich der Wicklungsspannung möglich, wenn Last, Anlaufmoment und Schaltung dafür geeignet sind.'},
 current:{name:'Bemessungsstrom',short:'I · A',value:m=>`${f(m.IDispDelta)} / ${f(m.IDispStar)} A`,body:m=>`<p>Das sind die <b>Außenleiterströme</b> beim Nennbetrieb: in Dreieck bei ${m.Vd} V etwa <b>${f(m.IDispDelta)} A</b>, in Stern bei ${m.Vy} V etwa <b>${f(m.IDispStar)} A</b>.</p><p>Der Strom ist keine feste Eigenschaft unabhängig von der Schaltung und Last. Bei Nennlast wird er aus elektrischer Leistung, Spannung und Leistungsfaktor bestimmt. Für Motorschutz und Leitungsauswahl ist die tatsächlich vorgesehene Netz-/Anschlussart maßgebend.</p>`,formula:m=>`I = P₂ / (η · √3 · U · cos φ)\nBei ${m.Vd} V: I = (${f(m.P2,2)} · 1000) / (${f(m.eta,3)} · √3 · ${m.Vd} · ${f(m.cos,2)}) ≈ ${f(m.IDispDelta,2)} A`,note:m=>`Die Bemessungsspannungen ${m.Vd}/${m.Vy} V sind gerundete Werte. Daher unterscheidet sich das Stromverhältnis gegebenenfalls geringfügig von √3. Historische Bemessungsströme dürfen nicht unbesehen auf das heutige 400-V-Netz übertragen werden.`},
 power:{name:'Mechanische Nennleistung',short:'P₂ · kW',value:m=>`${f(m.P2,2)} kW`,body:m=>`<p>Die kW-Angabe auf dem üblichen Motorschild bezeichnet die <b>abgegebene mechanische Nennleistung an der Welle</b>, also P₂ – nicht die elektrische Aufnahmeleistung P₁.</p><p>Wegen Verlusten (Erwärmung, Reibung und elektrische Verluste) muss der Motor aus dem Netz mehr Leistung aufnehmen, als er mechanisch abgibt.</p>`,formula:m=>`P₁ = P₂ / η = ${f(m.P2,2)} / ${f(m.eta,3)} ≈ ${f(m.P1,2)} kW`,note:()=> 'Die Angabe gilt für den Bemessungsbetrieb. Bei veränderter Belastung ändern sich Strom und Wirkungsgrad.'},
 cos:{name:'Leistungsfaktor cos φ',short:'cos φ',value:m=>f(m.cos,2),body:m=>`<p><b>cos φ</b> ist der Leistungsfaktor. Bei einem annähernd sinusförmig gespeisten Asynchronmotor beschreibt er das Verhältnis von <b>Wirkleistung P</b> zu <b>Scheinleistung S</b>: P = S · cos φ.</p><p>Der Motor braucht auch Blindleistung, um sein Magnetfeld aufzubauen. Darum ist die Scheinleistung größer als die Wirkleistung und der Strom bei gleichem P größer als bei cos φ = 1.</p><p>Wichtig: <b>cos φ und Wirkungsgrad η sind zwei verschiedene Größen.</b></p>`,formula:m=>`S ≈ P₁ / cos φ = ${f(m.P1,2)} / ${f(m.cos,2)} ≈ ${f(m.P1/m.cos,2)} kVA`,note:()=> 'Bei nichtsinusförmigen Strömen, etwa direkt am Umrichtereingang, sind cos φ und der gesamte Leistungsfaktor nicht zwingend identisch. Hier wird der Netzbetrieb des Motors betrachtet.'},
@@ -800,7 +845,7 @@ year:{name:'Baujahr',short:'BJ',value:m=>String(m.year),
  formula:()=>'',note:()=> 'Die dargestellten Namen und Motordaten sind generierte Lernbeispiele, keine Herstellerfreigaben.'},
 mount:{name:'Bauform',short:'IM B3 / B5',value:m=>`IM ${m.mount}`,body:m=>`<p>Die Bauform beschreibt die mechanische Montage: ${m.mount==='B3'?'<b>B3:</b> Fußmotor mit waagerechter Welle.':m.mount==='B5'?'<b>B5:</b> Flanschmotor mit großem Flansch.':'<b>B14:</b> Flanschmotor mit kleinem Flansch.'}</p><p>Sie beeinflusst die mechanische Einbaubarkeit und Befestigung, nicht die Stern-/Dreieck-Zuordnung.</p>`,formula:()=>'',note:()=> 'Die Bauform muss zu Maschine, Einbaulage und Lagerbeanspruchung passen.'}
 };
-const fkeys=['volt','current','power','cos','eff','rpm','freq','duty','ip','ins','mount','year','ie'];
+const fkeys=['motorType','volt','current','power','cos','eff','rpm','freq','duty','ip','ins','mount','year','ie'];
 
 const plateSizes={
  silver:{w:1000,h:490,ox:0,oy:0,corner:18,kind:'standard'},
@@ -939,7 +984,7 @@ function motorPlateStandard(m){
 }
 
 function info(key){if(motor && motor.kind!=='standard')return infoMulti(key);return infoStandard(key);}
-function infoStandard(key){const x=fns[key];if(!x)return;selected=key;const m=motor;$('#exTitle').textContent=x.name;$('#exValue').textContent=x.value(m);$('#exBody').innerHTML=x.body(m);const formula=x.formula(m);$('#exMath').innerHTML=mathSection(key,formula)+additionalReference(key,m);$('#exDiagram').innerHTML=key==='volt'?windingDiagram():'';$('#exNote').innerHTML=`<div class="note">${x.note(m)}</div>`;$('#fieldNav').innerHTML=fkeys.filter(k=>k!=='ie'||m.ie).map(k=>`<button type="button" class="fieldbtn" data-key="${k}" aria-pressed="${selected===k}"><b>${esc(fns[k].name)}</b><small>${esc(fns[k].value(m))}</small></button>`).join('');$('#plate').className.baseVal='plate theme-'+m.design;$('#plate').setAttribute('viewBox',plateSize(m.design));$('#plate').innerHTML=motorPlate(m);bindFields();}
+function infoStandard(key){const x=fns[key];if(!x)return;selected=key;const m=motor;$('#exTitle').textContent=x.name;$('#exValue').textContent=x.value(m);$('#exBody').innerHTML=x.body(m);const formula=x.formula(m);$('#exMath').innerHTML=mathSection(key,formula)+(key==='year'?yearReference(m):additionalReference(key,m));$('#exDiagram').innerHTML=key==='volt'?windingDiagram():'';$('#exNote').innerHTML=`<div class="note">${x.note(m)}</div>`;$('#fieldNav').innerHTML=fkeys.filter(k=>k!=='ie'||m.ie).map(k=>`<button type="button" class="fieldbtn" data-key="${k}" aria-pressed="${selected===k}"><b>${esc(fns[k].name)}</b><small>${esc(fns[k].value(m))}</small></button>`).join('');$('#plate').className.baseVal='plate theme-'+m.design;$('#plate').setAttribute('viewBox',plateSize(m.design));$('#plate').innerHTML=motorPlate(m);bindFields();}
 function bindFields(){document.querySelectorAll('#plate .field').forEach(el=>{const key=el.dataset.field;el.addEventListener('click',()=>{if(mode!=='learn')return;info(key);});el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();if(mode==='learn')info(key);}});el.addEventListener('pointermove',ev=>{if(ev.pointerType==='touch'||mode!=='learn')return;const t=$('#tip');t.innerHTML=`<b>${esc(getCurrentField(key).name)}</b><br>${esc(getCurrentField(key).value(motor))}`;t.style.left=Math.min(ev.clientX+17,window.innerWidth-270)+'px';t.style.top=Math.max(8,ev.clientY-62)+'px';t.classList.add('show');});el.addEventListener('pointerleave',()=>$('#tip').classList.remove('show'));el.addEventListener('blur',()=>$('#tip').classList.remove('show'));});}
 $('#fieldNav').addEventListener('click',ev=>{const el=ev.target.closest('[data-key]');if(el) info(el.dataset.key);});
 function switchMode(next){
@@ -1033,6 +1078,12 @@ function buildQuestions(m){
  `${m.duty}: ${dutyDescription(m)}. Die Kennung und gegebenenfalls die zeitliche Zusatzangabe gehören zusammen.`,''));
  out.push(mc('overload','Verständnis','Ein 50-Hz-Asynchronmotor wird bei unveränderter Netzfrequenz stärker mechanisch belastet. Was passiert im normalen Arbeitsbereich?', ['Die Nenndrehzahl steigt über die Synchrondrehzahl','Der Schlupf nimmt zu und die Drehzahl sinkt etwas','Die Polpaarzahl steigt automatisch','Der Leistungsfaktor wird immer genau 1'],1,`Das Drehfeld läuft mit der durch Frequenz und Polpaarzahl vorgegebenen Synchrondrehzahl. Mehr Last erfordert normalerweise mehr induziertes Drehmoment – dafür wächst der Schlupf, und die tatsächliche Rotor-Drehzahl sinkt etwas.`,''));
  out.push(mc('currentratio','Verständnis',`Ein Motor kann bei seinen beiden angegebenen Nennspannungen jeweils in der vorgesehenen Schaltung betrieben werden. Welche Aussage über die Außenleiterströme trifft näherungsweise zu?`,['In Stern sind sie ungefähr √3-mal so groß','Sie sind ungefähr gleich','In Dreieck sind sie ungefähr √3-mal so groß wie in Stern','In Stern beträgt der Nennstrom immer 0 A'],2,`Bei nominell gleicher Wicklungsspannung und Leistung ist der Strom bei niedrigerer Außenleiterspannung größer. Aus P₁ = √3 U I cos φ folgt näherungsweise IΔ/IY ≈ UY/UΔ ≈ √3. Die aufgedruckten Normspannungen und Ströme können gerundet sein.`,`IΔ/IY ≈ ${f(m.IDispDelta/m.IDispStar,2)} ≈ √3`));
+ out.push(mc('machineKind','Motorart','Welche Motorbauart wird durch dieses Typenschild am besten beschrieben?',
+  ['Ein eintouriger Drehstrom-Asynchronmotor mit zwei zulässigen Nennspannungen',
+   'Ein Dahlandermotor mit zwei schaltbaren Polzahlen',
+   'Ein polumschaltbarer Motor mit zwei unabhängigen Statorwicklungen',
+   'Ein Gleichstrommotor mit separat gespeister Erregerwicklung'],0,
+  'Dieses Typenschild nennt eine mechanische Nenndrehzahl und zwei zur selben Statorwicklung gehörende Anschluss-Nennspannungen. Zwei Spannungen sind nicht dasselbe wie zwei Drehzahlstufen.',''));
  out.push(mc('motortype','Verständnis',`Warum liegt die Nenndrehzahl des Motors unterhalb seiner synchronen Drehfelddrehzahl?`,['Weil eine Asynchronmaschine Schlupf für die Drehmomentbildung benötigt','Weil die Frequenz im Motor immer nur 49 Hz beträgt','Weil die Angabe n den Strom bezeichnet','Weil ein Motor mit sechs Klemmen automatisch synchron läuft'],0,`Die synchrone Drehfelddrehzahl wäre ${fi(m.ns)} min⁻¹. Der Läufer benötigt einen kleinen Drehzahlunterschied zur Induktion der Rotorströme. Diese Differenz heißt Schlupf.`,''));
  out.push(mc('F','Wärme','Was beschreibt die Isolierstoffklasse auf dem Typenschild?',
  ['Sie legt die maximale Netzfrequenz fest',
@@ -1178,7 +1229,7 @@ const questionGroups = [
  ['p1','loss','torque','appar','inputfromline','p2watts','losspercent','reactive'],
  ['poles','slip','syncrpm','slipdiff','shaftfreq','angular','pairs','polefrequency'],
  ['ip','s1','F','mount','ipfirst','ipsecond','insulation','dutyinterpret','ieclass'],
- ['p2','cos','eta','overload','currentratio','motortype','phivseta','mechanicalenergy','current']
+ ['p2','cos','eta','overload','currentratio','motortype','machineKind','phivseta','mechanicalenergy','current']
 ];
 const wordings = {
  motorprotectLine:['Wie ist das thermische Überlastrelais in der 400-V-Netzzuleitung bei Direktanlauf einzustellen?',
@@ -1256,43 +1307,77 @@ function startQuiz(){
 function qFeedbackHTML(q,ok,userVal){const correct=q.type==='mc'?q.choices[q.correct]:`${f(q.answer, q.answer>=100?0:2)} ${q.unit}`;
  return `<div class="feedback ${ok?'':'bad'}"><div class="ft">${ok?'✓ Richtig beantwortet':'✕ Nicht richtig'}</div>${ok?'':`<p><b>Richtige Antwort:</b> ${esc(correct)}</p>`}<p>${esc(q.why)}</p>${q.calc?`<div class="step">${esc(q.calc)}</div>`:''}</div>`;}
 function checkNumber(user,correct,tol){return Math.abs(user-correct)<=Math.max(Math.abs(correct)*tol,correct<1?.006:correct<10?.03:correct<100?.15:.6);}
-function submitNumber(){const q=questions[qIndex];if(!q||q.type!=='num'||currentResponse)return;const v=$('#numberValue').value.trim().replace(/\s/g,'');if(!/^[-+]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(v)){ $('#numberValue').setAttribute('aria-invalid','true');$('#nErr').textContent='Bitte nur die Zahl eingeben, ohne Einheit (Komma oder Punkt möglich).';return;}const value=Number(v.replace(',','.'));if(!Number.isFinite(value)){ $('#nErr').textContent='Bitte eine gültige Zahl eingeben.';return;}grade(checkNumber(value,q.answer,q.tol),value);}
-function grade(ok,value){
+function submitNumber(keyboardSubmission=false){const q=questions[qIndex];if(!q||q.type!=='num'||currentResponse)return;const v=$('#numberValue').value.trim().replace(/\s/g,'');if(!/^[-+]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(v)){ $('#numberValue').setAttribute('aria-invalid','true');$('#nErr').textContent='Bitte nur die Zahl eingeben, ohne Einheit (Komma oder Punkt möglich).';return;}const value=Number(v.replace(',','.'));if(!Number.isFinite(value)){ $('#nErr').textContent='Bitte eine gültige Zahl eingeben.';return;}grade(checkNumber(value,q.answer,q.tol),value,{keyboard:keyboardSubmission});}
+function grade(ok,value,options={}){
  if(currentResponse)return;
  const q=questions[qIndex];
- currentResponse={ok,value};results.push({id:q.id,ok,text:q.text});paintQuiz();
+ currentResponse={ok,value};results.push({id:q.id,ok,text:q.text,value});paintQuiz();
  const correct=q.type==='mc'?q.choices[q.correct]:`${f(q.answer,q.answer>=100?0:2)} ${q.unit}`;
  $('#quizAnnouncement').textContent=ok?'Richtig beantwortet.':`Nicht richtig. Richtige Antwort: ${correct}.`;
- const next=$('#nextQ');if(next)next.focus();
+ const next=$('#nextQ');if(next&&!options.keyboard)next.focus();
 }
-function paintQuiz(){const el=$('#questionCard');const total=questions.length;$('#qcount').textContent=Math.min(qIndex+1,total)+' / '+total;$('#qright').textContent=results.filter(x=>x.ok).length;$('#qwrong').textContent=results.filter(x=>!x.ok).length;
- if(qIndex>=total){const correct=results.filter(r=>r.ok).length;el.innerHTML=`<div class="qdone"><div class="eyebrow">Durchgang beendet</div><div class="score">${correct} / ${total}</div><h2>${correct/total>=.85?'Sehr gut!':correct/total>=.60?'Gute Grundlage.':'Hier lohnt sich Wiederholung.'}</h2><p class="muted">Du hast ${Math.round(correct/total*100)} % der Aufgaben richtig beantwortet. Die Fragen beziehen sich auf das aktuelle Motortypenschild.</p><div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:17px"><button type="button" class="btn" id="again">Noch ein Durchgang</button><button type="button" class="btn ghost" id="nextMotorQuiz">Neuer Motor</button></div><div class="review">${results.filter(x=>!x.ok).slice(0,8).map(x=>`<div class="review-item bad"><strong>↻</strong><span>${esc(x.text)}</span></div>`).join('')||'<p>Keine Fehler in diesem Durchgang!</p>'}</div></div>`;$('#again').onclick=startQuiz;$('#nextMotorQuiz').onclick=()=>{newMotor();switchMode('quiz')};return;}
- const q=questions[qIndex],answered=!!currentResponse;const progress=Math.round(qIndex/total*100);
- el.innerHTML=`<div class="qtop"><span class="pill">${esc(q.tag)}</span><span class="muted" style="font-size:12px">${qIndex+1} von ${total}</span></div><div class="progress" aria-label="Quizfortschritt"><i style="width:${progress}%"></i></div><h3 class="qtitle">${esc(q.text)}</h3>${q.type==='mc'?`<div class="choices">${q.choices.map((c,i)=>`<button type="button" class="choice ${answered&&i===q.correct?'correct':''} ${answered&&i===currentResponse.value&&!currentResponse.ok?'wrong':''}" data-ans="${i}" ${answered?'disabled':''}><span class="idx">${i+1}</span><span>${esc(c)}</span></button>`).join('')}</div>`:`<div class="answerbox"><label for="numberValue">Dein Rechenergebnis</label><div class="inp-row"><input class="numberin" id="numberValue" inputmode="decimal" autocomplete="off" type="text" placeholder="z. B. 2,45" ${answered?'disabled':''} value="${answered?esc(String(currentResponse.value).replace('.',',')):''}"><span class="unit">${esc(q.unit)}</span></div><div id="nErr" style="color:var(--red);font-size:12px" aria-live="polite"></div></div>`}${answered?qFeedbackHTML(q,currentResponse.ok,currentResponse.value):''}<div class="qactions">${answered?`<button class="btn" id="nextQ">${qIndex===total-1?'Auswertung anzeigen':'Nächste Aufgabe →'}</button>`:q.type==='num'?`<button class="btn" id="checkN">Antwort prüfen</button>`:''}</div>${q.type==='num'&&!answered?`<div class="helpbox"><details><summary>Rechenhilfe anzeigen</summary><p>${esc(q.tag==='Rechnen'?'Überlege, welche Formel die gesuchte Größe mit den Angaben auf dem Schild verbindet. Achte auf kW, W und Prozent.':'Nimm die passenden Angaben aus dem Schild.')}</p></details></div>`:''}`;
+function quizProgressHTML(summary=false){
+ const all=questions.length;
+ const segments=Array.from({length:all},(_,i)=>{
+  const r=results[i];const status=r?(r.ok?'right':'wrong'):'pending';
+  const readable=r?(r.ok?'richtig':'falsch'):'noch offen';
+  return `<i class="progress-segment ${status} ${!summary&&i===qIndex&&!r?'active':''}" title="Aufgabe ${i+1}: ${readable}" aria-hidden="true"></i>`;
+ }).join('');
+ return `<div class="progress ${summary?'summary-progress':''}" role="img" aria-label="Ergebnisse: ${results.filter(x=>x.ok).length} richtig, ${results.filter(x=>!x.ok).length} falsch, ${all-results.length} offen">${segments}</div>`;
+}
+function answerText(q,result){
+ if(q.type==='mc')return q.choices[result.value]??'Keine gültige Antwort';
+ return `${f(result.value,Number.isInteger(result.value)?0:2)} ${q.unit}`;
+}
+function retryIncorrectQuestions(){
+ const again=questions.filter((q,i)=>results[i]&&!results[i].ok);
+ if(!again.length)return;
+ // Dieselben Fehlerfragen desselben Motors; die vorherigen Antworten sind nicht vorausgewählt.
+ questions=again.map(q=>({...q,choices:q.choices?[...q.choices]:undefined}));
+ qIndex=0;results=[];currentResponse=null;
+ $('#quizAnnouncement').textContent='Fehlerfragen als neuer Übungsdurchgang gestartet.';
+ paintQuiz();
+ const h=$('#questionCard .qtitle');if(h){h.tabIndex=-1;h.focus();}
+}
+function paintQuiz(){
+ const el=$('#questionCard'),total=questions.length;
+ $('#qcount').textContent=Math.min(qIndex+1,total)+' / '+total;
+ $('#qright').textContent=results.filter(x=>x.ok).length;
+ $('#qwrong').textContent=results.filter(x=>!x.ok).length;
+ if(qIndex>=total){
+  const correct=results.filter(r=>r.ok).length;
+  const incorrect=results.map((r,i)=>({...r,index:i,q:questions[i]})).filter(r=>!r.ok);
+  const review=incorrect.map(r=>`<details class="review-detail"><summary>Aufgabe ${r.index+1}: ${esc(r.q.text)}</summary><p class="user-answer"><strong>Deine Antwort:</strong> ${esc(answerText(r.q,r))}</p>${qFeedbackHTML(r.q,false,r.value)}</details>`).join('');
+  el.innerHTML=`<div class="qdone"><div class="eyebrow">Durchgang beendet</div><div class="score">${correct} / ${total}</div><h2>${correct/total>=.85?'Sehr gut!':correct/total>=.60?'Gute Grundlage.':'Hier lohnt sich Wiederholung.'}</h2><p class="muted">Du hast ${Math.round(correct/total*100)} % der Aufgaben richtig beantwortet. Die Fragen beziehen sich auf das aktuelle Motortypenschild.</p>${quizProgressHTML(true)}<div class="progress-legend"><span><i class="right"></i> Richtig</span><span><i class="wrong"></i> Falsch</span></div><div class="qactions" style="justify-content:center"><button type="button" class="btn" id="again">Noch ein Durchgang</button>${incorrect.length?`<button type="button" class="btn ghost" id="retryWrong">${incorrect.length} Fehlerfrage${incorrect.length===1?'':'n'} erneut üben</button>`:''}<button type="button" class="btn ghost" id="nextMotorQuiz">Neuer Motor</button></div><div class="review">${incorrect.length?`<h3>Fehler nacharbeiten (${incorrect.length})</h3><p class="muted" style="text-align:left">Öffne eine Aufgabe, um deine Antwort, die richtige Lösung und den Rechenweg oder die Erklärung zu sehen.</p>${review}`:'<p>Keine Fehler in diesem Durchgang!</p>'}</div></div>`;
+  $('#again').onclick=startQuiz;
+  $('#nextMotorQuiz').onclick=()=>{newMotor();switchMode('quiz')};
+  const retry=$('#retryWrong');if(retry)retry.onclick=retryIncorrectQuestions;
+  return;
+ }
+ const q=questions[qIndex],answered=!!currentResponse;
+ el.innerHTML=`<div class="qtop"><span class="pill">${esc(q.tag)}</span><span class="muted" style="font-size:12px">${qIndex+1} von ${total}</span></div>${quizProgressHTML()}<h3 class="qtitle">${esc(q.text)}</h3>${q.type==='mc'?`<div class="choices">${q.choices.map((c,i)=>`<button type="button" class="choice ${answered&&i===q.correct?'correct':''} ${answered&&i===currentResponse.value&&!currentResponse.ok?'wrong':''}" data-ans="${i}" ${answered?'disabled':''}><span class="idx">${i+1}</span><span>${esc(c)}</span></button>`).join('')}</div>`:`<div class="answerbox"><label for="numberValue">Dein Rechenergebnis</label><div class="inp-row"><input class="numberin" id="numberValue" inputmode="decimal" autocomplete="off" type="text" placeholder="z. B. 2,45" ${answered?'disabled':''} value="${answered?esc(String(currentResponse.value).replace('.',',')):''}"><span class="unit">${esc(q.unit)}</span></div><div id="nErr" style="color:var(--red);font-size:12px" aria-live="polite"></div></div>`}${answered?qFeedbackHTML(q,currentResponse.ok,currentResponse.value):''}<div class="qactions">${answered?`<button class="btn" id="nextQ">${qIndex===total-1?'Auswertung anzeigen':'Nächste Aufgabe →'}</button>`:q.type==='num'?`<button class="btn" id="checkN">Antwort prüfen</button>`:''}</div>${q.type==='num'&&!answered?`<div class="helpbox"><details><summary>Rechenhilfe anzeigen</summary><p>${esc(q.tag==='Rechnen'?'Überlege, welche Formel die gesuchte Größe mit den Angaben auf dem Schild verbindet. Achte auf kW, W und Prozent.':'Nimm die passenden Angaben aus dem Schild.')}</p></details></div>`:''}`;
  if(answered){$('#nextQ').onclick=()=>{qIndex++;currentResponse=null;$('#quizAnnouncement').textContent='';paintQuiz();const title=el.querySelector('.qtitle');if(title){title.tabIndex=-1;title.focus();}else{const again=$('#again');if(again)again.focus();}};}
  else if(q.type==='mc')el.querySelectorAll('[data-ans]').forEach(btn=>btn.addEventListener('click',()=>grade(+btn.dataset.ans===q.correct,+btn.dataset.ans)));
- else {$('#checkN').onclick=submitNumber;$('#numberValue').addEventListener('keydown',e=>{if(e.key==='Enter')submitNumber()});}
+ else {$('#checkN').onclick=()=>submitNumber(false);$('#numberValue').addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  e.preventDefault();e.stopPropagation();
+  if(e.repeat)return; // Gehaltene Taste darf die nächste Frage nicht aktivieren.
+  submitNumber(true); // Erst bewerten und die Erklärung anzeigen; weiter nur durch erneute Aktion.
+ });}
 }
-function newMotor(){serial++;motor=makeMotor($('#motorKind').value);usedQuestionIds.clear();if(motor.kind==='standard'){if(!fns[selected]||(selected==='ie'&&!motor.ie))selected='volt';}else if(!multiFields[selected])selected='connection';info(selected);startQuiz();}
-
-// Neutrale SVG-Vergroesserung ohne Aufloesungshinweise oder Interaktionen.
-$('#zoomPlate').addEventListener('click',()=>{
- const source=$('#plate'),out=$('#zoomSvg');
- out.setAttribute('viewBox',source.getAttribute('viewBox'));
- out.setAttribute('class',source.getAttribute('class'));
- out.innerHTML=source.innerHTML;
- out.querySelectorAll('[tabindex]').forEach(el=>el.removeAttribute('tabindex'));
- $('#zoomDialog').showModal();
-});
-$('#closeZoom').addEventListener('click',()=>$('#zoomDialog').close());
-$('#zoomDialog').addEventListener('click',ev=>{if(ev.target===$('#zoomDialog'))$('#zoomDialog').close();});
+function newMotor(){serial++;motor=makeMotor($('#motorKind').value);usedQuestionIds.clear();
+ // Beim ersten Wechsel zu „Schild verstehen“ startet die Einordnung der Motorart.
+ // Sie erscheint nicht auf dem Typenschild und gibt im Quiz nichts vorweg.
+ selected='motorType';info(selected);startQuiz();}
 
 $('#newMotor').onclick=()=>newMotor();$('#motorKind').addEventListener('change',newMotor);$('#restartQuiz').onclick=startQuiz;
+// Browser können die letzte Formularauswahl wiederherstellen: Start immer mit Zufall.
+$('#motorKind').value='random';
 newMotor();
 switchMode('quiz');
 for(const el of document.querySelectorAll('[data-formula]')) { const make=summaryFormulas[el.dataset.formula]; if(make)el.innerHTML=mm.display(make()); }
 // Test-Schnittstelle für lokale automatisierte Funktionstests; keine Netzwerkanbindung.
-window.__motorlab={makeMotor,createStandardModel,validateStandardModel,makeSwitchMotor,validateSwitchMotor,buildSwitchQuestions,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,motorWeights,multiQuestionGroups,switchMode,newMotor,selectMotor:(kind)=>{const select=$('#motorKind');select.value=kind;newMotor();}};
+window.__motorlab={quizProgressHTML,retryIncorrectQuestions,results:()=>results.map(r=>({...r})),makeMotor,createStandardModel,validateStandardModel,makeSwitchMotor,validateSwitchMotor,buildSwitchQuestions,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,motorWeights,multiQuestionGroups,switchMode,newMotor,selectMotor:(kind)=>{const select=$('#motorKind');select.value=kind;newMotor();}};
 </script>
 </body>
 </html>

@@ -113,7 +113,7 @@ main.wrap{padding-top:14px}
   <div class="formula-unit"><b>Achtung: Diese Form darfst du nur mit P₂ in kW und n in min⁻¹ einsetzen.</b> Das Ergebnis ist dann in N·m. Bei anderen Einheiten musst du vorher umrechnen.</div>
  </div>
 </div></div><div class="helpbox">Für die Synchrondrehzahl bezeichnet <em>p</em> die Polpaarzahl. Beachte bei Zahlenwertgleichungen die ausdrücklich angegebenen Einheiten.</div></div></div></section>
-<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Aufgaben neu mischen</button></div><div class="quizframe"><div class="card" id="questionCard" aria-live="polite"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
+<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Neue Fragen</button></div><div class="quizframe"><div class="card" id="questionCard" aria-live="polite"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
 </main>
 <div class="tipfloat" id="tip" role="tooltip"></div>
 <script>
@@ -455,9 +455,154 @@ function buildQuestions(m){
  out.push(num('inputfromline','Rechnen',`Der Motor wird an einem 400-V-Drehstromnetz in der zulässigen Nennschaltung betrieben. Welche elektrische Wirkleistung nimmt er auf? Berechne sie über die Außenleitergrößen und gib das Ergebnis in kW an.`,SQRT3*400*round(I400,2)*m.cos/1000,'kW',`Bei symmetrischem sinusförmigem Drehstrom gilt P₁ = √3 · U_L · I_L · cos φ. Nutze den zum 400-V-Netz gehörigen Außenleiterstrom aus dem Motorschild. Wegen gerundeter Nennspannungen und aufgedruckter Werte kann dieses Ergebnis leicht von P₂/η abweichen.`,`P₁ ≈ √3 · 400 · ${f(round(I400,2))} · ${f(m.cos)} / 1000\n≈ ${f(SQRT3*400*round(I400,2)*m.cos/1000,3)} kW`,.02));
  out.push(mc('230net','Anschluss',`Der Motor soll an einem Drehstromnetz mit 230 V Außenleiterspannung seine Nennleistung abgeben. Was gilt?`,['In Stern bei 230 V','In Dreieck bei 230 V','In Stern oder Dreieck wahlweise','Mit keiner der beiden Nennschaltungen möglich'],m.Vd===230?1:3,m.Vd===230?`Der Motor trägt ${m.Vd}/${m.Vy} V (Δ/Y). Dreieck bei 230 V ist der vorgesehene Nennbetrieb am 230-V-Netz.`:`Dieser Motor ist für ${m.Vd} V in Dreieck und ${m.Vy} V in Stern bemessen. Bei 230 V außenleiterspannung erreicht er damit nicht seine Nennspannung je Wicklung und kann die angegebenen Nennbedingungen nicht einhalten.`,`Δ ${m.Vd} V · Y ${m.Vy} V`));
  out.push(mc('690net','Anschluss',`Der Motor soll am Drehstromnetz mit 690 V Außenleiterspannung im angegebenen Nennbetrieb laufen. Wie ist er anzuschließen?`,['Stern (Y)','Dreieck (Δ)','Über beide Schaltungen gleichermaßen','Keine der Nennschaltungen ist geeignet'],m.Vy===690?0:3,m.Vy===690?`Bei ${m.Vd}/${m.Vy} V gilt: Die Stern-Nennspannung beträgt ${m.Vy} V. Daher ist bei einem 690-V-Netz Stern korrekt.`:`Das Schild nennt ${m.Vd}/${m.Vy} V. Bei 690 V wäre die Wicklungsspannung in Stern etwa 398 V, zulässig wären jedoch rund ${m.Vd} V. Daher keine der Nennschaltungen bei 690 V geeignet.`,`Δ ${m.Vd} V · Y ${m.Vy} V`));
+
+ // Weitere eigenständige Aufgabenfamilien – Antworten werden immer aus dem aktuellen Motor berechnet.
+ out.push(mc('pairs','Drehfeld','Wie viele Polpaare besitzt dieser Motor?',
+ ['1 Polpaar','2 Polpaare','3 Polpaare','4 Polpaare'],m.pairs-1,
+ `Die Nenndrehzahl liegt unter der synchronen Drehzahl von ${fi(m.ns)} min⁻¹. Bei 50 Hz entspricht das ${m.pairs} Polpaaren bzw. ${m.poles} Polen.`,
+ `p = 60 · 50 / ${fi(m.ns)} = ${m.pairs} Polpaare.`));
+ out.push(num('syncrpm','Drehfeld','Berechne die synchrone Drehfelddrehzahl des Motors bei der auf dem Schild angegebenen Frequenz.',m.ns,'min⁻¹',
+ 'Die Polpaarzahl lässt sich aus der Nenndrehzahl erschließen. Die synchrone Drehfelddrehzahl ist immer etwas höher als die Nennrotordrehzahl.',
+ `nₛ = 60 · f / p = 60 · ${m.freq} / ${m.pairs} = ${fi(m.ns)} min⁻¹`,.001));
+ out.push(num('slipdiff','Drehfeld','Wie groß ist die Drehzahldifferenz zwischen Drehfeld und Rotor bei Nennbetrieb?',m.ns-m.n,'min⁻¹',
+ 'Gesucht ist die absolute Schlupfdrehzahl, nicht der prozentuale Schlupf.',
+ `Δn = nₛ − n = ${fi(m.ns)} − ${fi(m.n)} = ${fi(m.ns-m.n)} min⁻¹`,.001));
+ out.push(num('shaftfreq','Drehfeld','Wie viele Umdrehungen führt die Motorwelle im Nennbetrieb pro Sekunde aus?',m.n/60,'s⁻¹',
+ 'Die Nenndrehzahl auf dem Typenschild wird in Umdrehungen pro Minute angegeben.',
+ `n = ${fi(m.n)} min⁻¹ / 60 = ${f(m.n/60,2)} s⁻¹`,.015));
+ out.push(num('angular','Rechnen','Berechne die Winkelgeschwindigkeit der Motorwelle bei Nenndrehzahl.',2*Math.PI*m.n/60,'rad/s',
+ 'Eine Umdrehung entspricht 2π Radiant. Die Drehzahl des Typenschilds muss von min⁻¹ auf s⁻¹ umgerechnet werden.',
+ `ω = 2π · n / 60 = 2π · ${fi(m.n)} / 60 ≈ ${f(2*Math.PI*m.n/60,2)} rad/s`,.012));
+ out.push(num('p2watts','Rechnen','Gib die mechanische Nenn-Abgabeleistung des Motors in Watt an.',m.P2*1000,'W',
+ 'Die auf dem Schild angegebene Leistung P₂ ist die mechanische Abgabeleistung und wird meist in kW genannt.',
+ `P₂ = ${f(m.P2)} kW · 1000 = ${fi(m.P2*1000)} W`,.001));
+ out.push(num('losspercent','Rechnen','Wie viel Prozent der aufgenommenen elektrischen Wirkleistung werden im Nennbetrieb nicht in mechanische Wellenleistung umgewandelt?',(1-m.eta)*100,'%',
+ 'Der nicht nutzbare Leistungsanteil ist 1 − η. Der Wirkungsgrad bezieht sich auf die aufgenommene Wirkleistung.',
+ `Verlustanteil = (1 − η) · 100 % = (1 − ${f(m.eta,3)}) · 100 % = ${f((1-m.eta)*100,1)} %`,.012));
+ out.push(num('reactive','Rechnen','Welche Blindleistung nimmt der Motor näherungsweise im Nennbetrieb auf? Gib die Antwort in kvar an.',m.P1*Math.tan(Math.acos(m.cos)),'kvar',
+ 'Bei sinusförmigen Größen gilt Q = P₁ · tan φ. Der Winkel ergibt sich aus dem aufgedruckten cos φ; nutze den Arcuscosinus des Taschenrechners.',
+ `Q = P₁ · tan(arccos(cos φ))\n= ${f(m.P1,3)} · tan(arccos(${f(m.cos)}))\n≈ ${f(m.P1*Math.tan(Math.acos(m.cos)),3)} kvar`,.018));
+ out.push(num('starvoltage','Anschluss','Bei welcher Außenleiterspannung ist dieser Motor laut Schild für Nennbetrieb in Sternschaltung vorgesehen?',m.Vy,'V',
+ 'Bei den zwei angegebenen Nennspannungen steht der kleinere Wert für Dreieck, der größere für Stern. Die Stern-Wicklungsspannung ist Außenleiterspannung geteilt durch √3.',
+ `Y-Nennspannung = ${m.Vy} V; Δ-Nennspannung = ${m.Vd} V.`,.001));
+ out.push(num('deltavoltage','Anschluss','Welche Außenleiterspannung ist laut Motortypenschild für den Nennbetrieb in Dreieckschaltung vorgesehen?',m.Vd,'V',
+ 'Die niedrigere der beiden Nennspannungen ist bei einem üblichen Zweispannungs-Asynchronmotor die Dreieck-Nennspannung.',
+ `Δ-Nennspannung = ${m.Vd} V; Y-Nennspannung = ${m.Vy} V.`,.001));
+ out.push(mc('net230','Anschluss','Der Motor ist an einem Netz mit 230 V Außenleiterspannung angeschlossen. Welche Aussage zur Erreichbarkeit seiner Nennleistung stimmt?',
+ ['Der Motor kann in Dreieck bei Nennwicklungsspannung betrieben werden','Der Motor muss bei 230 V in Stern betrieben werden','230 V sind für jeden aufgedruckten Motortyp die Stern-Nennspannung','Der Motor erreicht bei 230 V in keiner Schaltung seine Nennwicklungsspannung'],m.Vd===230?0:3,
+ m.Vd===230?'Bei diesem Motor ist die Dreieck-Nennspannung 230 V; damit kann bei geeigneter Last der Nennbetrieb stattfinden.':'Die kleinste angegebene Nennspannung dieses Motors ist 400 V. Ein 230-V-Drehstromnetz reicht für Nennbetrieb in keiner Schaltung aus.',''));
+ out.push(mc('net690','Anschluss','Was gilt für den Betrieb dieses Motors an 690 V Außenleiterspannung?',
+ ['Stern ist als Nennschaltung geeignet','Dreieck ist als Nennschaltung geeignet','690 V ist für alle Drehstrommotoren automatisch zulässig','Keine der angegebenen Nennschaltungen ist bei 690 V geeignet'],m.Vy===690?0:3,
+ m.Vy===690?'Die höhere Nennspannung von 690 V gehört zur Sternschaltung.':'Die höchste angegebene Nennspannung beträgt nur 400 V. Bei 690 V würden die Wicklungen in beiden Schaltungen überspannt.',''));
+ out.push(mc('polefrequency','Drehfeld','Bei unveränderter Polpaarzahl wird der Motor statt mit 50 Hz idealisiert mit 60 Hz betrieben. Wie ändert sich seine synchrone Drehfelddrehzahl?',
+ ['Sie sinkt um 20 %','Sie steigt um 20 %','Sie bleibt stets gleich','Sie verdoppelt sich'],1,
+ 'Die synchrone Drehfelddrehzahl ist proportional zur Frequenz: nₛ = 60 f / p. Von 50 auf 60 Hz ist ein Faktor 60/50 = 1,2. Daraus folgt keine Aussage zur Eignung des Motors für 60-Hz-Betrieb.','nₛ,neu / nₛ,alt = 60 / 50 = 1,2.'));
+ out.push(mc('mount','Bauform','Welche Aussage zur aufgedruckten Bauform ist richtig?',
+ [m.mount==='B3'?'Ein Fußmotor zur Montage auf einem Unterbau':m.mount==='B5'?'Ein Flanschmotor mit großem Flansch':'Ein Motor mit kleinem Befestigungsflansch und Gewindebohrungen',
+  'Die Angabe kennzeichnet die zulässige Netzfrequenz',
+  'Die Bauform definiert die Schutzart gegen Staub und Wasser',
+  'Die Bauform gibt den Nennstrom vor'],0,
+ `IM ${m.mount} kennzeichnet die mechanische Befestigungsart: ${m.mount==='B3'?'Fußausführung.':m.mount==='B5'?'große Flanschausführung.':'kleine Flanschausführung mit Gewindebohrungen.'}`,''));
+ out.push(mc('ipfirst','Schutzart','Was beschreibt die erste Ziffer der IP-Schutzart auf dem Typenschild?',
+ [`${ipFirstMeaning[digitIP(m)[0]]}`,'Den Wirkungsgrad','Die Betriebstemperatur der Wicklung','Die höchste zulässige Netzfrequenz'],0,
+ `${m.ip}: Die erste Kennziffer ${digitIP(m)[0]} steht für den Schutz gegen Berührung und feste Fremdkörper beziehungsweise Staub. Die zweite Ziffer betrifft Wasser.`,''));
+ out.push(mc('ipsecond','Schutzart','Wofür steht die zweite Ziffer der angegebenen Schutzart?',
+ ['Für die Polzahl',`${ipSecondMeaning[digitIP(m)[1]]}`,'Für die Stromstärke bei 400 V','Für die Dauer eines S2-Betriebs'],1,
+ `${m.ip}: Die zweite Kennziffer ${digitIP(m)[1]} beschreibt den Schutz gegen Wasser.`,''));
+ out.push(mc('insulation','Wärme','Welche thermische Grenztemperatur des Isolationssystems gehört zur aufgedruckten Isolierstoffklasse?',
+ ['105 °C','120 °C','130 °C','155 °C','180 °C'],
+ (m.ins==='A'?0:m.ins==='E'?1:m.ins==='B'?2:m.ins==='F'?3:4),
+ `Klasse ${m.ins} hat die Grenztemperatur ${insLimit[m.ins]} °C. Gemeint ist die thermische Klasse des Isolationssystems, nicht die Gehäuseoberfläche.`,''));
+ out.push(mc('dutyinterpret','Betriebsart','Welche Aussage zur auf dem Schild genannten Betriebsart trifft zu?',
+ [dutyMeanings.S1,dutyMeanings.S2,dutyMeanings.S3,dutyMeanings.S6],
+ ['S1','S2','S3','S6'].indexOf(dutyCode(m)),
+ `${m.duty}: ${dutyDescription(m)}. Zusatzwerte wie 30 min oder 40 % konkretisieren den Bemessungsbetrieb.`,''));
+ out.push(mc('phivseta','Verständnis','Worin besteht der wesentliche Unterschied zwischen cos φ und η?',
+ ['Beide kennzeichnen genau dasselbe','cos φ betrifft Wirk- und Scheinleistung, η das Verhältnis mechanischer Abgabe zu elektrischer Aufnahme','η zeigt die Schutzart, cos φ die Isolierstoffklasse','Beide geben die Nenndrehzahl in Prozent an'],1,
+ 'Für sinusförmigen Betrieb gilt cos φ = P₁/S. Der Wirkungsgrad ist η = P₂/P₁. Ein Motor kann deshalb z. B. einen hohen Wirkungsgrad und einen niedrigeren Leistungsfaktor haben.','cos φ = P₁/S; η = P₂/P₁.'));
+ out.push(mc('mechanicalenergy','Verständnis','Welche Aussage zu P₁ und P₂ auf einem Motor-Typenschild ist richtig?',
+ ['P₁ ist stets kleiner als P₂','P₂ ist die mechanische Wellenleistung; P₁ enthält zusätzlich die Verluste','P₂ bezeichnet ausschließlich die Blindleistung','P₁ und P₂ sind bei jedem realen Motor identisch'],1,
+ `Der Motor gibt ${f(m.P2)} kW an der Welle ab. Aufgrund des Wirkungsgrads von ${f(m.eta*100,1)} % ist die elektrische Aufnahmeleistung höher.`,
+ `P₁ = P₂/η ≈ ${f(m.P1,3)} kW.`));
+ // Option nur bei 400/690-V-Motoren: dafür ist ein Y/Δ-Anlauf am 400-V-Netz prinzipiell geeignet.
+ if(m.Vd===400)out.push(mc('startcurrentratio','Anlauf','Wie verändert sich bei einem 400/690-V-Asynchronmotor der Außenleiter-Anlaufstrom beim Sternanlauf gegenüber direktem Dreieckanlauf am gleichen 400-V-Netz näherungsweise?',
+ ['Er steigt auf das Dreifache','Er sinkt auf ungefähr ein Drittel','Er bleibt gleich','Er wird vollständig null'],1,
+ 'Beim Sternanlauf ist die Wicklungsspannung um den Faktor √3 kleiner. Im vereinfachten Modell sinkt der Außenleiter-Anlaufstrom gegenüber dem direkten Dreieckanlauf auf rund ein Drittel.',
+ 'Iₐ,Y ≈ Iₐ,Δ / 3.'));
  return out;
 }
-function startQuiz(){const bank=buildQuestions(motor); const cores=['connect','stardelta','winding','p2','p1'];questions=[...cores.map(id=>bank.find(q=>q.id===id)),...shuffled(bank.filter(q=>!cores.includes(q.id))).slice(0,10)];qIndex=0;results=[];currentResponse=null;paintQuiz();}
+// Prüfungsdurchgänge enthalten verschiedene Kompetenzen. Bereits gestellte Aufgaben
+// desselben Motors werden bei Folgedurchgängen nachrangig behandelt.
+let usedQuestionIds = new Set();
+const questionGroups = [
+ ['connect','stardelta','winding','230net','690net','starvoltage','deltavoltage','net230','net690','startcurrentratio'],
+ ['p1','loss','torque','appar','inputfromline','p2watts','losspercent','reactive'],
+ ['poles','slip','syncrpm','slipdiff','shaftfreq','angular','pairs','polefrequency'],
+ ['ip','s1','F','mount','ipfirst','ipsecond','insulation','dutyinterpret'],
+ ['p2','cos','eta','overload','currentratio','motortype','phivseta','mechanicalenergy','current']
+];
+const wordings = {
+ connect:['Welche Nennschaltung ist bei einem Drehstromnetz mit 400 V Außenleiterspannung korrekt?',
+          'Der Motor wird an 3 × 400 V angeschlossen. Welche Verschaltung der Statorwicklungen ist vorgesehen?',
+          'Welche Anschlussart gewährleistet bei 400 V Netzspannung die richtige Nenn-Wicklungsspannung?'],
+ stardelta:['Ist ein Stern-Dreieck-Anlauf an einem 400-V-Drehstromnetz bei diesem Motor prinzipiell möglich?',
+           'Darf dieser Motor zur Anlaufstrombegrenzung bei 400 V von Stern auf Dreieck umgeschaltet werden?'],
+ p1:['Berechne die elektrische Wirkleistungsaufnahme des Motors bei Nennbetrieb.',
+     'Welche elektrische Eingangsleistung P₁ benötigt der Motor im Nennbetrieb?'],
+ torque:['Berechne das Bemessungsdrehmoment an der Motorwelle.',
+         'Wie groß ist das Drehmoment, das der Motor bei seiner Nenndrehzahl abgibt?'],
+ slip:['Ermittle den relativen Nennschlupf des Asynchronmotors in Prozent.',
+       'Um wie viel Prozent läuft der Rotor langsamer als das synchrone Drehfeld?'],
+ p2:['Welche Leistung beschreibt P₂ auf dem Motortypenschild?',
+     'Die Angabe P₂ ist auf dem Schild vermerkt. Welche physikalische Größe ist gemeint?'],
+ winding:['Welche Strangspannung liegt bei korrektem Nennanschluss an einem 400-V-Netz an?',
+          'Wie hoch ist die Spannung an einer einzelnen Wicklung im Nennbetrieb an 400 V?'],
+ cos:['Wofür steht der Leistungsfaktor cos φ auf einem Motortypenschild?',
+      'Welche Aussage zur Größe cos φ ist fachlich korrekt?'],
+ eta:['Was sagt der auf dem Schild angegebene Wirkungsgrad über die Energieumwandlung aus?',
+      'Welche Aussage zur Angabe η auf dem Motor ist richtig?'],
+ current:['Wie hoch ist der Bemessungs-Außenleiterstrom bei einem 400-V-Drehstromnetz?',
+          'Welcher zum 400-V-Betrieb gehörende Außenleiter-Nennstrom ist dem Schild zu entnehmen?'],
+ currentratio:['Wie verhalten sich die Nenn-Außenleiterströme in Dreieck- und Sternschaltung bei den jeweiligen Nennspannungen ungefähr zueinander?',
+               'Was gilt bei gleichem Nennbetrieb für das Verhältnis der aufgedruckten Ströme IΔ und IY?'],
+ syncrpm:['Wie schnell dreht das magnetische Drehfeld bei der auf dem Schild angegebenen Nennfrequenz?',
+          'Bestimme die Synchrondrehzahl des Stator-Drehfelds.'],
+ pairs:['Wie viele Polpaare lassen sich aus der Nenndrehzahl erschließen?',
+        'Bestimme die Polpaarzahl des Motors anhand der Angaben auf dem Schild.'],
+ appar:['Welche Scheinleistung S nimmt der Motor im Nennbetrieb auf?',
+        'Ermittle die elektrische Scheinleistung des Motors in kVA.'],
+ loss:['Bestimme die gesamte Verlustleistung des Motors bei Nennbetrieb in Watt.',
+       'Wie viel elektrische Wirkleistung wird im Motor bei Nennbetrieb insgesamt in Verluste umgesetzt?'],
+ mount:['Was bedeutet die Bauform-Angabe auf dem gezeigten Typenschild?',
+        'Welche Aussage zur mechanischen Befestigung des Motors ist richtig?']
+};
+function varyQuestion(q){
+ const out={...q,choices:q.choices?[...q.choices]:undefined};
+ if(wordings[out.id])out.text=pick(wordings[out.id]);
+ // Antwortmöglichkeiten einschließlich der korrekten Aussage neu anordnen.
+ if(out.type==='mc'){
+   const variants=shuffled(out.choices.map((text,index)=>({text,original:index})));
+   out.choices=variants.map(x=>x.text);
+   out.correct=variants.findIndex(x=>x.original===q.correct);
+ }
+ return out;
+}
+function startQuiz(){
+ const bank=buildQuestions(motor), byId=new Map(bank.map(q=>[q.id,q]));
+ let selectedQuestions=[];
+ for(const ids of questionGroups){
+   const available=ids.map(id=>byId.get(id)).filter(Boolean);
+   // Vorher noch nicht gestellte Aufgaben der Kategorie bevorzugen.
+   const order=shuffled(available.filter(q=>!usedQuestionIds.has(q.id)))
+     .concat(shuffled(available.filter(q=>usedQuestionIds.has(q.id))));
+   selectedQuestions.push(...order.slice(0,3));
+ }
+ selectedQuestions=shuffled(selectedQuestions).map(varyQuestion);
+ for(const q of selectedQuestions)usedQuestionIds.add(q.id);
+ questions=selectedQuestions;
+ qIndex=0;results=[];currentResponse=null;paintQuiz();
+}
+
 function qFeedbackHTML(q,ok,userVal){const correct=q.type==='mc'?q.choices[q.correct]:`${f(q.answer, q.answer>=100?0:2)} ${q.unit}`;
  return `<div class="feedback ${ok?'':'bad'}"><div class="ft">${ok?'✓ Richtig beantwortet':'✕ Nicht richtig'}</div>${ok?'':`<p><b>Richtige Antwort:</b> ${esc(correct)}</p>`}<p>${esc(q.why)}</p>${q.calc?`<div class="step">${esc(q.calc)}</div>`:''}</div>`;}
 function checkNumber(user,correct,tol){return Math.abs(user-correct)<=Math.max(Math.abs(correct)*tol,correct<1?.006:correct<10?.03:correct<100?.15:.6);}
@@ -471,13 +616,13 @@ function paintQuiz(){const el=$('#questionCard');const total=questions.length;$(
  else if(q.type==='mc')el.querySelectorAll('[data-ans]').forEach(btn=>btn.addEventListener('click',()=>grade(+btn.dataset.ans===q.correct,+btn.dataset.ans)));
  else {$('#checkN').onclick=submitNumber;$('#numberValue').addEventListener('keydown',e=>{if(e.key==='Enter')submitNumber()});}
 }
-function newMotor(){serial++;motor=makeMotor();info(selected);startQuiz();}
+function newMotor(){serial++;motor=makeMotor();usedQuestionIds.clear();info(selected);startQuiz();}
 $('#newMotor').onclick=()=>newMotor();$('#restartQuiz').onclick=startQuiz;
 newMotor();
 switchMode('quiz');
 for(const el of document.querySelectorAll('[data-formula]')) { const make=summaryFormulas[el.dataset.formula]; if(make)el.innerHTML=mm.display(make()); }
 // Test-Schnittstelle für lokale automatisierte Funktionstests; keine Netzwerkanbindung.
-window.__motorlab={makeMotor,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions};
+window.__motorlab={makeMotor,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds]};
 </script>
 </body>
 </html>

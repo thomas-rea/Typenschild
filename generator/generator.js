@@ -54,14 +54,36 @@ document.querySelectorAll('[name="pages"],[name="solution"]').forEach(r=>r.oncha
 $('#practiceQR').onchange=updateStatus;
 renderTypes();
 const iframe=$('#motorEngine');
-iframe.addEventListener('load',()=>{
+// Der versteckte Frame steht im HTML vor den Skripten. Bei schnellem Laden
+// kann sein load-Ereignis schon vor der Registrierung dieses Listeners liegen.
+// Daher die bereits geladene Schnittstelle sofort prüfen UND das Ereignis
+// sowie die nächsten Sekunden beobachten.
+function activateMotorEngine(){
+ if(state.ready)return true;
  try{
-  if(!iframe.contentWindow.__motorlab)throw Error('Lerntrainer nicht verfügbar');
-  state.ready=true;$('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V20.';
+  const api=iframe.contentWindow?.__motorlab;
+  if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
+  state.ready=true;
+  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V20.';
   updateStatus();
- }catch(e){$('#status').textContent='Der Lerntrainer konnte nicht geladen werden. Bitte die vollständige Ordnerstruktur auf GitHub Pages veröffentlichen.';}
+  return true;
+ }catch(error){return false;}
+}
+iframe.addEventListener('load',()=>{
+ if(!activateMotorEngine()){
+  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v20/ prüfen.';
+ }
 });
-iframe.addEventListener('error',()=>{$('#status').textContent='Fehler beim Laden des Lerntrainers.';});
+iframe.addEventListener('error',()=>{
+ if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v20/ prüfen.';
+});
+if(!activateMotorEngine()){
+ const probe=setInterval(()=>{if(activateMotorEngine())clearInterval(probe);},250);
+ setTimeout(()=>{
+  clearInterval(probe);
+  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v20/ prüfen.';
+ },12000);
+}
 function seededRandom(){
  const arr=new Uint32Array(1);if(window.crypto?.getRandomValues){window.crypto.getRandomValues(arr);return arr[0];}
  return Math.floor(Math.random()*4294967296)>>>0;

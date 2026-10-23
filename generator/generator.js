@@ -4,6 +4,8 @@
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
+const WORKSHEET_RELEASE='1.1.1';
+const EXPECTED_CODE_PATTERN=/^[AL]1-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]$/;
 const state={mode:'balanced',enabled:new Set(kinds),counts:{standard:1,historical:1,'dahlander-delta':1,'dahlander-star':1,dual:1},sheets:[],ready:false,generatedKey:null};
 const esc=text=>String(text??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 function nMotors(){return Math.max(1,Math.min(30,Number($('#motorCount').value)||1));}
@@ -63,8 +65,23 @@ function activateMotorEngine(){
  try{
   const api=iframe.contentWindow?.__motorlab;
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
+  // Alte Generator- oder Archivdateien dürfen niemals unbemerkt alte A-/L-Codes drucken.
+  if(typeof api.makeWorksheetCode!=='function'||typeof api.parseWorksheetCode!=='function'||typeof api.worksheetSelection!=='function'){
+   $('#status').textContent='Falsche Datenquelle geladen. Bitte das gesamte V1.1.1-Paket hochladen und neu laden (Strg+F5).';
+   return false;
+  }
+  const probeA=api.makeWorksheetCode('standard',0x12345678,10,false);
+  const probeL=api.makeWorksheetCode('standard',0x12345678,10,true);
+  const parsedA=api.parseWorksheetCode(probeA),parsedL=api.parseWorksheetCode(probeL);
+  if(!EXPECTED_CODE_PATTERN.test(probeA)||!EXPECTED_CODE_PATTERN.test(probeL)||
+     !parsedA||!parsedL||parsedA.seed!==0x12345678||parsedL.seed!==0x12345678||
+     parsedA.solutions||!parsedL.solutions){
+   $('#status').textContent='Falsche Code-Version geladen: Erwartet werden A1-/L1-Codes. Bitte Dateien im Ordner /v1.1.0/ prüfen.';
+   return false;
+  }
+
   state.ready=true;
-  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V1.1.0.';
+  $('#status').textContent='Bereit · Generator V1.1.1 · neue Blattcodes: A1-… / L1-…';
   updateStatus();
   return true;
  }catch(error){return false;}
@@ -230,6 +247,9 @@ function generate(){
    const selected=engine.worksheetSelection(count,seed);
    const practiceCode=engine.makeWorksheetCode(kind,seed,count,false);
    const solutionCode=engine.makeWorksheetCode(kind,seed,count,true);
+   if(!EXPECTED_CODE_PATTERN.test(practiceCode)||!EXPECTED_CODE_PATTERN.test(solutionCode)){
+    throw Error('Veraltete Blattcodes erkannt. Es wurden keine Arbeitsblätter ausgegeben. Bitte /v1.1.0/ auf die richtige Engine prüfen.');
+   }
    return {no:i+1,kind,seed,quizSeed,selected,practiceCode,solutionCode,printStyle:$('#plateStyle').value,svg:nameplateSnapshot(doc,$('#plateStyle').value==='clean')};
   });
   state.sheets=sheets;state.generatedKey=configurationKey();
@@ -239,7 +259,7 @@ function generate(){
   $('#printSolutions').hidden=solutionMode()!=='separate';
   $('#printLinks').hidden=solutionMode()!=='links';
   $('#previewToolbar').hidden=false;
-  $('#status').textContent=`${sheets.length} Motoren und ${sheets.length*count} Aufgaben zusammengestellt. Die Druckansicht verwendet A4.`;
+  $('#status').textContent=`V1.1.1 · ${sheets.length} Motoren und ${sheets.length*count} Aufgaben. Neue Codes: A1-/L1-. Druckformat A4.`;
   $('#previewToolbar').scrollIntoView({block:'start',behavior:'smooth'});
  }catch(error){console.error(error);$('#status').textContent='Erstellung fehlgeschlagen: '+error.message;}
  finally{updateStatus();}

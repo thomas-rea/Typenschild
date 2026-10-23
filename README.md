@@ -9,3 +9,5 @@ Die Oberfläche umfasst den Lerntrainer unter `/` und den Arbeitsblattgenerator 
 Für bereits erstellte Arbeitsblätter bleibt `/v1.0.0/` unverändert. Neu erstellte Arbeitsblätter verwenden die Engine unter `/v1.1.0/` und Blattcodes wie `A1-XXXX-XXXX-X` bzw. `L1-XXXX-XXXX-X`. Die beiden Code-Versionen werden auf der Hauptseite automatisch zum passenden Archiv geleitet.
 
 Die fachlichen Daten sind generierte Beispiele und ersetzen keine Herstellerunterlagen.
+
+Version 1.1.1: Anzeige der Softwareversion, Prüfung des geladenen Codeformats und Cache-Aktualisierung.

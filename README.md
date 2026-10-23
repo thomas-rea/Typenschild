@@ -1,37 +1,42 @@
 # Motortypenschild-Trainer
 
-Ein interaktiver Lerntrainer zum Lesen und Verstehen von Typenschildern elektrischer Motoren. Die Anwendung zeigt wechselnde, realitätsnah gestaltete Motortypenschilder und verbindet deren technische Angaben mit Erklärungen, Verständnisfragen und Berechnungen.
+Browserbasierte Lernanwendung zum Lesen, Verstehen und Auswerten von Typenschildern elektrischer Motoren. Die dargestellten Typenschilder und Motordaten sind fiktive, technisch modellierte Lernbeispiele.
 
-**Aktueller Stand: V18**
+## Motortypenschilder
 
-## Motorarten und Typenschilder
+Unterstützt werden moderne und historische Drehstrom-Asynchronmotoren, Dahlandermotoren in Δ/YY- und Y/YY-Ausführung sowie Motoren mit zwei getrennten Wicklungen. Ein kompaktes Menü erlaubt, beliebige Kombinationen dieser fünf Varianten auszuwählen. Beim ersten Aufruf sind alle Motorarten aktiviert.
 
-Der Trainer enthält moderne und historische Drehstrom-Asynchronmotoren, Dahlandermotoren mit den Schaltungsvarianten Δ/YY und Y/YY sowie Motoren mit zwei getrennten Wicklungssystemen. Die Motorart kann gezielt ausgewählt werden. Standardmäßig wechselt die Anwendung im Zufallsmodus zwischen den unterstützten Varianten.
+Acht unterschiedlich gestaltete Typenschildvarianten, einschließlich historischer Oberflächen, zeigen wechselnde Daten zu Spannung, Strom, Leistung, Drehzahl, Wirkungsgrad, Leistungsfaktor, Schutzart, Betriebsart und weiteren Angaben. Die Schaltungskennzeichen stehen, soweit vorhanden, unmittelbar bei den Spannungsangaben.
 
-Acht unterschiedlich gestaltete Schilddesigns sorgen für abwechslungsreiche Darstellungen, darunter auch gealterte Metallschilder. Hersteller- und Typbezeichnungen, Baujahre und Bemessungsdaten variieren. Typische Angaben sind Spannung, Strom, Leistung, Drehzahl, Leistungsfaktor, Wirkungsgrad, Schutzart und Betriebsart.
+## Lernen und üben
 
-Die Schaltungskennzeichen stehen, soweit vorhanden, unmittelbar bei den Spannungsangaben. Bei normalen Asynchronmotoren kann die Stern-/Dreieck-Kennzeichnung auch fehlen. Historische Schilder verwenden unter anderem frühere Spannungsreihen wie 220/380 V oder 380/660 V.
+Der Bereich **Schild verstehen** erklärt einzelne Felder, Formeln, Wicklungs- und Anschlussdarstellungen sowie technische Hintergründe. Im interaktiven Aufgabenbereich stehen wechselnde Auswahl- und Rechenaufgaben mit Rückmeldungen, Rechenwegen und gezielter Fehlerwiederholung bereit.
 
-## Interaktive Aufgaben
+Ein Übungslink kann denselben Motor und denselben Ausgangsdurchgang für mehrere Personen bereitstellen. Auf schmalen Bildschirmen lässt sich das Typenschild gesondert vergrößern.
 
-Zu jedem dargestellten Motor stehen 15 wechselnde Aufgaben bereit. Sie verbinden die Interpretation technischer Angaben mit Fragen zur Motorbauart und mit Berechnungen, beispielsweise zu elektrischer und mechanischer Leistung, Drehmoment, Drehzahl, Schlupf oder Stromstärke.
+## Arbeitsblatt-Generator
 
-Antworten erfolgen über Auswahlmöglichkeiten oder freie Zahleneingaben. Anschließend zeigt die Anwendung eine Rückmeldung und, soweit passend, einen nachvollziehbaren Rechenweg. Nach dem Durchgang können falsch beantwortete Aufgaben einschließlich der Erklärungen erneut angesehen und gezielt wiederholt werden.
+Unter `generator/` steht ein eigenständiger, öffentlich nutzbarer Arbeitsblatt-Generator bereit.
 
-Ein Fortschrittsbalken kennzeichnet richtige Antworten grün und falsche rot. Neue Aufgaben zum selben Motor oder ein neues Typenschild lassen sich jederzeit erzeugen. Auf kleinen Bildschirmen kann das Schild bei Bedarf gesondert betrachtet werden.
+* Die Anzahl der Motoren ist frei zwischen 1 und 30 wählbar.
+* Ein Motor erhält wahlweise **eine oder zwei A4-Seiten**. Die Aufgaben werden passend zum Platz zusammengestellt.
+* Die Motorarten können **gleichmäßig verteilt oder mit einer genauen Anzahl je Bauart** festgelegt werden.
+* Pro Motor lässt sich ein QR-Code zu **genau den gedruckten Aufgaben und Motordaten** einfügen.
+* Lösungsoptionen: **ohne Lösungen**, **Kurzlösungen im Anhang**, **separates Lösungsdokument** oder **ausschließlich digitale Lösungslinks**.
+* PDF-Ausgabe über den Druckdialog des Browsers: **Als PDF speichern** auswählen.
 
-## Schild verstehen
+Der Generator speichert weder Namen noch Antworten. Alle Arbeitsblätter werden im Browser erzeugt; es ist kein Server zur Verarbeitung der Daten notwendig.
 
-Die Angaben auf dem Typenschild lassen sich direkt auswählen. Der Lernbereich erklärt ihre Bedeutung und zeigt passende Formeln, Beispiele, Tabellen und vereinfachte Schaltungsdarstellungen.
+## Aufbau und Versionierung
 
-Zu den Themen zählen unter anderem Stern- und Dreieckschaltung, polumschaltbare Wicklungen, Synchrondrehzahl, Leistungsfaktor, Wirkungsgrad, Motorschutz und die Einordnung historischer Spannungsangaben. Bei Motoren mit zwei Drehzahlstufen werden die zugehörigen Bemessungsdaten getrennt betrachtet.
+* `index.html` – aktuelle Lernanwendung
+* `generator/index.html` – Arbeitsblatt-Generator mit zugehörigen CSS-/JavaScript-Dateien
+* `v20/index.html` – **unveränderliche Fassung des Lerntrainers für die QR-Codes dieser Arbeitsblätter**
 
-## Gemeinsame Übungsbeispiele
+Der versionierte Ordner `v20/` ist wichtig: Bei späteren Änderungen an Typenschildern oder Fragen sollen bereits gedruckte QR-Codes weiterhin dieselben Aufgaben öffnen. Deshalb `v20/` bei zukünftigen Updates **nicht löschen oder überschreiben**.
 
-Über einen Übungslink lässt sich ein generierter Motor zusammen mit dem zugehörigen Ausgangsdurchgang teilen. So können mehrere Personen dieselben technischen Ausgangsdaten bearbeiten und vergleichen. Für eine zuverlässige Wiederherstellung sollte dieselbe Version der Anwendung verwendet werden.
+Die Darstellung der Typenschilder erfolgt mit SVG, der Formelsatz mit MathML. Der QR-Code-Generator verwendet eine lokal mitgelieferte JavaScript-Implementierung (Lizenzhinweis im Generatorverzeichnis). Die Anwendung benötigt keine Anmeldung, Datenbank oder externen Dienst für die Arbeitsblatt-Erstellung.
 
-## Technischer Aufbau und Hinweise
+## Hinweise
 
-Der Trainer besteht aus einer eigenständigen HTML-Anwendung mit integriertem CSS und JavaScript. Die Typenschilder und Zeichnungen werden als SVG erzeugt, Formeln mit MathML dargestellt. Die Anwendung benötigt weder ein Backend noch externe JavaScript-Bibliotheken. Eine zentrale Speicherung persönlicher Ergebnisse ist nicht vorgesehen.
-
-Sämtliche Hersteller- und Motordaten sind fiktive, für Lernzwecke generierte Beispiele. Die Anwendung dient der Veranschaulichung technischer Zusammenhänge und ersetzt keine Herstellerdokumentation. Tatsächliche Anschlussentscheidungen, Schutzmaßnahmen und Dimensionierungen sind anhand der konkreten technischen Unterlagen und der geltenden Regeln zu prüfen.
+Die Inhalte veranschaulichen technische Zusammenhänge und ersetzen keine Herstellerdokumentation. Für tatsächliche Anschlussentscheidungen, Schutzmaßnahmen und Dimensionierungen sind die jeweiligen technischen Unterlagen und geltenden Regeln maßgebend.

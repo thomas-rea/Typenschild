@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#163f30">
+<title>Arbeitsblatt-Generator · Motortypenschilder</title>
+<link rel="stylesheet" href="generator.css">
+</head>
+<body>
+<header class="top"><div class="shell top-line"><div class="brand"><span class="logo">⚡</span><div>Motortypenschild <small>Arbeitsblatt-Generator</small></div></div><a href="../">↗ Zum Lerntrainer</a></div></header>
+<main class="shell control-area" id="controlArea">
+ <div class="intro"><h1>Arbeitsblätter erstellen</h1><p>Für jede Motorart ein realitätsnahes Typenschild mit passenden Aufgaben – wahlweise auf einer oder zwei A4-Seiten. Übungslinks öffnen dieselben Daten im Lerntrainer.</p></div>
+ <div class="config-layout">
+ <section class="card" aria-labelledby="setupTitle">
+  <h2 id="setupTitle">Umfang und Motoren</h2>
+  <div class="two-up">
+    <label class="field">Anzahl der Typenschilder
+      <span class="counter"><button id="decrease" type="button" aria-label="Anzahl verringern">−</button><input id="motorCount" type="number" min="1" max="30" step="1" value="5"><button id="increase" type="button" aria-label="Anzahl erhöhen">+</button></span>
+    </label>
+    <fieldset class="field"><legend>Seiten pro Motor</legend><label class="radio"><input type="radio" name="pages" value="1"> Eine A4-Seite</label><label class="radio"><input type="radio" name="pages" value="2" checked> Zwei A4-Seiten (Vorder- und Rückseite)</label></fieldset>
+  </div>
+  <h3>Verteilung der Motorarten</h3>
+  <div class="mode-switch"><label class="radio"><input type="radio" name="distribution" value="balanced" checked> Möglichst gleichmäßig</label><label class="radio"><input type="radio" name="distribution" value="manual"> Anzahl selbst festlegen</label></div>
+  <div id="typeSelection" class="type-list" aria-label="Motorarten"></div>
+  <div id="distributionError" class="message warn" role="status" aria-live="polite"></div>
+ </section>
+ <section class="card" aria-labelledby="outputTitle">
+  <h2 id="outputTitle">Ausgabe</h2>
+  <h3>Lösungsdokument</h3>
+  <div class="solution-options">
+   <label class="radio"><input type="radio" name="solution" value="none"> Keine Lösungen</label>
+   <label class="radio"><input type="radio" name="solution" value="appendix" checked> Kurzlösungen im Anhang</label>
+   <label class="radio"><input type="radio" name="solution" value="separate"> Separates Lösungsdokument</label>
+   <label class="radio"><input type="radio" name="solution" value="links"> Nur Lösungslinks als QR-Codes</label>
+  </div>
+  <hr>
+  <label class="checkbox"><input id="practiceQR" type="checkbox" checked> Übungs-QR-Code auf jedem Arbeitsblatt</label>
+  <p class="small">Die Lösungen enthalten nur richtige Antworten und kurze Rechenansätze. Ausführliche Erklärungen sind über die digitalen Links verfügbar.</p>
+  <div class="summary" id="summary">5 Typenschilder · 10 Arbeitsblattseiten</div>
+  <button type="button" class="primary" id="generate" disabled>Arbeitsblätter erstellen</button>
+  <div class="message" id="status" role="status" aria-live="polite">Lerntrainer wird geladen …</div>
+ </section>
+ </div>
+ <section class="preview-toolbar" id="previewToolbar" hidden>
+  <div><h2>Arbeitsblatt-Vorschau</h2><p>Kontrolliere die Seiten und verwende anschließend die Druckfunktion des Browsers zum Speichern als PDF.</p></div>
+  <div class="preview-buttons"><button class="primary" id="printSheets">Arbeitsblätter als PDF drucken</button><button class="secondary" id="printSolutions" hidden>Lösungen als PDF drucken</button><button class="secondary" id="printLinks" hidden>Lösungslinks als PDF drucken</button><button class="secondary" id="regenerate">Neu erstellen</button></div>
+ </section>
+</main>
+<div id="printRoot" aria-live="off"><div id="printSheetsRoot"></div><div id="printSolutionsRoot"></div><div id="printLinksRoot"></div></div>
+<iframe id="motorEngine" src="../v20/index.html" title="Interne Motordatenquelle" aria-hidden="true" tabindex="-1" hidden></iframe>
+<script src="qr-engine.js"></script>
+<script src="generator.js"></script>
+</body></html>

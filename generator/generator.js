@@ -123,9 +123,22 @@ function nameplateSnapshot(doc,clean=false){
  // Ursprungsschild verwendet CSS für Gravurschrift, Farben und die unterschiedlichen
  // Schildgenerationen. Das CSS bleibt IN DER SVG und beeinflusst keine Dokumentstile.
  const style=document.createElementNS('http://www.w3.org/2000/svg','style');
- style.textContent=doc.querySelector('style')?.textContent||'';
+ // SVG-interne Regeln sind beim Inline-Einfügen NICHT auf das SVG begrenzt.
+ // Deswegen ausschließlich .plate-Regeln übernehmen, niemals body, button usw.
+ const ruleset=doc.querySelector('style')?.sheet;
+ const plateRules=[];
+ if(ruleset){for(const rule of ruleset.cssRules){
+  if(rule.type!==1)continue;
+  const selectors=rule.selectorText.split(',').map(s=>s.trim()).filter(s=>/^\.plate(?=[\s.#:\[]|$)/.test(s));
+  if(selectors.length)plateRules.push(`${selectors.join(',')}{${rule.style.cssText}}`);
+ }}
+ style.textContent=plateRules.join('\n');
  clone.insertBefore(style,clone.firstChild);
  if(clean){
+  // Gealterte Druckschilder ohne 135 Patina-Ringe und Kratzspuren.
+  clone.querySelectorAll('g[aria-hidden="true"][pointer-events="none"]').forEach(g=>{
+   if(g.querySelectorAll('circle').length>=80)g.remove();
+  });
   clone.classList.add('print-clean');
   const rules=document.createElementNS('http://www.w3.org/2000/svg','style');
   rules.textContent=`.plate.print-clean rect:not(.hit){fill:#ffffff!important} .plate.print-clean rect.hit{fill:transparent!important;stroke:transparent!important} .plate.print-clean text{fill:#161616!important;opacity:1!important;stroke:none!important} .plate.print-clean path,.plate.print-clean line,.plate.print-clean polyline{stroke:#444!important} .plate.print-clean path[fill]:not([fill="none"]),.plate.print-clean polygon{fill:#fff!important} .plate.print-clean stop{stop-color:#ffffff!important} .plate.print-clean pattern *{opacity:0!important} .plate.print-clean circle,.plate.print-clean ellipse{fill:#fff!important;stroke:#666!important}`;
@@ -137,7 +150,7 @@ function nameplateSnapshot(doc,clean=false){
 // Die Datenbank kennt beide Aufgabenformen als Zahleneingabe. Für den Druck
 // brauchen reine Ableseaufgaben jedoch keine grossen Rechenkaestchen.
 const readingQuestionIds=new Set([
- 'current','motorprotectLine','historicCurrent','nomCurrentLow','nomCurrentHigh'
+ 'current','motorprotectLine','historicCurrent','nomCurrentLow','nomCurrentHigh','starvoltage','deltavoltage'
 ]);
 function isReadingQuestion(q){
  if(q.type!=='num')return false;
@@ -148,7 +161,7 @@ function solutionText(q){
  if(q.type==='mc')return q.choices[q.correct];
  const number=Number(q.answer);
  const digits=Math.abs(number)>=100?0:Math.abs(number)<1?3:2;
- return `${number.toLocaleString('de-DE',{maximumFractionDigits:digits,minimumFractionDigits:Math.min(2,digits)})} ${q.unit}`;
+ return `${number.toLocaleString('de-DE',{maximumFractionDigits:digits,minimumFractionDigits:Math.min(2,digits)})}${q.unit==='Faktor'?' (dimensionslos)':` ${q.unit}`}`;
 }
 function questionHtml(selection,n){
  const q=selection.q,reading=isReadingQuestion(q);
@@ -174,7 +187,13 @@ function worksheetPages(sheet){
 function compactSolutions(sheet){
  const rows=sheet.selected.map((sel,i)=>{
    const q=sel.q,ans=solutionText(q);
-   const calc=q.type==='num'&&q.calc?String(q.calc).split('\n').map(x=>x.trim()).find(x=>x.length>=8&&x.length<105):'';
+   const calc=q.type==='num'&&q.calc?(()=>{
+    const lines=String(q.calc).split('\n').map(x=>x.trim()).filter(x=>x.length>=8&&x.length<100);
+    // Bevorzugt den tatsächlich eingesetzten Rechenschritt statt einer allgemeinen
+    // Einheiten-Erläuterung oder einer überschriftartigen Zahlenwertgleichung.
+    return lines.find(x=>/[=≈]/.test(x)&&/\d/.test(x)&&!/^Zahlenwertgleichung/i.test(x))
+      ||lines.find(x=>/[=≈]/.test(x))||'';
+   })():'';
    return `<li><span class="solution-answer">${esc(ans)}</span>${calc?`<span class="solution-calc"> · ${esc(calc)}</span>`:''}</li>`;
  }).join('');
  return `<section class="solution-block"><div class="solution-block-title"><div class="solutions-text"><h3>Motor ${sheet.no}</h3><ol class="solution-list">${rows}</ol></div><div class="solution-code"><a href="${esc(exactUrl(sheet,true))}" aria-label="Lösungen online: Motor ${sheet.no}">${qrVector(exactUrl(sheet,true))}</a><a class="qr-link" href="${esc(exactUrl(sheet,true))}">Lösungen online</a><span class="solution-id sheet-short-code">${sheet.solutionCode}</span><a class="retry-label" href="${esc(exactUrl(sheet))}">Erneut üben</a><span class="practice-id sheet-short-code">${sheet.practiceCode}</span></div></div></section>`;

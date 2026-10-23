@@ -1,20 +1,19 @@
-# Installation – Version 1.0.0
+# Veröffentlichung – V1.0.2
 
-Das gesamte Paket in das Hauptverzeichnis des bestehenden GitHub-Pages-Repositories übertragen.
+Die Dateien aus dem ZIP ins Hauptverzeichnis des bestehenden GitHub-Pages-Repositories kopieren. Vorhandene Dateien mit gleichem Pfad ersetzen und Ordnerstruktur beibehalten.
 
-- `index.html`: aktueller Lerntrainer
-- `motor-hintergrund.webp`: unveränderter Motorhintergrund
-- `generator/`: öffentlicher Arbeitsblattgenerator
-- `v1.0.0/index.html`: feste Zielversion für die neuen Blattcodes
+- `index.html`: aktuelle Lerntrainer-Startseite, korrigiert die Blattcode-Eingabe durch Weiterleitung an die Archivversion
+- `generator/index.html` und `generator/generator.js`: Arbeitsblatt-Generator mit Druck-/Kurzlösungskorrekturen
+- `v1.0.0/index.html`: **Archivziel mit nur Laufzeitkorrekturen** (Zahleneingaben, URL-Parameter, ungültige Codes)
+- Übrige Dateien: unverändert
 
-Beispieladressen für dein bestehendes Repository:
-
+Online-URLs:
 - https://thomas-rea.github.io/Typenschild/
 - https://thomas-rea.github.io/Typenschild/generator/
 - https://thomas-rea.github.io/Typenschild/v1.0.0/
 
-**Wichtig:** Sobald Blätter aus dieser Version verteilt sind, `v1.0.0/index.html` unverändert verfügbar lassen. Ältere archivierte Verzeichnisse (`v20/` bis `v23/`) nicht löschen, falls deren Blattcodes bereits ausgegeben wurden. Andernfalls sind sie für neue Blätter nicht erforderlich.
+**Wichtig:** Die Seed- und Code-Algorithmen sowie Fragen- und Motorgenerierung in `v1.0.0/` dürfen bei künftigen Veröffentlichungen nicht stillschweigend geändert werden. Für inhaltliche Veränderungen einen neuen Archivstand erstellen.
 
-Bei Firefox oder Chromium als Druckziel **„Als PDF speichern“** verwenden. Der Microsoft-PDF-Drucker kann die anklickbaren Links entfernen.
+Mit Firefox „Als PDF speichern“ verwenden, nicht den Windows-PDF-Drucker, wenn anklickbare Links erhalten bleiben sollen.
 
-Commit: `feat: erste stabile Version 1.0.0 mit optimierten Arbeitsblaettern`
+Commit: `fix: V1.0.2 – Blattcodes, Zahleneingaben und Druckkorrekturen`

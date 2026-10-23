@@ -131,3 +131,9 @@
   .solution-page{margin:0!important;box-shadow:none!important;break-after:page;page-break-after:always}
   .solution-page:last-child{break-after:auto;page-break-after:auto}
 }
+
+/* V1.1.0: kurzer Rechenweg statt ganzseitiger Rechenfläche. */
+.paper-question.quick{flex:0 0 auto!important;min-height:0!important;gap:1mm!important}
+.paper-question.quick .short-work{margin-left:5.3mm;width:calc(100% - 5.3mm);height:13mm;flex:0 0 13mm;overflow:hidden}
+.paper-question.quick .short-work svg{display:block}
+.sheet-page.back .paper-question.quick{min-height:0!important}

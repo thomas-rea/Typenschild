@@ -1,6 +1,6 @@
 'use strict';
 /* Generiert ausschließlich lokal im Browser; die Datenquelle ist das archivierte
-   Lerntrainer-Snapshot /v1.0.0/index.html auf derselben GitHub-Pages-Origin. */
+   Lerntrainer-Snapshot /v1.1.0/index.html auf derselben GitHub-Pages-Origin. */
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
@@ -64,24 +64,24 @@ function activateMotorEngine(){
   const api=iframe.contentWindow?.__motorlab;
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
   state.ready=true;
-  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V1.0.0.';
+  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V1.1.0.';
   updateStatus();
   return true;
  }catch(error){return false;}
 }
 iframe.addEventListener('load',()=>{
  if(!activateMotorEngine()){
-  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v1.0.0/ prüfen.';
+  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v1.1.0/ prüfen.';
  }
 });
 iframe.addEventListener('error',()=>{
- if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v1.0.0/ prüfen.';
+ if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v1.1.0/ prüfen.';
 });
 if(!activateMotorEngine()){
  const probe=setInterval(()=>{if(activateMotorEngine())clearInterval(probe);},250);
  setTimeout(()=>{
   clearInterval(probe);
-  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v1.0.0/ prüfen.';
+  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v1.1.0/ prüfen.';
  },12000);
 }
 function seededRandom(){
@@ -113,7 +113,7 @@ function selectQuestions(bank,count){
  return shuffle(chosen).slice(0,count);
 }
 function exactUrl(sheet,solutions=false){
- const url=new URL('../v1.0.0/',document.baseURI);
+ const url=new URL('../v1.1.0/',document.baseURI);
  url.searchParams.set('code',solutions?sheet.solutionCode:sheet.practiceCode);
  return url.href;
 }
@@ -153,6 +153,8 @@ const readingQuestionIds=new Set([
  'current','motorprotectLine','historicCurrent','nomCurrentLow','nomCurrentHigh','starvoltage','deltavoltage'
 ]);
 function isReadingQuestion(q){
+ const api=iframe.contentWindow?.__motorlab;
+ if(api?.worksheetTaskType)return api.worksheetTaskType(q)==='ablesen';
  if(q.type!=='num')return false;
  if(readingQuestionIds.has(q.id))return true;
  return /(?:gib den passenden schildwert|steht (?:f[uü]r|auf|im) (?:die|der|das|dem)|welchen (?:bemessungs[- ]?)?(?:außenleiter)?strom (?:nennt|zeigt|steht)|welcher (?:außenleiter)?strom (?:ist|steht) .*schild)/i.test(q.text);
@@ -163,12 +165,14 @@ function solutionText(q){
  const digits=Math.abs(number)>=100?0:Math.abs(number)<1?3:2;
  return `${number.toLocaleString('de-DE',{maximumFractionDigits:digits,minimumFractionDigits:Math.min(2,digits)})}${q.unit==='Faktor'?' (dimensionslos)':` ${q.unit}`}`;
 }
+function isShortCalculation(q){return iframe.contentWindow?.__motorlab?.worksheetTaskType?.(q)==='kurzrechnung';}
 function questionHtml(selection,n){
- const q=selection.q,reading=isReadingQuestion(q);
+ const q=selection.q,reading=isReadingQuestion(q),shortCalc=isShortCalculation(q);
  const answers=q.type==='mc'?`<div class="paper-choices">${q.choices.map(s=>`<div class="paper-choice">${esc(s)}</div>`).join('')}</div>`:
   reading?`<div class="reading-answer" aria-label="Platz fuer den abgelesenen Wert"></div>`:
+  shortCalc?`<div class="short-work" aria-label="Kurzer Rechenweg"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="shortgrid-${n}" patternUnits="userSpaceOnUse" width="18.897638" height="18.897638"><path d="M 18.897638 0 H 0 V 18.897638" fill="none" stroke="#c6cdd0" stroke-width=".7" /></pattern></defs><rect width="100%" height="100%" fill="url(#shortgrid-${n})" /></svg></div>`:
   `<div class="writing-space" aria-label="Kariertes Rechenfeld"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-${n}" patternUnits="userSpaceOnUse" width="18.897638" height="18.897638"><path d="M 18.897638 0 H 0 V 18.897638" fill="none" stroke="#c6cdd0" stroke-width=".7" /></pattern></defs><rect width="100%" height="100%" fill="url(#grid-${n})" /></svg></div>`;
- return `<article class="paper-question ${q.type==='num'?(reading?'read':'calc'):'mc'}"><div class="paper-qtext"><span class="num">${n}.</span><span>${esc(q.text)}${q.type==='num'?` <span class="unit">[${esc(q.unit)}]</span>`:''}</span></div>${answers}</article>`;
+ return `<article class="paper-question ${q.type==='num'?(reading?'read':shortCalc?'quick':'calc'):'mc'}"><div class="paper-qtext"><span class="num">${n}.</span><span>${esc(q.text)}${q.type==='num'?` <span class="unit">[${esc(q.unit)}]</span>`:''}</span></div>${answers}</article>`;
 }
 function frontHeader(sheet,isBack=false){
  const qr=$('#practiceQR').checked&&!isBack

@@ -77,3 +77,29 @@
 .sheet-page.back .paper-questions{gap:3.2mm}
 .sheet-page.back .paper-question.num{min-height:19mm}
 @media print{.plate-qr a.qr-link{color:#1757bb!important;text-decoration:underline!important}}
+
+/* V1.0.0 – kompakter QR-Link links neben dem Code, schreibraumgerechte Aufgaben. */
+.plate-qr{display:flex!important;flex-direction:row!important;align-items:flex-start!important;justify-content:flex-end!important;gap:1.8mm!important;width:auto!important;flex:0 0 auto!important;text-align:center!important}
+.plate-qr a.qr-link,.plate-qr a.qr-link:visited{display:flex!important;order:0!important;align-items:center!important;flex-direction:column!important;justify-content:flex-start!important;gap:.7mm!important;padding:1mm 0 0!important;text-align:center!important;line-height:1.12!important;white-space:normal!important;width:17mm!important;min-width:17mm!important;flex:0 0 17mm!important;font-size:7.2pt!important;text-decoration:none!important;color:#1757bb!important}
+.plate-qr .qr-link-words{display:flex;align-items:center;flex-direction:column;gap:0}
+.plate-qr .qr-link-words span{text-decoration:underline;text-underline-offset:1px}
+.plate-qr .link-icon{width:3.5mm!important;height:3.5mm!important;display:block!important;flex:none!important}
+.plate-qr a.qr-image{order:1!important;flex:0 0 19mm!important;width:19mm!important;height:19mm!important}
+.plate-qr a.qr-image svg{width:19mm!important;height:19mm!important}
+.sheet-page.print-clean .plate-qr a.qr-link,.sheet-page.print-clean .plate-qr a.qr-link:visited{color:#111!important}
+.sheet-page.print-original .plate-qr a.qr-link,.sheet-page.print-original .plate-qr a.qr-link:visited{color:#1757bb!important}
+.sheet-page.print-clean .paper-plate svg{filter:grayscale(1)!important}
+.paper-question.read{flex:0 0 auto!important;min-height:0!important;padding:0!important;gap:.3mm!important}
+.paper-question.read .reading-answer{margin-left:5.3mm;width:39%;height:5.5mm;flex:0 0 auto;border-bottom:1px solid #8f9690}
+.paper-question.calc{flex:1 1 0!important;min-height:22mm!important}
+.sheet-page.back .paper-question.calc{min-height:20mm!important}
+.sheet-page.back .paper-question.read{min-height:0!important}
+.paper-question.read .paper-qtext{margin:0}
+@media print{
+ .plate-qr{flex-direction:row!important}
+ .sheet-page.print-clean .plate-qr a.qr-link,.sheet-page.print-clean .plate-qr a.qr-link:visited{color:#111!important}
+ .sheet-page.print-original .plate-qr a.qr-link,.sheet-page.print-original .plate-qr a.qr-link:visited{color:#1757bb!important}
+ .sheet-page.print-clean .paper-plate svg{filter:grayscale(1)!important}
+ .paper-question.calc{flex:1 1 0!important}
+ .paper-question.read{flex:0 0 auto!important}
+}

@@ -1,6 +1,6 @@
 'use strict';
 /* Generiert ausschließlich lokal im Browser; die Datenquelle ist das archivierte
-   Lerntrainer-Snapshot /v23/index.html auf derselben GitHub-Pages-Origin. */
+   Lerntrainer-Snapshot /v1.0.0/index.html auf derselben GitHub-Pages-Origin. */
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
@@ -64,24 +64,24 @@ function activateMotorEngine(){
   const api=iframe.contentWindow?.__motorlab;
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
   state.ready=true;
-  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V23.';
+  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V1.0.0.';
   updateStatus();
   return true;
  }catch(error){return false;}
 }
 iframe.addEventListener('load',()=>{
  if(!activateMotorEngine()){
-  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v23/ prüfen.';
+  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v1.0.0/ prüfen.';
  }
 });
 iframe.addEventListener('error',()=>{
- if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v23/ prüfen.';
+ if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v1.0.0/ prüfen.';
 });
 if(!activateMotorEngine()){
  const probe=setInterval(()=>{if(activateMotorEngine())clearInterval(probe);},250);
  setTimeout(()=>{
   clearInterval(probe);
-  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v23/ prüfen.';
+  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v1.0.0/ prüfen.';
  },12000);
 }
 function seededRandom(){
@@ -113,7 +113,7 @@ function selectQuestions(bank,count){
  return shuffle(chosen).slice(0,count);
 }
 function exactUrl(sheet,solutions=false){
- const url=new URL('../v23/',document.baseURI);
+ const url=new URL('../v1.0.0/',document.baseURI);
  url.searchParams.set('code',solutions?sheet.solutionCode:sheet.practiceCode);
  return url.href;
 }
@@ -134,6 +134,16 @@ function nameplateSnapshot(doc,clean=false){
 
  return new XMLSerializer().serializeToString(clone);
 }
+// Die Datenbank kennt beide Aufgabenformen als Zahleneingabe. Für den Druck
+// brauchen reine Ableseaufgaben jedoch keine grossen Rechenkaestchen.
+const readingQuestionIds=new Set([
+ 'current','motorprotectLine','historicCurrent','nomCurrentLow','nomCurrentHigh'
+]);
+function isReadingQuestion(q){
+ if(q.type!=='num')return false;
+ if(readingQuestionIds.has(q.id))return true;
+ return /(?:gib den passenden schildwert|steht (?:f[uü]r|auf|im) (?:die|der|das|dem)|welchen (?:bemessungs[- ]?)?(?:außenleiter)?strom (?:nennt|zeigt|steht)|welcher (?:außenleiter)?strom (?:ist|steht) .*schild)/i.test(q.text);
+}
 function solutionText(q){
  if(q.type==='mc')return q.choices[q.correct];
  const number=Number(q.answer);
@@ -141,19 +151,21 @@ function solutionText(q){
  return `${number.toLocaleString('de-DE',{maximumFractionDigits:digits,minimumFractionDigits:Math.min(2,digits)})} ${q.unit}`;
 }
 function questionHtml(selection,n){
- const q=selection.q;
- const answers=q.type==='mc'?`<div class="paper-choices">${q.choices.map(s=>`<div class="paper-choice">${esc(s)}</div>`).join('')}</div>`:`<div class="writing-space" aria-label="Kariertes Rechenfeld"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-${n}" patternUnits="userSpaceOnUse" width="18.897638" height="18.897638"><path d="M 18.897638 0 H 0 V 18.897638" fill="none" stroke="#c6cdd0" stroke-width=".7" /></pattern></defs><rect width="100%" height="100%" fill="url(#grid-${n})" /></svg></div>`;
- return `<article class="paper-question ${q.type}"><div class="paper-qtext"><span class="num">${n}.</span><span>${esc(q.text)}${q.type==='num'?` <span class="unit">[${esc(q.unit)}]</span>`:''}</span></div>${answers}</article>`;
+ const q=selection.q,reading=isReadingQuestion(q);
+ const answers=q.type==='mc'?`<div class="paper-choices">${q.choices.map(s=>`<div class="paper-choice">${esc(s)}</div>`).join('')}</div>`:
+  reading?`<div class="reading-answer" aria-label="Platz fuer den abgelesenen Wert"></div>`:
+  `<div class="writing-space" aria-label="Kariertes Rechenfeld"><svg width="100%" height="100%" aria-hidden="true"><defs><pattern id="grid-${n}" patternUnits="userSpaceOnUse" width="18.897638" height="18.897638"><path d="M 18.897638 0 H 0 V 18.897638" fill="none" stroke="#c6cdd0" stroke-width=".7" /></pattern></defs><rect width="100%" height="100%" fill="url(#grid-${n})" /></svg></div>`;
+ return `<article class="paper-question ${q.type==='num'?(reading?'read':'calc'):'mc'}"><div class="paper-qtext"><span class="num">${n}.</span><span>${esc(q.text)}${q.type==='num'?` <span class="unit">[${esc(q.unit)}]</span>`:''}</span></div>${answers}</article>`;
 }
 function frontHeader(sheet,isBack=false){
  const qr=$('#practiceQR').checked&&!isBack
- ? `<div class="plate-qr"><a class="qr-link" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen">Online bearbeiten</a><a class="qr-image" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen" aria-label="Online bearbeiten: Motor ${sheet.no}">${qrVector(exactUrl(sheet))}</a></div>` : '';
+ ? `<div class="plate-qr"><a class="qr-link" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen" aria-label="Online bearbeiten: Motor ${sheet.no}"><svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9"/><path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5"/></svg><span class="qr-link-words"><span>Online</span><span>bearbeiten</span></span></a><a class="qr-image" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen" aria-label="QR-Code: Motor ${sheet.no}">${qrVector(exactUrl(sheet))}</a></div>` : '';
  return `<header class="sheet-header"><div class="sheet-header-main"><h2>Motortypenschild</h2>${isBack?'':`<div class="identity"><span>Name: __________________</span><span>Klasse: __________</span><span>Datum: __________</span></div>`}</div>${qr}</header>`;
 }
 function paperPage(sheet,sels,first,last){
  const isBack=!first,pageNo=first?1:2;
  const plate=first?`<div class="plate-row"><div class="paper-plate">${sheet.svg}</div></div>`:'';
- return `<section class="sheet-page ${isBack?'back':''}" data-sheet="${sheet.no}" data-page="${pageNo}">${frontHeader(sheet,isBack)}${plate}<div class="paper-questions">${sels.map((p,j)=>questionHtml(p,j+(first?1:5))).join('')}</div><footer class="paper-foot"><span>Motor ${sheet.no} · Seite ${pageNo} von ${last?2:1}</span><span class="footer-code">Blattcode: ${sheet.practiceCode}</span></footer></section>`;
+ return `<section class="sheet-page ${isBack?'back':''} ${sheet.printStyle==='clean'?'print-clean':'print-original'}" data-sheet="${sheet.no}" data-page="${pageNo}">${frontHeader(sheet,isBack)}${plate}<div class="paper-questions">${sels.map((p,j)=>questionHtml(p,j+(first?1:5))).join('')}</div><footer class="paper-foot"><span>Motor ${sheet.no} · Seite ${pageNo} von ${last?2:1}</span><span class="footer-code">Blattcode: ${sheet.practiceCode}</span></footer></section>`;
 }
 function worksheetPages(sheet){
  if(sides()===1)return paperPage(sheet,sheet.selected,true,false);
@@ -185,7 +197,7 @@ function generate(){
    const selected=engine.worksheetSelection(count,seed);
    const practiceCode=engine.makeWorksheetCode(kind,seed,count,false);
    const solutionCode=engine.makeWorksheetCode(kind,seed,count,true);
-   return {no:i+1,kind,seed,quizSeed,selected,practiceCode,solutionCode,svg:nameplateSnapshot(doc,$('#plateStyle').value==='clean')};
+   return {no:i+1,kind,seed,quizSeed,selected,practiceCode,solutionCode,printStyle:$('#plateStyle').value,svg:nameplateSnapshot(doc,$('#plateStyle').value==='clean')};
   });
   state.sheets=sheets;state.generatedKey=configurationKey();
   $('#printSheetsRoot').innerHTML=sheets.map(worksheetPages).join('');

@@ -1,7 +1,7 @@
-# Motortypenschild-Lerntrainer & Arbeitsblattgenerator
+# Motortypenschild-Lerntrainer und Arbeitsblattgenerator
 
-Interaktive Lernanwendung zum Lesen und Verstehen generierter Motortypenschilder elektrischer Motoren. Unter `generator/` lassen sich druckfertige Übungsblätter und kompakte Lösungsteile zusammenstellen. Über QR-Codes oder Blattcodes öffnet der Lerntrainer passende Aufgaben und Erklärungen.
+Interaktive Lernanwendung zum Lesen und Verstehen generierter Typenschilder von Drehstrommotoren. Unter `generator/` können A4-Arbeitsblätter mit abgestuften Ablese-, Verständnis- und Berechnungsaufgaben erstellt werden.
 
-Der Generator bietet ein- und zweiseitige Arbeitsblätter, Druckoptimierung und eine Auswahl von fünf Motorarten.
+Der Generator bietet ein- und zweiseitige Arbeitsblätter, die Auswahl zwischen Original- und Graustufendarstellung, kompakte Lösungen sowie QR-Codes und kurze Blattcodes. Die QR- und Online-Links führen zum passenden archivierten Lerntrainer.
 
-Die Motor- und Berechnungsdaten sind didaktisch modelliert; für reale Anschlussentscheidungen gelten Herstellerunterlagen und einschlägige Sicherheitsvorschriften.
+Die Motordaten sind didaktisch modellierte Beispiele und keine Herstellerangaben. Bei Arbeiten an realen Maschinen sind die Herstellerdokumentation und die jeweils geltenden Sicherheitsvorgaben maßgeblich.

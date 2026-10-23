@@ -1,6 +1,6 @@
 'use strict';
 /* Generiert ausschließlich lokal im Browser; die Datenquelle ist das archivierte
-   Lerntrainer-Snapshot /v22/index.html auf derselben GitHub-Pages-Origin. */
+   Lerntrainer-Snapshot /v23/index.html auf derselben GitHub-Pages-Origin. */
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
@@ -41,7 +41,7 @@ function updateStatus(){
  const valid=state.mode==='balanced'?state.enabled.size>=1:totalManual()===count;
  const error=$('#distributionError');
  error.textContent=state.mode==='manual'&&!valid?`Du hast ${totalManual()} Motoren zugewiesen, benötigt werden ${count}.`:'';
- $('#summary').textContent=`${count} Typenschilder · ${count*sides()} Arbeitsblattseiten · ${sides()===2?'ca. 8':'ca. 4'} Aufgaben je Motor`;
+ $('#summary').textContent=`${count} Typenschilder · ${count*sides()} Arbeitsblattseiten · ${sides()===2?'10':'4'} Aufgaben je Motor`;
  $('#generate').disabled=!state.ready||!valid;
  return valid;
 }
@@ -64,24 +64,24 @@ function activateMotorEngine(){
   const api=iframe.contentWindow?.__motorlab;
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
   state.ready=true;
-  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V22.';
+  $('#status').textContent='Bereit. Die QR-Codes verlinken den versionierten Lerntrainer V23.';
   updateStatus();
   return true;
  }catch(error){return false;}
 }
 iframe.addEventListener('load',()=>{
  if(!activateMotorEngine()){
-  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v22/ prüfen.';
+  $('#status').textContent='Lerntrainer geladen, aber die Motordaten-Schnittstelle fehlt. Bitte /v23/ prüfen.';
  }
 });
 iframe.addEventListener('error',()=>{
- if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v22/ prüfen.';
+ if(!state.ready)$('#status').textContent='Fehler beim Laden des Lerntrainers. Bitte /v23/ prüfen.';
 });
 if(!activateMotorEngine()){
  const probe=setInterval(()=>{if(activateMotorEngine())clearInterval(probe);},250);
  setTimeout(()=>{
   clearInterval(probe);
-  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v22/ prüfen.';
+  if(!state.ready)$('#status').textContent='Lerntrainer nicht bereit. Bitte Seite neu laden (Strg+F5) und /v23/ prüfen.';
  },12000);
 }
 function seededRandom(){
@@ -113,7 +113,7 @@ function selectQuestions(bank,count){
  return shuffle(chosen).slice(0,count);
 }
 function exactUrl(sheet,solutions=false){
- const url=new URL('../v22/',document.baseURI);
+ const url=new URL('../v23/',document.baseURI);
  url.searchParams.set('code',solutions?sheet.solutionCode:sheet.practiceCode);
  return url.href;
 }
@@ -147,7 +147,7 @@ function questionHtml(selection,n){
 }
 function frontHeader(sheet,isBack=false){
  const qr=$('#practiceQR').checked&&!isBack
- ? `<div class="plate-qr"><a class="qr-link" href="${esc(exactUrl(sheet))}">Online bearbeiten</a><a class="qr-image" href="${esc(exactUrl(sheet))}" aria-label="Online bearbeiten: Motor ${sheet.no}">${qrVector(exactUrl(sheet))}</a></div>` : '';
+ ? `<div class="plate-qr"><a class="qr-link" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen">Online bearbeiten</a><a class="qr-image" href="${esc(exactUrl(sheet))}" title="Digitale Aufgaben öffnen" aria-label="Online bearbeiten: Motor ${sheet.no}">${qrVector(exactUrl(sheet))}</a></div>` : '';
  return `<header class="sheet-header"><div class="sheet-header-main"><h2>Motortypenschild</h2>${isBack?'':`<div class="identity"><span>Name: __________________</span><span>Klasse: __________</span><span>Datum: __________</span></div>`}</div>${qr}</header>`;
 }
 function paperPage(sheet,sels,first,last){
@@ -178,7 +178,7 @@ function generate(){
  $('#generate').disabled=true;$('#status').textContent='Arbeitsblätter werden erstellt …';
  try{
   const kindsToGenerate=distribute(),engine=iframe.contentWindow.__motorlab,doc=iframe.contentDocument;
-  const count=sides()===1?4:8;
+  const count=sides()===1?4:10;
   const sheets=kindsToGenerate.map((kind,i)=>{
    const seed=seededRandom(),quizSeed=(seed^0x9E3779B9)>>>0;
    engine.newMotor({selection:kind,seed,quizSeed});

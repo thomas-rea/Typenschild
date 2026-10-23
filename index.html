@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#14251f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23163f30'/%3E%3Ctext x='24' y='34' font-size='28' text-anchor='middle' fill='white'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
 <title>Motortypenschild verstehen · AP2 Lerntrainer</title>
 <style>
 :root{color-scheme:light;--ink:#192922;--mute:#62746a;--bg:#f4f6f2;--paper:#fff;--line:#dce5df;--forest:#163f30;--green:#17774f;--soft:#eaf4ed;--red:#a53624;--redbg:#fceee9;--gold:#c09537;--rad:15px}
@@ -129,7 +130,7 @@ main.wrap{padding-top:14px}
 <main class="wrap"><div class="plate-actions"><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button></div>
 <div class="plate-wrap"><svg class="plate" id="plate" viewBox="0 0 1000 490" role="group" aria-label="Motortypenschild mit technischen Nenndaten" xmlns="http://www.w3.org/2000/svg"></svg></div>
 <div class="tabs" role="tablist" aria-label="Lernmodus wählen"><button type="button" id="tabLearn" class="tab" role="tab" aria-selected="false" aria-controls="learn">Schild verstehen</button><button type="button" id="tabQuiz" class="tab" role="tab" aria-selected="true" aria-controls="quiz">Prüfungsfragen</button></div>
-<section id="learn" class="panel" role="tabpanel" aria-labelledby="tabLearn"><div class="learning"><div class="card"><h2 id="exTitle">Die Angaben auf dem Motorschild</h2><div id="exValue" class="bigvalue">Δ / Y</div><div id="exBody" class="info-text"></div><div id="exMath"></div><div id="exDiagram"></div><div id="exNote"></div></div><div class="card"><h3>Alle Angaben entdecken</h3><div class="field-nav" id="fieldNav"></div><div class="divider"></div><h3>Die wichtigsten Formeln</h3><div class="formula-stack"><div class="formula-line"><span class="name">Aufgenommene Wirkleistung</span><span class="val" data-formula="lineP"></span></div><div class="formula-line"><span class="name">Wirkungsgrad</span><span class="val" data-formula="eta"></span></div><div class="formula-line"><span class="name">Synchrondrehzahl</span><span class="val" data-formula="ns"></span></div><div class="formula-line"><span class="name">Schlupf</span><span class="val" data-formula="slip"></span></div><div class="formula-line torque-formula">
+<section id="learn" class="panel" hidden role="tabpanel" aria-labelledby="tabLearn"><div class="learning"><div class="card"><h2 id="exTitle">Die Angaben auf dem Motorschild</h2><div id="exValue" class="bigvalue">Δ / Y</div><div id="exBody" class="info-text"></div><div id="exMath"></div><div id="exDiagram"></div><div id="exNote"></div></div><div class="card"><h3>Alle Angaben entdecken</h3><div class="field-nav" id="fieldNav"></div><div class="divider"></div><h3>Die wichtigsten Formeln</h3><div class="formula-stack"><div class="formula-line"><span class="name">Aufgenommene Wirkleistung</span><span class="val" data-formula="lineP"></span></div><div class="formula-line"><span class="name">Wirkungsgrad</span><span class="val" data-formula="eta"></span></div><div class="formula-line"><span class="name">Synchrondrehzahl</span><span class="val" data-formula="ns"></span></div><div class="formula-line"><span class="name">Schlupf</span><span class="val" data-formula="slip"></span></div><div class="formula-line torque-formula">
  <span class="name">Nenndrehmoment – allgemeine physikalische Gleichung</span>
  <span class="val" data-formula="torque"></span>
  <div class="formula-unit">Mit P₂ in <b>W</b> und ω in <b>rad/s</b> erhältst du M in <b>N·m</b>.</div>
@@ -139,7 +140,7 @@ main.wrap{padding-top:14px}
   <div class="formula-unit"><b>Achtung: Diese Form darfst du nur mit P₂ in kW und n in min⁻¹ einsetzen.</b> Das Ergebnis ist dann in N·m. Bei anderen Einheiten musst du vorher umrechnen.</div>
  </div>
 </div></div><div class="helpbox">Für die Synchrondrehzahl bezeichnet <em>p</em> die Polpaarzahl. Beachte bei Zahlenwertgleichungen die ausdrücklich angegebenen Einheiten.</div></div></div></section>
-<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Neue Fragen</button></div><div class="quizframe"><div class="card" id="questionCard" aria-live="polite"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
+<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Neue Fragen</button></div><div class="quizframe"><div class="card" id="questionCard"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
 </main>
 <div class="tipfloat" id="tip" role="tooltip"></div>
 <script>
@@ -154,16 +155,37 @@ const shuffled=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let motor=null,serial=0,selected='volt',mode='quiz',questions=[],qIndex=0,results=[],currentResponse=null;
 const powers=[.37,.55,.75,1.1,1.5,2.2,3,4,5.5,7.5,11,15];
-const frames=[71,80,80,80,90,90,100,112,132,132,160,160];
-// Plausible didaktische Näherungen an typische IEC-Nennwerte – keine Herstellerdaten / IE-Klassenangaben.
-const efficiencies=[.725,.755,.79,.812,.834,.851,.864,.879,.891,.901,.911,.916];
+// IEC-Achshöhen passend zu Leistung und Polzahl. Keine künstlichen +10-mm-Baugrößen.
+const frameByPoles={
+ 2:[71,71,80,80,90,90,100,112,132,132,160,160],
+ 4:[71,80,80,90,90,100,100,112,132,132,160,160],
+ 6:[80,80,90,90,100,112,132,132,132,160,160,180],
+ 8:[90,90,100,112,112,132,132,160,160,180,180,200]
+};
+// EU-Verordnung 2019/1781, Anhang I, Tabellen 1 (IE2) und 2 (IE3), Mindesteta [%] bei 50 Hz.
+// Leistungsreihe: 0,37;0,55;0,75;1,1;1,5;2,2;3;4;5,5;7,5;11;15 kW.
+const efficiencyMinimum={
+ IE2:{
+  2:[69.5,74.1,77.4,79.6,81.3,83.2,84.6,85.8,87.0,88.1,89.4,90.3],
+  4:[72.7,77.1,79.6,81.4,82.8,84.3,85.5,86.6,87.7,88.7,89.8,90.6],
+  6:[67.6,73.1,75.9,78.1,79.8,81.8,83.3,84.6,86.0,87.2,88.7,89.7],
+  8:[56.1,61.7,66.2,70.8,74.1,77.6,80.0,81.9,83.8,85.3,86.9,88.0]
+ },
+ IE3:{
+  2:[73.8,77.8,80.7,82.7,84.2,85.9,87.1,88.1,89.2,90.1,91.2,91.9],
+  4:[77.3,80.8,82.5,84.1,85.3,86.7,87.7,88.6,89.6,90.4,91.4,92.1],
+  6:[73.5,77.2,78.9,81.0,82.5,84.3,85.6,86.8,88.0,89.1,90.3,91.2],
+  8:[69.3,73.0,75.0,77.7,79.7,81.9,83.5,84.8,86.2,87.3,88.6,89.6]
+ }
+};
 const powerFactors=[.70,.72,.74,.755,.77,.79,.805,.823,.836,.850,.858,.866];
-// Nennwerte der Anschlussarten sind didaktische Modellwerte. Die S-Kennung beschreibt den Bemessungsbetrieb.
+// Nennwerte in S2/S3/S6 gelten ausschließlich für die genannte Betriebsart;
+// ohne zusätzliche S1-Angabe darf daraus keine Dauerbetriebsleistung abgeleitet werden.
 const modernDesigns=['silver','blue','graphite','brass','white'];
 const agedDesigns=['agedCopper','agedIron','agedEnamel'];
 const allDesigns=[...modernDesigns,...agedDesigns];
 const insLimit={A:105,E:120,B:130,F:155,H:180};
-const ipFirstMeaning={'2':'Fingerschutz; Fremdkörper ab 12,5 mm','4':'Fremdkörper ab 1 mm','5':'staubgeschützt (kein schädigendes Eindringen)','6':'staubdicht'};
+const ipFirstMeaning={'2':'Fingerschutz; Fremdkörper ab 12,5 mm','4':'Schutz gegen Berühren mit Draht und Fremdkörper ab 1 mm','5':'staubgeschützt (kein schädigendes Eindringen)','6':'staubdicht'};
 const ipSecondMeaning={'0':'kein besonderer Wasserschutz','3':'Schutz gegen Sprühwasser','4':'Schutz gegen Spritzwasser aus allen Richtungen','5':'Schutz gegen Strahlwasser','6':'Schutz gegen starkes Strahlwasser','7':'Schutz gegen zeitweiliges Untertauchen'};
 const dutyMeanings={
  S1:'Dauerbetrieb bei gleichbleibender Last bis zum thermischen Beharrungszustand',
@@ -176,35 +198,49 @@ const dutyDescription=m=>dutyMeanings[dutyCode(m)];
 const digitIP=m=>m.ip.slice(2).split('');
 
 function makeMotor(){
-  const idx=Math.floor(Math.random()*powers.length),P2=powers[idx],poles=pick([2,4,6,8]),pairs=poles/2,ns=3000/pairs;
-  const sizeslip=(P2<1.1?[.045,.08]:P2<4?[.025,.061]:[.014,.045]);
-  const slip=round(sizeslip[0]+Math.random()*(sizeslip[1]-sizeslip[0])+(poles>=6&&P2>=4?.014:0),4);
-  const n=Math.round(ns*(1-slip)/5)*5;
-  const eta=round(Math.min(.94,Math.max(.67,efficiencies[idx]+(Math.random()-.5)*.018-(poles===8?.013:poles===6?.007:0))),3);
-  const cos=round(Math.min(.91,Math.max(.63,powerFactors[idx]+(Math.random()-.5)*.05-(poles===8?.04:poles===6?.017:0))),2);
-  const family=pick(['230/400','400/690']);
-  const Vd=family==='230/400'?230:400, Vy=family==='230/400'?400:690;
-  const P1=P2/eta, IDelta=P1*1000/(SQRT3*Vd*cos),IStar=P1*1000/(SQRT3*Vy*cos);
-  const frame=frames[idx]+(poles===8?10:0),mount=pick(['B3','B5','B14']);
-  const design=pick(allDesigns.filter(d=>!motor||d!==motor.design));
-  const aged=agedDesigns.includes(design);
-  const ins=pick(aged?['E','B','F']:['B','F','F','H']);
-  const ip=pick(aged?['IP23','IP44','IP54','IP55']:['IP44','IP54','IP55','IP55','IP65','IP66']);
-  const duty=pick(['S1','S1','S1','S1','S2 30min','S3 40%','S6 40%']);
-  const manufacturers={
-   silver:['KERNWERK','ELEKTROMOTOREN','KW'],blue:['NORDWELL','DRIVE SYSTEMS','NW'],
-   graphite:['ROTEC','INDUSTRIAL MOTORS','RT'],brass:['WELLENWERK','MOTORENFABRIK','WW'],
-   white:['VOLTARA','ANTRIEBSTECHNIK','VA'],
-   agedCopper:['RHEINWELLE','MASCHINENFABRIK','RW'],agedIron:['ELMATOR','DREHSTROMANTRIEBE','EL'],
-   agedEnamel:['HÜTTENWERK','ELEKTROMASCHINEN','HW']
-  };
-  const [maker,sector,monogram]=manufacturers[design];
-  const year=String(aged?1972+Math.floor(Math.random()*26):2019+Math.floor(Math.random()*8));
-  return {P2,poles,pairs,ns,n,eta,cos,freq:50,family,Vd,Vy,IDelta, IStar, P1, losses:P1-P2,
-    torque:9550*P2/n,slip:(ns-n)/ns,frame,mount,ins,ip,duty,
-    design,maker,sector,monogram,
-    type:`${monogram} ${frame}${poles===2?'S':poles===4?'M':'L'}-${poles}`,year,id:String(58000+Math.floor(Math.random()*9000)),
-    IDispDelta:round(IDelta,2),IDispStar:round(IStar,2)};
+ const idx=Math.floor(Math.random()*powers.length),P2=powers[idx],poles=pick([2,4,6,8]),pairs=poles/2,ns=3000/pairs;
+ const design=pick(allDesigns.filter(d=>!motor||d!==motor.design));
+ const aged=agedDesigns.includes(design);
+ // Historisch anmutende Schilder: Baujahre nach abgeschlossener Umstellung auf 230/400 V.
+ // Echte 220/380-V-Schilder der 1970er/80er sind eine spätere, eigene Lerneinheit.
+ const year=aged?2004+Math.floor(Math.random()*9):2022+Math.floor(Math.random()*5);
+ const duty=pick(aged?['S1','S1','S1','S2 30min','S3 40%','S6 40%']:
+                        ['S1','S1','S1','S1','S1','S2 30min','S3 40%','S6 40%']);
+ const isContinuous=duty==='S1';
+ const requiredIE=P2<.75?'IE2':'IE3';
+ // Nur für neue S1-Standardmotoren wird eine IE-Klasse ausgewiesen.
+ const ie=!aged&&isContinuous?requiredIE:null;
+ const minimum=efficiencyMinimum[requiredIE][poles][idx];
+ // Moderne Bemessungswirkungsgrade liegen über dem gesetzlichen Mindestwert.
+ // Historisch gestaltete Motoren haben plausibel niedrigere Wirkungsgrade, ohne IE-Angabe.
+ const eta=aged
+  ?round(Math.max(.50,(efficiencyMinimum.IE2[poles][idx]-1.2-Math.random()*2.5)/100),3)
+  :round(Math.min(.965,(minimum+.3+Math.random()*.9)/100),3);
+ const sizeslip=(P2<1.1?[.043,.087]:P2<4?[.025,.060]:[.015,.048]);
+ const slipRaw=sizeslip[0]+Math.random()*(sizeslip[1]-sizeslip[0])+(poles>=6&&P2>=4?.010:0);
+ const n=Math.round(ns*(1-slipRaw)/5)*5;
+ const cos=round(Math.min(.92,Math.max(.60,powerFactors[idx]+(Math.random()-.5)*.06-(poles===8?.045:poles===6?.018:0))),2);
+ // Größere Motoren werden überwiegend als 400/690-V-Ausführung dargestellt.
+ const family=P2>=5.5?'400/690':P2>=3?pick(['400/690','400/690','230/400']):pick(['230/400','400/690']);
+ const Vd=family==='230/400'?230:400,Vy=family==='230/400'?400:690;
+ const P1=P2/eta,IDelta=P1*1000/(SQRT3*Vd*cos),IStar=P1*1000/(SQRT3*Vy*cos);
+ const frame=frameByPoles[poles][idx],mount=pick(['B3','B5','B14']);
+ const ins=pick(aged?['E','B','F']:['B','F','F','H']);
+ const ip=pick(aged?['IP23','IP44','IP54','IP55']:['IP44','IP54','IP55','IP55','IP65','IP66']);
+ const manufacturers={
+  silver:['KERNWERK','ELEKTROMOTOREN','KW'],blue:['NORDWELL','DRIVE SYSTEMS','NW'],
+  graphite:['ROTEC','INDUSTRIAL MOTORS','RT'],brass:['WELLENWERK','MOTORENFABRIK','WW'],
+  white:['VOLTARA','ANTRIEBSTECHNIK','VA'],
+  agedCopper:['RHEINWELLE','MASCHINENFABRIK','RW'],agedIron:['ELMATOR','DREHSTROMANTRIEBE','EL'],
+  agedEnamel:['HÜTTENWERK','ELEKTROMASCHINEN','HW']
+ };
+ const [maker,sector,monogram]=manufacturers[design];
+ return {P2,poles,pairs,ns,n,eta,cos,freq:50,family,Vd,Vy,IDelta,IStar,P1,losses:P1-P2,
+  torque:9550*P2/n,slip:(ns-n)/ns,frame,mount,ins,ip,duty,ie,design,maker,sector,monogram,
+  // S/M/L bezeichnet die Baulänge und lässt sich nicht aus der Polzahl ableiten.
+  // Daher absichtlich eine neutrale Typbezeichnung nur mit IEC-Bauhöhe und Polzahl.
+  type:`${monogram} ${frame}-${poles}`,year,id:String(58000+Math.floor(Math.random()*9000)),
+  IDispDelta:round(IDelta,2),IDispStar:round(IStar,2)};
 }
 
 // Mathematische Formelsatz-Darstellung ohne Netzverbindung und ohne externe Bibliothek.
@@ -300,6 +336,10 @@ function additionalReference(key,m){
   const hit=m.P2<1?0:m.P2<4?1:m.P2<11?2:3;
   out+=tableRef('Typische Nennwirkungsgrade', ['Nennleistung P₂','Grobe Orientierung'],rows,hit);
   out+='<p>Die Bereiche sind nur Orientierungswerte. Wirkungsgrad, Polzahl, Baugröße und Effizienzklasse (IE2/IE3/IE4) hängen zusammen; genaue Anforderungen und Werte stehen in den Herstellerdaten beziehungsweise einschlägigen Vorgaben.</p>';
+ }else if(key==='ie'){
+  out+=tableRef('Effizienzklassen (Überblick)',['Klasse','Bedeutung'],[
+   ['IE1','Standard Efficiency'],['IE2','High Efficiency'],['IE3','Premium Efficiency'],['IE4','Super Premium Efficiency']],[ 'IE1','IE2','IE3','IE4'].indexOf(m.ie));
+  out+='<p>Die EU-Mindestwerte sind von Bemessungsleistung und Polzahl abhängig. Bei älteren und nicht kontinuierlich betriebenen Motoren ist eine pauschale Zuordnung unzulässig.</p>';
  }else if(key==='cos'){
   const hit=m.P2<1?0:m.P2<4?1:m.P2<11?2:3;
   out+=tableRef('Typische Leistungsfaktoren bei Nennlast',['Motorgröße','cos φ (ungefähr)'],[
@@ -319,7 +359,7 @@ function additionalReference(key,m){
  }else if(key==='duty'){
   out+=tableRef('Betriebsarten elektrischer Maschinen',['Betriebsart','Bedeutung'],[
    ['S1','Dauerbetrieb bei konstanter Last'],['S2','Kurzzeitbetrieb; danach ausreichende Abkühlung'],['S3','Periodischer Aussetzbetrieb mit Betriebs- und Stillstandszeiten; Anlaufeinfluss vernachlässigbar'],['S4','Periodischer Aussetzbetrieb mit relevantem Anlaufvorgang'],['S6','Ununterbrochener periodischer Betrieb mit Last- und Leerlaufphasen']],['S1','S2','S3','S4','S6'].indexOf(dutyCode(m)));
-  out+='<p>Bei S2, S3 und weiteren Betriebsarten sind zusätzliche Angaben wie Betriebsdauer, Einschaltdauer oder Zyklen entscheidend. Aus S1 allein folgt nicht, dass beliebige Überlast zulässig ist.</p>';
+  out+='<p>Bei S2, S3 und weiteren Betriebsarten sind zusätzliche Angaben wie Betriebsdauer, Einschaltdauer oder Zyklen entscheidend. Aus S1 allein folgt nicht, dass beliebige Überlast zulässig ist. Die angegebenen P₂- und I-Werte gelten ausschließlich für die ausgewiesene Betriebsart; S2/S3/S6 dürfen nicht ohne Weiteres als Dauerbetriebswerte verwendet werden.</p>';
  }else if(key==='ins'){
   out+=tableRef('Thermische Isolierstoffklassen',['Klasse','Grenztemperatur des Isolationssystems'],[
    ['A','105 °C'],['E','120 °C'],['B','130 °C'],['F','155 °C'],['H','180 °C']],['A','E','B','F','H'].indexOf(m.ins));
@@ -333,7 +373,7 @@ function additionalReference(key,m){
 }
 
 const fns={volt:{name:'Spannung und Schaltung',short:'U',value:m=>`${m.Vd} / ${m.Vy} V`,body:m=>`<p>Das Schild gibt die zulässigen <b>Außenleiterspannungen</b> an: <b>${m.Vd} V in Dreieck (Δ)</b> und <b>${m.Vy} V in Stern (Y)</b>. Die Wicklungen benötigen in beiden Nennschaltungen ungefähr ${m.Vd} V.</p><p>Im Dreieck liegt jede Wicklung direkt zwischen zwei Außenleitern. Im Stern erhält jede Wicklung die Außenleiterspannung geteilt durch √3.</p>`,formula:m=>`Δ: U_Wicklung = U_Netz = ${m.Vd} V\nY: U_Wicklung = ${m.Vy} V / √3 ≈ ${f(m.Vy/SQRT3,1)} V`,note:m=>m.Vd===230?'Bei 400 V Netzspannung gehört dieser Motor im Nennbetrieb in Stern. Ein Stern-Dreieck-Anlauf am 400-V-Netz ist nicht zulässig, weil die Wicklung dann in Dreieck 400 V statt 230 V erhielte.':'An einem 400-V-Netz gehört dieser Motor im Nennbetrieb in Dreieck. Stern-Dreieck-Anlauf ist hinsichtlich der Wicklungsspannung möglich, wenn Last, Anlaufmoment und Schaltung dafür geeignet sind.'},
-current:{name:'Bemessungsstrom',short:'I · A',value:m=>`${f(m.IDispDelta)} / ${f(m.IDispStar)} A`,body:m=>`<p>Das sind die <b>Außenleiterströme</b> beim Nennbetrieb: in Dreieck bei ${m.Vd} V etwa <b>${f(m.IDispDelta)} A</b>, in Stern bei ${m.Vy} V etwa <b>${f(m.IDispStar)} A</b>.</p><p>Der Strom ist keine feste Eigenschaft unabhängig von der Schaltung und Last. Bei Nennlast wird er aus elektrischer Leistung, Spannung und Leistungsfaktor bestimmt. Für Motorschutz und Leitungsauswahl ist die tatsächlich vorgesehene Netz-/Anschlussart maßgebend.</p>`,formula:m=>`I ≈ P₂ / (η · √3 · U · cos φ)\nBei ${m.Vd} V: ${f(m.P2)} kW / (η · √3 · U · cos φ) ≈ ${f(m.IDispDelta)} A`,note:()=> 'Die Nennspannungen 230/400 beziehungsweise 400/690 V sind gerundete Normwerte. Daher unterscheiden sich die Stromverhältnisse durch Rundung geringfügig von √3.'},
+current:{name:'Bemessungsstrom',short:'I · A',value:m=>`${f(m.IDispDelta)} / ${f(m.IDispStar)} A`,body:m=>`<p>Das sind die <b>Außenleiterströme</b> beim Nennbetrieb: in Dreieck bei ${m.Vd} V etwa <b>${f(m.IDispDelta)} A</b>, in Stern bei ${m.Vy} V etwa <b>${f(m.IDispStar)} A</b>.</p><p>Der Strom ist keine feste Eigenschaft unabhängig von der Schaltung und Last. Bei Nennlast wird er aus elektrischer Leistung, Spannung und Leistungsfaktor bestimmt. Für Motorschutz und Leitungsauswahl ist die tatsächlich vorgesehene Netz-/Anschlussart maßgebend.</p>`,formula:m=>`I = P₂ / (η · √3 · U · cos φ)\nBei ${m.Vd} V: I = (${f(m.P2,2)} · 1000) / (${f(m.eta,3)} · √3 · ${m.Vd} · ${f(m.cos,2)}) ≈ ${f(m.IDispDelta,2)} A`,note:()=> 'Die Nennspannungen 230/400 beziehungsweise 400/690 V sind gerundete Normwerte. Daher unterscheiden sich die Stromverhältnisse durch Rundung geringfügig von √3.'},
 power:{name:'Mechanische Nennleistung',short:'P₂ · kW',value:m=>`${f(m.P2,2)} kW`,body:m=>`<p>Die kW-Angabe auf dem üblichen Motorschild bezeichnet die <b>abgegebene mechanische Nennleistung an der Welle</b>, also P₂ – nicht die elektrische Aufnahmeleistung P₁.</p><p>Wegen Verlusten (Erwärmung, Reibung und elektrische Verluste) muss der Motor aus dem Netz mehr Leistung aufnehmen, als er mechanisch abgibt.</p>`,formula:m=>`P₁ = P₂ / η = ${f(m.P2,2)} / ${f(m.eta,3)} ≈ ${f(m.P1,2)} kW`,note:()=> 'Die Angabe gilt für den Bemessungsbetrieb. Bei veränderter Belastung ändern sich Strom und Wirkungsgrad.'},
 cos:{name:'Leistungsfaktor cos φ',short:'cos φ',value:m=>f(m.cos,2),body:m=>`<p><b>cos φ</b> ist der Leistungsfaktor. Bei einem annähernd sinusförmig gespeisten Asynchronmotor beschreibt er das Verhältnis von <b>Wirkleistung P</b> zu <b>Scheinleistung S</b>: P = S · cos φ.</p><p>Der Motor braucht auch Blindleistung, um sein Magnetfeld aufzubauen. Darum ist die Scheinleistung größer als die Wirkleistung und der Strom bei gleichem P größer als bei cos φ = 1.</p><p>Wichtig: <b>cos φ und Wirkungsgrad η sind zwei verschiedene Größen.</b></p>`,formula:m=>`S ≈ P₁ / cos φ = ${f(m.P1,2)} / ${f(m.cos,2)} ≈ ${f(m.P1/m.cos,2)} kVA`,note:()=> 'Bei nichtsinusförmigen Strömen, etwa direkt am Umrichtereingang, sind cos φ und der gesamte Leistungsfaktor nicht zwingend identisch. Hier wird der Netzbetrieb des Motors betrachtet.'},
 eff:{name:'Wirkungsgrad η',short:'η · %',value:m=>`${f(100*m.eta,1)} %`,body:m=>`<p>Der Wirkungsgrad gibt an, welcher Anteil der <b>aufgenommenen elektrischen Wirkleistung</b> als mechanische Leistung an der Welle ankommt.</p><p>Beispiel: Bei η = ${f(m.eta,3)} werden etwa ${f(m.eta*100,1)} % der aufgenommenen Wirkleistung mechanisch nutzbar. Der Rest wird unter anderem zu Wärme.</p><p>Er ist nicht mit dem Leistungsfaktor cos φ zu verwechseln.</p>`,formula:m=>`η = P₂ / P₁ = ${f(m.eta,3)}\nP₁ = ${f(m.P2,2)} / ${f(m.eta,3)} ≈ ${f(m.P1,2)} kW\nVerluste ≈ ${f(m.losses*1000,0)} W`,note:()=> 'Der Nennwirkungsgrad ist ein Bemessungswert, nicht bei jeder Drehzahl und Last konstant.'},
@@ -348,9 +388,10 @@ ip:{name:'Schutzart',short:'IP',value:m=>m.ip,
 ins:{name:'Thermische Isolierstoffklasse',short:'Isol.',value:m=>`Kl. ${m.ins}`,
  body:m=>`<p>Die thermische Klasse <b>${m.ins}</b> bezeichnet eine thermische Grenztemperatur von <b>${insLimit[m.ins]} °C</b> für das Isolationssystem.</p><p>Das ist weder die zulässige Umgebungstemperatur noch die Oberflächentemperatur des Gehäuses.</p>`,
  formula:()=>'',note:()=> 'Die zulässige Temperaturerhöhung hängt zusätzlich von Umgebungstemperatur und Bemessungsbedingungen ab.'},
+ie:{name:'Effizienzklasse',short:'IE',value:m=>m.ie||'–',body:m=>`<p>Die Effizienzklasse <b>${m.ie||'–'}</b> ordnet den Bemessungswirkungsgrad nach Motorleistung und Polzahl ein. <b>IE2</b> bedeutet hohe, <b>IE3</b> Premium- und <b>IE4</b> Super-Premium-Effizienz. Die Mindestwirkungsgrade sind nicht für alle Leistungen und Polzahlen identisch.</p><p>Für viele neue dreiphasige Standardmotoren mit S1-Betrieb gelten in der EU seit 2021 mindestens IE3 ab 0,75 kW sowie IE2 darunter. Es bestehen Ausnahmen und strengere Anforderungen für bestimmte größere Motoren.</p>`,formula:m=>`η = ${f(m.eta*100,1)} %; ausgewiesene Klasse: ${m.ie||'–'}`,note:()=> 'Die Klasse bezieht sich auf den Wirkungsgrad im definierten Bemessungspunkt, nicht auf cos φ. Historische und Sondermotoren können ohne IE-Kennzeichnung dargestellt sein.'},
 mount:{name:'Bauform',short:'IM B3 / B5',value:m=>`IM ${m.mount}`,body:m=>`<p>Die Bauform beschreibt die mechanische Montage: ${m.mount==='B3'?'<b>B3:</b> Fußmotor mit waagerechter Welle.':m.mount==='B5'?'<b>B5:</b> Flanschmotor mit großem Flansch.':'<b>B14:</b> Flanschmotor mit kleinem Flansch.'}</p><p>Sie beeinflusst die mechanische Einbaubarkeit und Befestigung, nicht die Stern-/Dreieck-Zuordnung.</p>`,formula:()=>'',note:()=> 'Die Bauform muss zu Maschine, Einbaulage und Lagerbeanspruchung passen.'}
 };
-const fkeys=['volt','current','power','cos','eff','rpm','freq','duty','ip','ins','mount'];
+const fkeys=['volt','current','power','cos','eff','rpm','freq','duty','ip','ins','mount','ie'];
 
 const plateSizes={
  silver:{w:1000,h:490,ox:0,oy:0,corner:18,kind:'standard'},
@@ -399,13 +440,13 @@ function motorPlate(m){
    const id=esc(key),field=esc(fns[key].name);
    const labY=y+Math.min(24,h*.34),valY=y+h-12;
    const renderedFont=key==='duty'&&val.length>5?Math.min(fs,22):fs;
-   return `<g class="field ${selected===key?'active':''}" data-field="${id}" tabindex="0" role="button" aria-label="${field}: ${esc(val)}" aria-pressed="${selected===key}"><rect class="hit" x="${x+2}" y="${y+2}" width="${w-4}" height="${h-4}" rx="3"/><text class="label" x="${x+12}" y="${labY}" font-size="${h<72?14:16}">${esc(lab)}</text><text class="stamp" x="${x+12}" y="${valY}" font-size="${renderedFont}">${esc(val)}</text></g>`;
+   return `<g class="field ${selected===key?'active':''}" data-field="${id}" tabindex="${mode==='learn'?0:-1}" ${mode==='learn'?`role="button" aria-label="${field}: ${esc(val)}" aria-pressed="${selected===key}"`:''}><rect class="hit" x="${x+2}" y="${y+2}" width="${w-4}" height="${h-4}" rx="3"/><text class="label" x="${x+12}" y="${labY}" font-size="${h<72?14:16}">${esc(lab)}</text><text class="stamp" x="${x+12}" y="${valY}" font-size="${renderedFont}">${esc(val)}</text></g>`;
  };
  const cells={
   volt:['volt','U',`${m.Vd} / ${m.Vy} V`],
   current:['current','I',`${f(m.IDispDelta)} / ${f(m.IDispStar)} A`],
   power:['power','P₂',`${f(m.P2)} kW`],
-  rpm:['rpm','n N',`${fi(m.n)} min⁻¹`],
+  rpm:['rpm','n',`${fi(m.n)} min⁻¹`],
   freq:['freq','f',`${m.freq} Hz`],
   cos:['cos','cos φ',`${f(m.cos)}`],
   eff:['eff','η',`${f(m.eta*100,1)} %`],
@@ -476,16 +517,51 @@ function motorPlate(m){
  <text class="label" x="74" y="111" font-size="15">TYP</text><text class="stamp" x="125" y="111" font-size="24">${esc(m.type)}</text><text class="label" x="641" y="111" font-size="16">S/N</text><text class="stamp" x="693" y="111" font-size="20">${esc(m.id)} / ${m.year}</text>
  <g class="frame-lines">${graphics}</g>${grid}
  <text class="label" x="75" y="431" font-size="15">${agedDesigns.includes(m.design)?'DREHSTROM-ASYNCHRONMOTOR':'3 ~ ASYNCHRONMOTOR · IEC 60034'}</text>
- <text class="label" x="850" y="431" text-anchor="end" font-size="15">50 Hz · 3~</text>
+ ${m.ie?`<g class="field ${selected==='ie'?'active':''}" data-field="ie" tabindex="${mode==='learn'?0:-1}" ${mode==='learn'?'role="button" aria-label="Effizienzklasse '+m.ie+'"':''}><rect class="hit" x="680" y="406" width="75" height="38" rx="3"/><text class="stamp" x="688" y="432" font-size="24">${m.ie}</text></g>`:''}
+ <text class="label" x="920" y="431" text-anchor="end" font-size="15">50 Hz · 3~</text>
  </g>`;
 
 }
 
-function info(key){const x=fns[key];if(!x)return;selected=key;const m=motor;$('#exTitle').textContent=x.name;$('#exValue').textContent=x.value(m);$('#exBody').innerHTML=x.body(m);const formula=x.formula(m);$('#exMath').innerHTML=mathSection(key,formula)+additionalReference(key,m);$('#exDiagram').innerHTML=key==='volt'?windingDiagram():'';$('#exNote').innerHTML=`<div class="note">${x.note(m)}</div>`;$('#fieldNav').innerHTML=fkeys.map(k=>`<button type="button" class="fieldbtn" data-key="${k}" aria-pressed="${selected===k}"><b>${esc(fns[k].name)}</b><small>${esc(fns[k].value(m))}</small></button>`).join('');$('#plate').className.baseVal='plate theme-'+m.design;$('#plate').setAttribute('viewBox',plateSize(m.design));$('#plate').innerHTML=motorPlate(m);bindFields();}
+function info(key){const x=fns[key];if(!x)return;selected=key;const m=motor;$('#exTitle').textContent=x.name;$('#exValue').textContent=x.value(m);$('#exBody').innerHTML=x.body(m);const formula=x.formula(m);$('#exMath').innerHTML=mathSection(key,formula)+additionalReference(key,m);$('#exDiagram').innerHTML=key==='volt'?windingDiagram():'';$('#exNote').innerHTML=`<div class="note">${x.note(m)}</div>`;$('#fieldNav').innerHTML=fkeys.filter(k=>k!=='ie'||m.ie).map(k=>`<button type="button" class="fieldbtn" data-key="${k}" aria-pressed="${selected===k}"><b>${esc(fns[k].name)}</b><small>${esc(fns[k].value(m))}</small></button>`).join('');$('#plate').className.baseVal='plate theme-'+m.design;$('#plate').setAttribute('viewBox',plateSize(m.design));$('#plate').innerHTML=motorPlate(m);bindFields();}
 function bindFields(){document.querySelectorAll('#plate .field').forEach(el=>{const key=el.dataset.field;el.addEventListener('click',()=>{if(mode!=='learn')return;info(key);});el.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();if(mode==='learn')info(key);}});el.addEventListener('pointermove',ev=>{if(ev.pointerType==='touch'||mode!=='learn')return;const t=$('#tip');t.innerHTML=`<b>${esc(fns[key].name)}</b><br>${esc(fns[key].value(motor))}`;t.style.left=Math.min(ev.clientX+17,window.innerWidth-270)+'px';t.style.top=Math.max(8,ev.clientY-62)+'px';t.classList.add('show');});el.addEventListener('pointerleave',()=>$('#tip').classList.remove('show'));el.addEventListener('blur',()=>$('#tip').classList.remove('show'));});}
 $('#fieldNav').addEventListener('click',ev=>{const el=ev.target.closest('[data-key]');if(el) info(el.dataset.key);});
-function switchMode(next){mode=next;$('#tip').classList.remove('show');$('.plate-wrap').classList.toggle('quiz-view',next==='quiz');for(const [id,btn] of [['learn','#tabLearn'],['quiz','#tabQuiz']]){$('#'+id).classList.toggle('on',id===mode);$(btn).setAttribute('aria-selected',String(id===mode));} }
-$('#tabLearn').onclick=()=>switchMode('learn');$('#tabQuiz').onclick=()=>switchMode('quiz');
+function switchMode(next){
+ mode=next;
+ $('#tip').classList.remove('show');
+ $('.plate-wrap').classList.toggle('quiz-view',next==='quiz');
+ for(const [id,tabId] of [['learn','tabLearn'],['quiz','tabQuiz']]){
+  const active=id===mode, panel=$('#'+id), tab=$('#'+tabId);
+  panel.classList.toggle('on',active);
+  panel.hidden=!active;
+  tab.classList.toggle('on',active);
+  tab.setAttribute('aria-selected',String(active));
+  tab.tabIndex=active?0:-1;
+ }
+ document.querySelectorAll('#plate .field').forEach(el=>{
+  const isInteractive=next==='learn';
+  el.tabIndex=isInteractive?0:-1;
+  if(isInteractive){
+   el.setAttribute('role','button');
+   el.setAttribute('aria-label',fns[el.dataset.field]?.name||'Angabe');
+   el.setAttribute('aria-pressed',String(selected===el.dataset.field));
+  }else{
+   el.removeAttribute('role');el.removeAttribute('aria-pressed');
+   el.removeAttribute('aria-label');
+  }
+ });
+}
+$('#tabLearn').onclick=()=>switchMode('learn');
+$('#tabQuiz').onclick=()=>switchMode('quiz');
+for(const tab of [$('#tabLearn'),$('#tabQuiz')]){
+ tab.addEventListener('keydown',event=>{
+  if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;
+  event.preventDefault();
+  const next=event.key==='Home'?'learn':event.key==='End'?'quiz':mode==='learn'?'quiz':'learn';
+  switchMode(next);
+  $(next==='learn'?'#tabLearn':'#tabQuiz').focus();
+ });
+}
 
 function mc(id,tag,text,choices,right,why,calc='') {return {id,tag,type:'mc',text,choices,correct:right,why,calc};}
 function num(id,tag,text,answer,unit,why,calc,tol=.02){return {id,tag,type:'num',text,answer,unit,why,calc,tol};}
@@ -528,17 +604,17 @@ function buildQuestions(m){
   'Sie gibt die maximale Temperatur der Umgebungsluft an'],1,
  `Isolierstoffklasse ${m.ins}: thermische Grenztemperatur ${insLimit[m.ins]} °C für das Isolationssystem. Das ist weder die maximal zulässige Umgebungstemperatur noch die Gehäusetemperatur.`,''));
  out.push(num('inputfromline','Rechnen',`Der Motor wird an einem 400-V-Drehstromnetz in der zulässigen Nennschaltung betrieben. Welche elektrische Wirkleistung nimmt er auf? Berechne sie über die Außenleitergrößen und gib das Ergebnis in kW an.`,SQRT3*400*round(I400,2)*m.cos/1000,'kW',`Bei symmetrischem sinusförmigem Drehstrom gilt P₁ = √3 · U_L · I_L · cos φ. Nutze den zum 400-V-Netz gehörigen Außenleiterstrom aus dem Motorschild. Wegen gerundeter Nennspannungen und aufgedruckter Werte kann dieses Ergebnis leicht von P₂/η abweichen.`,`P₁ ≈ √3 · 400 · ${f(round(I400,2))} · ${f(m.cos)} / 1000\n≈ ${f(SQRT3*400*round(I400,2)*m.cos/1000,3)} kW`,.02));
- out.push(mc('230net','Anschluss',`Der Motor soll an einem Drehstromnetz mit 230 V Außenleiterspannung seine Nennleistung abgeben. Was gilt?`,['In Stern bei 230 V','In Dreieck bei 230 V','In Stern oder Dreieck wahlweise','Mit keiner der beiden Nennschaltungen möglich'],m.Vd===230?1:3,m.Vd===230?`Der Motor trägt ${m.Vd}/${m.Vy} V (Δ/Y). Dreieck bei 230 V ist der vorgesehene Nennbetrieb am 230-V-Netz.`:`Dieser Motor ist für ${m.Vd} V in Dreieck und ${m.Vy} V in Stern bemessen. Bei 230 V außenleiterspannung erreicht er damit nicht seine Nennspannung je Wicklung und kann die angegebenen Nennbedingungen nicht einhalten.`,`Δ ${m.Vd} V · Y ${m.Vy} V`));
+ out.push(mc('230net','Anschluss',`Der Motor soll an einem Drehstromnetz mit 230 V Außenleiterspannung seine Nennleistung abgeben. Was gilt?`,['In Stern bei 230 V','In Dreieck bei 230 V','In Stern oder Dreieck wahlweise','Mit keiner der beiden Nennschaltungen möglich'],m.Vd===230?1:3,m.Vd===230?`Der Motor trägt ${m.Vd}/${m.Vy} V (Δ/Y). Dreieck bei 230 V ist der vorgesehene Nennbetrieb am 230-V-Netz.`:`Dieser Motor ist für ${m.Vd} V in Dreieck und ${m.Vy} V in Stern bemessen. Bei 230 V Außenleiterspannung erreicht er damit nicht seine Nennspannung je Wicklung und kann die angegebenen Nennbedingungen nicht einhalten.`,`Δ ${m.Vd} V · Y ${m.Vy} V`));
  out.push(mc('690net','Anschluss',`Der Motor soll am Drehstromnetz mit 690 V Außenleiterspannung im angegebenen Nennbetrieb laufen. Wie ist er anzuschließen?`,['Stern (Y)','Dreieck (Δ)','Über beide Schaltungen gleichermaßen','Keine der Nennschaltungen ist geeignet'],m.Vy===690?0:3,m.Vy===690?`Bei ${m.Vd}/${m.Vy} V gilt: Die Stern-Nennspannung beträgt ${m.Vy} V. Daher ist bei einem 690-V-Netz Stern korrekt.`:`Das Schild nennt ${m.Vd}/${m.Vy} V. Bei 690 V wäre die Wicklungsspannung in Stern etwa 398 V, zulässig wären jedoch rund ${m.Vd} V. Daher keine der Nennschaltungen bei 690 V geeignet.`,`Δ ${m.Vd} V · Y ${m.Vy} V`));
 
  // Weitere eigenständige Aufgabenfamilien – Antworten werden immer aus dem aktuellen Motor berechnet.
  out.push(mc('pairs','Drehfeld','Wie viele Polpaare besitzt dieser Motor?',
  ['1 Polpaar','2 Polpaare','3 Polpaare','4 Polpaare'],m.pairs-1,
  `Die Nenndrehzahl liegt unter der synchronen Drehzahl von ${fi(m.ns)} min⁻¹. Bei 50 Hz entspricht das ${m.pairs} Polpaaren bzw. ${m.poles} Polen.`,
- `p = 60 · 50 / ${fi(m.ns)} = ${m.pairs} Polpaare.`));
+ `Abgelesene Nenndrehzahl ${fi(m.n)} min⁻¹ → nächsthöhere typische Synchrondrehzahl ${fi(m.ns)} min⁻¹ (bei 50 Hz) → p = 60 · 50 / ${fi(m.ns)} = ${m.pairs}.`));
  out.push(num('syncrpm','Drehfeld','Berechne die synchrone Drehfelddrehzahl des Motors bei der auf dem Schild angegebenen Frequenz.',m.ns,'min⁻¹',
  'Die Polpaarzahl lässt sich aus der Nenndrehzahl erschließen. Die synchrone Drehfelddrehzahl ist immer etwas höher als die Nennrotordrehzahl.',
- `nₛ = 60 · f / p = 60 · ${m.freq} / ${m.pairs} = ${fi(m.ns)} min⁻¹`,.001));
+ `n = ${fi(m.n)} min⁻¹ → synchrone Drehzahl ${fi(m.ns)} min⁻¹ → p = ${m.pairs} → nₛ = 60 · ${m.freq} / ${m.pairs} = ${fi(m.ns)} min⁻¹`,.001));
  out.push(num('slipdiff','Drehfeld','Wie groß ist die Drehzahldifferenz zwischen Drehfeld und Rotor bei Nennbetrieb?',m.ns-m.n,'min⁻¹',
  'Gesucht ist die absolute Schlupfdrehzahl, nicht der prozentuale Schlupf.',
  `Δn = nₛ − n = ${fi(m.ns)} − ${fi(m.n)} = ${fi(m.ns-m.n)} min⁻¹`,.001));
@@ -604,16 +680,22 @@ function buildQuestions(m){
  ['Er steigt auf das Dreifache','Er sinkt auf ungefähr ein Drittel','Er bleibt gleich','Er wird vollständig null'],1,
  'Beim Sternanlauf ist die Wicklungsspannung um den Faktor √3 kleiner. Im vereinfachten Modell sinkt der Außenleiter-Anlaufstrom gegenüber dem direkten Dreieckanlauf auf rund ein Drittel.',
  'Iₐ,Y ≈ Iₐ,Δ / 3.'));
- return out;
+ if(m.ie)out.push(mc('ieclass','Effizienz','Was bedeutet die auf dem Typenschild angegebene IE-Klasse?',
+  ['Sie kennzeichnet die Energieeffizienz des Motors bei definierten Bemessungsbedingungen',
+   'Sie gibt die Strombelastbarkeit der Motorleitung an',
+   'Sie beschreibt die Schutzwirkung gegen Staub und Wasser',
+   'Sie zeigt die Polzahl des Motors an'],0,
+  `${m.ie}: eine Wirkungsgradklasse nach Leistung, Polzahl und definierten Bemessungsbedingungen. Der aufgedruckte Wirkungsgrad beträgt ${f(m.eta*100,1)} %.`,''));
+ return out.filter(q=>!['230net','690net'].includes(q.id));
 }
 // Prüfungsdurchgänge enthalten verschiedene Kompetenzen. Bereits gestellte Aufgaben
 // desselben Motors werden bei Folgedurchgängen nachrangig behandelt.
 let usedQuestionIds = new Set();
 const questionGroups = [
- ['connect','stardelta','winding','230net','690net','starvoltage','deltavoltage','net230','net690','startcurrentratio'],
+ ['connect','stardelta','winding','starvoltage','deltavoltage','net230','net690','startcurrentratio'],
  ['p1','loss','torque','appar','inputfromline','p2watts','losspercent','reactive'],
  ['poles','slip','syncrpm','slipdiff','shaftfreq','angular','pairs','polefrequency'],
- ['ip','s1','F','mount','ipfirst','ipsecond','insulation','dutyinterpret'],
+ ['ip','s1','F','mount','ipfirst','ipsecond','insulation','dutyinterpret','ieclass'],
  ['p2','cos','eta','overload','currentratio','motortype','phivseta','mechanicalenergy','current']
 ];
 const wordings = {
@@ -679,15 +761,17 @@ function startQuiz(){
 }
 
 function qFeedbackHTML(q,ok,userVal){const correct=q.type==='mc'?q.choices[q.correct]:`${f(q.answer, q.answer>=100?0:2)} ${q.unit}`;
- return `<div class="feedback ${ok?'':'bad'}"><div class="ft">${ok?'✓ Richtig beantwortet':'✕ Nicht richtig'}</div>${ok?'':`<p><b>Richtige Antwort:</b> ${esc(correct)}</p>`}<p>${esc(q.why)}</p>${q.calc?`<div class="step">${esc(q.calc)}</div>`:''}</div>`;}
+ return `<div role="status" aria-live="polite" class="feedback ${ok?'':'bad'}"><div class="ft">${ok?'✓ Richtig beantwortet':'✕ Nicht richtig'}</div>${ok?'':`<p><b>Richtige Antwort:</b> ${esc(correct)}</p>`}<p>${esc(q.why)}</p>${q.calc?`<div class="step">${esc(q.calc)}</div>`:''}</div>`;}
 function checkNumber(user,correct,tol){return Math.abs(user-correct)<=Math.max(Math.abs(correct)*tol,correct<1?.006:correct<10?.03:correct<100?.15:.6);}
 function submitNumber(){const q=questions[qIndex];if(!q||q.type!=='num'||currentResponse)return;const v=$('#numberValue').value.trim().replace(/\s/g,'');if(!/^[-+]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(v)){ $('#numberValue').setAttribute('aria-invalid','true');$('#nErr').textContent='Bitte nur die Zahl eingeben, ohne Einheit (Komma oder Punkt möglich).';return;}const value=Number(v.replace(',','.'));if(!Number.isFinite(value)){ $('#nErr').textContent='Bitte eine gültige Zahl eingeben.';return;}grade(checkNumber(value,q.answer,q.tol),value);}
-function grade(ok,value){if(currentResponse)return;currentResponse={ok,value};results.push({id:questions[qIndex].id,ok,text:questions[qIndex].text});paintQuiz();}
+function grade(ok,value){if(currentResponse)return;currentResponse={ok,value};results.push({id:questions[qIndex].id,ok,text:questions[qIndex].text});paintQuiz();
+ const next=$('#nextQ');if(next)next.focus();
+}
 function paintQuiz(){const el=$('#questionCard');const total=questions.length;$('#qcount').textContent=Math.min(qIndex+1,total)+' / '+total;$('#qright').textContent=results.filter(x=>x.ok).length;$('#qwrong').textContent=results.filter(x=>!x.ok).length;
- if(qIndex>=total){const correct=results.filter(r=>r.ok).length;el.innerHTML=`<div class="qdone"><div class="eyebrow">Durchgang beendet</div><div class="score">${correct} / ${total}</div><h2>${correct>=13?'Sehr gut!':correct>=9?'Gute Grundlage.':'Hier lohnt sich Wiederholung.'}</h2><p class="muted">Du hast ${Math.round(correct/total*100)} % der Aufgaben richtig beantwortet. Die Fragen beziehen sich auf das aktuelle Motortypenschild.</p><div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:17px"><button type="button" class="btn" id="again">Noch ein Durchgang</button><button type="button" class="btn ghost" id="nextMotorQuiz">Neuer Motor</button></div><div class="review">${results.filter(x=>!x.ok).slice(0,8).map(x=>`<div class="review-item bad"><strong>↻</strong><span>${esc(x.text)}</span></div>`).join('')||'<p>Keine Fehler in diesem Durchgang!</p>'}</div></div>`;$('#again').onclick=startQuiz;$('#nextMotorQuiz').onclick=()=>{newMotor();switchMode('quiz')};return;}
+ if(qIndex>=total){const correct=results.filter(r=>r.ok).length;el.innerHTML=`<div class="qdone"><div class="eyebrow">Durchgang beendet</div><div class="score">${correct} / ${total}</div><h2>${correct/total>=.85?'Sehr gut!':correct/total>=.60?'Gute Grundlage.':'Hier lohnt sich Wiederholung.'}</h2><p class="muted">Du hast ${Math.round(correct/total*100)} % der Aufgaben richtig beantwortet. Die Fragen beziehen sich auf das aktuelle Motortypenschild.</p><div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:17px"><button type="button" class="btn" id="again">Noch ein Durchgang</button><button type="button" class="btn ghost" id="nextMotorQuiz">Neuer Motor</button></div><div class="review">${results.filter(x=>!x.ok).slice(0,8).map(x=>`<div class="review-item bad"><strong>↻</strong><span>${esc(x.text)}</span></div>`).join('')||'<p>Keine Fehler in diesem Durchgang!</p>'}</div></div>`;$('#again').onclick=startQuiz;$('#nextMotorQuiz').onclick=()=>{newMotor();switchMode('quiz')};return;}
  const q=questions[qIndex],answered=!!currentResponse;const progress=Math.round(qIndex/total*100);
- el.innerHTML=`<div class="qtop"><span class="pill">${esc(q.tag)}</span><span class="muted" style="font-size:12px">${qIndex+1} von ${total}</span></div><div class="progress" aria-label="Quizfortschritt"><i style="width:${progress}%"></i></div><h3 class="qtitle">${esc(q.text)}</h3>${q.type==='mc'?`<div class="choices">${q.choices.map((c,i)=>`<button class="choice ${answered&&i===q.correct?'correct':''} ${answered&&i===currentResponse.value&&!currentResponse.ok?'wrong':''}" data-ans="${i}" ${answered?'disabled':''}><span class="idx">${i+1}</span><span>${esc(c)}</span></button>`).join('')}</div>`:`<div class="answerbox"><label for="numberValue">Dein Rechenergebnis</label><div class="inp-row"><input class="numberin" id="numberValue" inputmode="decimal" autocomplete="off" type="text" placeholder="z. B. 2,45" ${answered?'disabled':''} value="${answered?esc(String(currentResponse.value).replace('.',',')):''}"><span class="unit">${esc(q.unit)}</span></div><div id="nErr" style="color:var(--red);font-size:12px" aria-live="polite"></div></div>`}${answered?qFeedbackHTML(q,currentResponse.ok,currentResponse.value):''}<div class="qactions">${answered?`<button class="btn" id="nextQ">${qIndex===total-1?'Auswertung anzeigen':'Nächste Aufgabe →'}</button>`:q.type==='num'?`<button class="btn" id="checkN">Antwort prüfen</button>`:''}</div>${q.type==='num'&&!answered?`<div class="helpbox"><details><summary>Rechenhilfe anzeigen</summary><p>${esc(q.tag==='Rechnen'?'Überlege, welche Formel die gesuchte Größe mit den Angaben auf dem Schild verbindet. Achte auf kW, W und Prozent.':'Nimm die passenden Angaben aus dem Schild.')}</p></details></div>`:''}`;
- if(answered){$('#nextQ').onclick=()=>{qIndex++;currentResponse=null;paintQuiz();};}
+ el.innerHTML=`<div class="qtop"><span class="pill">${esc(q.tag)}</span><span class="muted" style="font-size:12px">${qIndex+1} von ${total}</span></div><div class="progress" aria-label="Quizfortschritt"><i style="width:${progress}%"></i></div><h3 class="qtitle">${esc(q.text)}</h3>${q.type==='mc'?`<div class="choices">${q.choices.map((c,i)=>`<button type="button" class="choice ${answered&&i===q.correct?'correct':''} ${answered&&i===currentResponse.value&&!currentResponse.ok?'wrong':''}" data-ans="${i}" ${answered?'disabled':''}><span class="idx">${i+1}</span><span>${esc(c)}</span></button>`).join('')}</div>`:`<div class="answerbox"><label for="numberValue">Dein Rechenergebnis</label><div class="inp-row"><input class="numberin" id="numberValue" inputmode="decimal" autocomplete="off" type="text" placeholder="z. B. 2,45" ${answered?'disabled':''} value="${answered?esc(String(currentResponse.value).replace('.',',')):''}"><span class="unit">${esc(q.unit)}</span></div><div id="nErr" style="color:var(--red);font-size:12px" aria-live="polite"></div></div>`}${answered?qFeedbackHTML(q,currentResponse.ok,currentResponse.value):''}<div class="qactions">${answered?`<button class="btn" id="nextQ">${qIndex===total-1?'Auswertung anzeigen':'Nächste Aufgabe →'}</button>`:q.type==='num'?`<button class="btn" id="checkN">Antwort prüfen</button>`:''}</div>${q.type==='num'&&!answered?`<div class="helpbox"><details><summary>Rechenhilfe anzeigen</summary><p>${esc(q.tag==='Rechnen'?'Überlege, welche Formel die gesuchte Größe mit den Angaben auf dem Schild verbindet. Achte auf kW, W und Prozent.':'Nimm die passenden Angaben aus dem Schild.')}</p></details></div>`:''}`;
+ if(answered){$('#nextQ').onclick=()=>{qIndex++;currentResponse=null;paintQuiz();const title=el.querySelector('.qtitle');if(title){title.tabIndex=-1;title.focus();}else{const again=$('#again');if(again)again.focus();}};}
  else if(q.type==='mc')el.querySelectorAll('[data-ans]').forEach(btn=>btn.addEventListener('click',()=>grade(+btn.dataset.ans===q.correct,+btn.dataset.ans)));
  else {$('#checkN').onclick=submitNumber;$('#numberValue').addEventListener('keydown',e=>{if(e.key==='Enter')submitNumber()});}
 }
@@ -697,7 +781,7 @@ newMotor();
 switchMode('quiz');
 for(const el of document.querySelectorAll('[data-formula]')) { const make=summaryFormulas[el.dataset.formula]; if(make)el.innerHTML=mm.display(make()); }
 // Test-Schnittstelle für lokale automatisierte Funktionstests; keine Netzwerkanbindung.
-window.__motorlab={makeMotor,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds]};
+window.__motorlab={makeMotor,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,switchMode};
 </script>
 </body>
 </html>

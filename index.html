@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#14251f">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23163f30'/%3E%3Ctext x='24' y='34' font-size='28' text-anchor='middle' fill='white'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
-<title>Motortypenschild verstehen · AP2 Lerntrainer V18</title>
+<title>Motortypenschild verstehen · Lerntrainer V19</title>
 <style>
 :root{color-scheme:light;--ink:#192922;--mute:#62746a;--bg:#f4f6f2;--paper:#fff;--line:#dce5df;--forest:#163f30;--green:#17774f;--soft:#eaf4ed;--red:#a53624;--redbg:#fceee9;--gold:#c09537;--rad:15px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15.5px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #4ca47c;outline-offset:3px}a{color:var(--green)}.wrap{width:min(1100px,calc(100% - 36px));margin:auto}.top{background:#14271e;color:#eef9f2;border-bottom:1px solid #345344}.top .wrap{min-height:69px;display:flex;align-items:center;gap:18px;justify-content:space-between}.mark{display:flex;gap:12px;align-items:center}.logo{background:#d9eee1;color:#133927;width:39px;height:39px;border-radius:10px;display:grid;place-items:center;font-weight:900;font-size:22px}.brand{font-weight:790;line-height:1.1;letter-spacing:-.4px}.brand small{display:block;font-size:11px;font-weight:500;letter-spacing:.08em;color:#b4cbbd;margin-top:4px;text-transform:uppercase}.topbadge{border:1px solid #52715d;border-radius:100px;font-size:12px;padding:5px 12px;color:#d8e6de}
@@ -120,25 +120,28 @@ main.wrap{padding-top:14px}
 .connection-diagram .terminal-tag{fill:#25322a;font:650 14px system-ui,sans-serif}
 .connection-diagram .terminal-phase{fill:#25322a;font:750 18px system-ui,sans-serif}
 .terminal-figure{background:#fffdf9}
-/* Motorartenwahl kompakt, ohne den Typenschild-Fokus zu verdrängen. */
-.plate-actions{align-items:center;gap:10px;flex-wrap:wrap}
-.motor-select-label{font-size:13px;font-weight:750;color:var(--forest)}
-.motor-select{background:#fff;color:var(--ink);border:1px solid #bdcec2;border-radius:10px;padding:10px 32px 10px 12px;max-width:100%;min-width:225px;cursor:pointer}
-@media(max-width:560px){.plate-actions{display:grid;grid-template-columns:1fr auto;gap:7px}.motor-select-label{grid-column:1/-1}.motor-select{width:100%;min-width:0}.plate-actions .btn{padding:10px 12px;font-size:13px}}
-/* Menueeintraege auch bei aktiver Auswahl dunkel lesbar. */
-.learning .field-nav button.fieldbtn,
-.learning .field-nav button.fieldbtn b{color:#1d2c25}
-.learning .field-nav button.fieldbtn small{color:#56675d}
-
-
-/* V14: zuverlässiger Kontrast des nativen Auswahlfelds unter Windows/Firefox. */
-.motor-select{color-scheme:light!important;appearance:auto;color:#192922!important;background-color:#fff!important;font-weight:650}
-.motor-select option{color:#192922!important;background:#fff!important;font-weight:500}
-.motor-select option:checked{color:#192922!important;background:#e4f1e9!important}
-.motor-select:focus{color:#192922!important;background:#fff!important}
-.plate-actions{align-items:center;gap:10px;flex-wrap:wrap}
-/* V15: Motorwahl und Knopf ohne ungenutzte Zoom-Schaltfläche. */
-@media(max-width:680px){.plate-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}.motor-select-label{grid-column:1/-1}.motor-select{grid-column:1/-1;width:100%;min-width:0}.plate-actions #newMotor{grid-column:1/-1;justify-self:end;min-width:0;white-space:normal}}
+/* V19: kompakte und barrierearm bedienbare Mehrfachauswahl für Motorarten. */
+.plate-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap;margin-bottom:10px}
+.motor-filter{position:relative;margin-right:auto;min-width:0}
+.motor-filter-trigger{display:inline-flex;align-items:center;gap:9px;background:#fff;color:#192922;border:1px solid #bdcec2;border-radius:10px;padding:10px 12px;font-weight:700;max-width:100%;text-align:left;line-height:1.35}
+.motor-filter-trigger:hover,.motor-filter-trigger[aria-expanded=true]{background:#f5faf6;border-color:#4e9270}
+.motor-filter-trigger .filter-icon{font-size:17px;line-height:1;color:#2d704b}
+.motor-filter-trigger .filter-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.motor-filter-trigger .filter-chevron{margin-left:auto;font-size:12px;color:#62746a}
+.motor-filter-popover{position:absolute;top:calc(100% + 7px);left:0;z-index:30;width:min(308px,calc(100vw - 24px));background:#fff;border:1px solid #cad8cd;border-radius:13px;padding:14px;box-shadow:0 15px 40px #102b1b30;color:#192922}
+.motor-filter-popover[hidden]{display:none}
+.motor-filter-popover h3{font-size:15px;margin:0 0 11px}
+.motor-filter-list{display:grid;gap:3px}
+.motor-filter-item{display:flex;gap:10px;align-items:flex-start;padding:9px 7px;border-radius:8px;font-size:13.5px;line-height:1.45;cursor:pointer}
+.motor-filter-item:hover{background:#edf5ef}
+.motor-filter-item input{accent-color:#17774f;width:18px;height:18px;flex:none;margin:1px 0 0;cursor:pointer}
+.motor-filter-item input:focus-visible{outline:3px solid #4ca47c;outline-offset:2px}
+.motor-filter-item input:disabled{cursor:not-allowed}
+.motor-filter-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #e1e8e2}
+.motor-filter-actions .btn{padding:8px 12px;font-size:13px}
+.motor-filter-actions .btn:focus-visible{outline:3px solid #4ca47c;outline-offset:2px}
+@media(max-width:680px){.plate-actions{display:flex;flex-wrap:wrap;gap:8px}.motor-filter{flex:1 0 100%;margin-right:0}.motor-filter-trigger{max-width:100%;width:100%}.plate-actions #newMotor{white-space:normal;flex:1 1 auto}.plate-actions #shareMotor{flex:0 1 auto}}
+@media(max-width:340px){.plate-actions #shareMotor{flex:1 1 100%}}
 /* V15: Der Fortschritt zeigt jede Antwort einzeln, statt alle Fortschritte grün einzufärben. */
 .progress{display:flex;align-items:stretch;gap:3px;height:11px;background:none;overflow:visible;margin:16px 0 12px}
 .progress .progress-segment{display:block;flex:1;min-width:0;border-radius:3px;background:#e6eee8;transition:background .15s}
@@ -188,7 +191,22 @@ main.wrap{padding-top:14px}
 </head>
 <body>
 
-<main class="wrap"><div class="plate-actions"><label for="motorKind" class="motor-select-label">Motorart</label><select id="motorKind" class="motor-select" aria-label="Motorart auswählen"><option value="random" selected>Zufall (alle)</option><option value="standard">Standard · modern</option><option value="historical">Standard · historisch</option><option value="dahlander-delta">Dahlander Δ/YY</option><option value="dahlander-star">Dahlander Y/YY</option><option value="dual">Zwei getrennte Wicklungen Y/Y</option></select><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button><button type="button" class="btn ghost sm" id="shareMotor" title="Diesen Motor und den aktuellen Fragen-Durchgang per Link teilen">↗ Übungslink</button><span id="shareState" class="sr-only" role="status" aria-live="polite"></span></div>
+<main class="wrap"><div class="plate-actions">
+<div class="motor-filter" id="motorFilter">
+ <button type="button" class="motor-filter-trigger" id="motorFilterTrigger" aria-label="Motorarten auswählen" aria-controls="motorFilterPopover" aria-expanded="false" aria-haspopup="true"><span class="filter-icon" aria-hidden="true">☷</span><span class="filter-text" id="motorFilterText">Alle Motorarten</span><span class="filter-chevron" aria-hidden="true">▾</span></button>
+ <div class="motor-filter-popover" id="motorFilterPopover" aria-label="Motorartenfilter" hidden>
+  <h3>Motorarten auswählen</h3>
+  <div class="motor-filter-list" role="group" aria-label="Motorarten für das nächste Typenschild">
+   <label class="motor-filter-item"><input type="checkbox" data-motor-kind="standard" checked><span>Standardmotor · modern</span></label>
+   <label class="motor-filter-item"><input type="checkbox" data-motor-kind="historical" checked><span>Standardmotor · historisch</span></label>
+   <label class="motor-filter-item"><input type="checkbox" data-motor-kind="dahlander-delta" checked><span>Dahlander Δ/YY</span></label>
+   <label class="motor-filter-item"><input type="checkbox" data-motor-kind="dahlander-star" checked><span>Dahlander Y/YY</span></label>
+   <label class="motor-filter-item"><input type="checkbox" data-motor-kind="dual" checked><span>Zwei getrennte Wicklungen</span></label>
+  </div>
+  <div class="motor-filter-actions"><button type="button" class="btn ghost sm" id="selectAllMotorKinds">Alle auswählen</button><button type="button" class="btn sm" id="closeMotorFilter">Fertig</button></div>
+ </div>
+</div>
+<button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button><button type="button" class="btn ghost sm" id="shareMotor" title="Diesen Motor und den aktuellen Fragen-Durchgang per Link teilen">↗ Übungslink</button><span id="shareState" class="sr-only" role="status" aria-live="polite"></span></div>
 <div class="plate-wrap"><svg class="plate" id="plate" viewBox="0 0 1000 490" role="group" aria-label="Motortypenschild mit technischen Nenndaten" xmlns="http://www.w3.org/2000/svg"></svg></div>
 <div class="tabs" role="tablist" aria-label="Lernmodus wählen"><button type="button" id="tabLearn" class="tab" role="tab" aria-selected="false" aria-controls="learn">Schild verstehen</button><button type="button" id="tabQuiz" class="tab" role="tab" aria-selected="true" aria-controls="quiz">Prüfungsfragen</button></div>
 <section id="learn" class="panel" hidden role="tabpanel" aria-labelledby="tabLearn"><div class="learning"><div class="card"><h2 id="exTitle">Die Angaben auf dem Motorschild</h2><div id="exValue" class="bigvalue">Δ / Y</div><div id="exBody" class="info-text"></div><div id="exMath"></div><div id="exDiagram"></div><div id="exNote"></div></div><div class="card"><h3>Alle Angaben entdecken</h3><div class="field-nav" id="fieldNav"></div><div class="divider"></div><h3>Die wichtigsten Formeln</h3><div class="formula-stack"><div class="formula-line"><span class="name">Aufgenommene Wirkleistung</span><span class="val" data-formula="lineP"></span></div><div class="formula-line"><span class="name">Wirkungsgrad</span><span class="val" data-formula="eta"></span></div><div class="formula-line"><span class="name">Synchrondrehzahl</span><span class="val" data-formula="ns"></span></div><div class="formula-line"><span class="name">Schlupf</span><span class="val" data-formula="slip"></span></div><div class="formula-line torque-formula">
@@ -369,17 +387,21 @@ function makeStandardMotor(selection='random'){
 const switchVariants=['dahlander-delta','dahlander-star','dual'];
 const motorWeights=[['standard',60],['historical',20],['dahlander-delta',8],['dahlander-star',7],['dual',5]];
 let previousKind='';
-function chooseMotorKind(){
- // Unabhängige gewichtete Auswahl: 60 % modern, 20 % historisch, 15 % Dahlander, 5 % getrennte Wicklungen.
- // Durch festen Seed auch bei einem geteilten Link reproduzierbar.
- const weighted=motorWeights;
- const sum=weighted.reduce((s,x)=>s+x[1],0);let r=Math.random()*sum;
- return weighted.find(([k,w])=>(r-=w)<0)?.[0]||'standard';
+// Die Gewichtung bleibt innerhalb jeder beliebigen Teilmenge relativ erhalten.
+const allMotorKinds=motorWeights.map(([kind])=>kind);
+function chooseMotorKind(allowedKinds=allMotorKinds){
+ const allowed=new Set(allowedKinds);
+ const weighted=motorWeights.filter(([kind])=>allowed.has(kind));
+ if(!weighted.length)throw Error('Mindestens eine Motorart muss aktiviert sein');
+ const sum=weighted.reduce((s,[,weight])=>s+weight,0);
+ let r=Math.random()*sum;
+ return weighted.find(([,weight])=>(r-=weight)<0)?.[0]||weighted[weighted.length-1][0];
 }
 function makeMotor(selection='random'){
- if(typeof selection==='object'&&selection!==null)selection=selection.kind||'random';
- if(!['random','standard','historical',...switchVariants].includes(selection))throw Error('Unbekannte Motorart: '+selection);
- const resolved=selection==='random'?chooseMotorKind():selection;
+ if(typeof selection==='object'&&!Array.isArray(selection)&&selection!==null)selection=selection.kind||'random';
+ const allowed=selection==='random'?allMotorKinds:Array.isArray(selection)?selection:[selection];
+ if(!allowed.length||allowed.some(kind=>!allMotorKinds.includes(kind)))throw Error('Unbekannte Motorauswahl');
+ const resolved=allowed.length===1?allowed[0]:chooseMotorKind(allowed);
  previousKind=resolved;
  return switchVariants.includes(resolved)?makeSwitchMotor(resolved):makeStandardMotor(resolved);
 }
@@ -1622,10 +1644,59 @@ function paintQuiz(){
   submitNumber(true); // Erst bewerten und die Erklärung anzeigen; weiter nur durch erneute Aktion.
  });}
 }
+// Filteränderungen gelten nur für die nächste Motorerzeugung; ein laufendes Quiz
+// wird weder unterbrochen noch durch Änderungen der Häkchen verändert.
+const motorKindLabels={
+ standard:'Standardmotor · modern',historical:'Standardmotor · historisch',
+ 'dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'
+};
+let selectedMotorKinds=new Set(allMotorKinds);
+let generatedMotorKinds=[...allMotorKinds]; // für reproduzierbare Übungslinks unveränderlich bis zum nächsten Schild
+function activeMotorKinds(){return allMotorKinds.filter(kind=>selectedMotorKinds.has(kind));}
+function updateMotorFilterUI(){
+ const active=activeMotorKinds();
+ const label=active.length===allMotorKinds.length?'Alle Motorarten':active.length===1?motorKindLabels[active[0]]:`${active.length} von ${allMotorKinds.length} Motorarten`;
+ $('#motorFilterText').textContent=label;
+ const only=active.length===1?active[0]:null;
+ document.querySelectorAll('[data-motor-kind]').forEach(box=>{
+  const kind=box.dataset.motorKind;
+  box.checked=selectedMotorKinds.has(kind);
+  box.disabled=kind===only;
+ });
+}
+function setMotorFilterOpen(open,restoreFocus=false){
+ $('#motorFilterPopover').hidden=!open;
+ $('#motorFilterTrigger').setAttribute('aria-expanded',String(open));
+ if(open){document.querySelector('[data-motor-kind]')?.focus();}
+ else if(restoreFocus){$('#motorFilterTrigger').focus();}
+}
+$('#motorFilterTrigger').addEventListener('click',()=>setMotorFilterOpen($('#motorFilterPopover').hidden));
+$('#closeMotorFilter').addEventListener('click',()=>setMotorFilterOpen(false,true));
+$('#selectAllMotorKinds').addEventListener('click',()=>{
+ selectedMotorKinds=new Set(allMotorKinds);
+ updateMotorFilterUI();
+});
+document.querySelectorAll('[data-motor-kind]').forEach(box=>box.addEventListener('change',()=>{
+ const kind=box.dataset.motorKind;
+ if(box.checked)selectedMotorKinds.add(kind);
+ else if(selectedMotorKinds.size>1)selectedMotorKinds.delete(kind);
+ updateMotorFilterUI();
+}));
+document.addEventListener('pointerdown',event=>{
+ if(!$('#motorFilterPopover').hidden&&!$('#motorFilter').contains(event.target))setMotorFilterOpen(false);
+});
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'&&!$('#motorFilterPopover').hidden){event.preventDefault();setMotorFilterOpen(false,true);}
+});
+$('#motorFilter').addEventListener('focusout',event=>{
+ if(!$('#motorFilterPopover').hidden&&!$('#motorFilter').contains(event.relatedTarget))setMotorFilterOpen(false);
+});
 function newMotor(options={}){
  const seed=Number.isInteger(options.seed)?options.seed>>>0:freshSeed();
+ const selection=options.selection===undefined?activeMotorKinds():options.selection;
+ generatedMotorKinds=Array.isArray(selection)?[...selection]:selection==='random'?[...allMotorKinds]:[selection];
  currentMotorSeed=seed;serial++;
- motor=seeded(seed,()=>{lastGeneratedDesign=null;previousKind='';return makeMotor($('#motorKind').value);});
+ motor=seeded(seed,()=>{lastGeneratedDesign=null;previousKind='';return makeMotor(selection);});
  usedQuestionIds.clear();
  selected='motorType';info(selected);startQuiz(options.quizSeed);
 }
@@ -1639,7 +1710,10 @@ $('#closePlate').onclick=()=>$('#plateModal').close();
 $('#plateModal').addEventListener('click',e=>{if(e.target.id==='plateModal')e.target.close();});
 async function copyTrainingLink(){
  const url=new URL(window.location.href);
- url.searchParams.set('motor',$('#motorKind').value);
+ // Für den Link zählen die Filter bei der Erzeugung dieses Schildes,
+ // nicht etwa nachträglich geänderte (noch nicht angewandte) Häkchen.
+ url.searchParams.set('motor',generatedMotorKinds.length===1?generatedMotorKinds[0]:'random');
+ url.searchParams.set('types',generatedMotorKinds.join(','));
  url.searchParams.set('seed',String(currentMotorSeed));
  url.searchParams.set('quiz',String(currentQuizSeed));
  url.hash='';
@@ -1652,19 +1726,29 @@ async function copyTrainingLink(){
 }
 $('#shareMotor').onclick=copyTrainingLink;
 $('#newMotor').onclick=()=>newMotor();
-$('#motorKind').addEventListener('change',()=>newMotor());
 $('#restartQuiz').onclick=()=>startQuiz();
 const shared=new URLSearchParams(window.location.search);
+// Rückwärtskompatibel zu den alten V17/V18-Links (?motor=standard&seed=…).
+// Neue Links übertragen zusätzlich die bei der Generierung aktiven Motorarten.
 const selectedKind=shared.get('motor');
-const goodKind=['random','standard','historical',...switchVariants].includes(selectedKind)?selectedKind:'random';
-$('#motorKind').value=goodKind;
+const typesParam=shared.get('types');
+const parsedTypes=typesParam===null?[]:typesParam.split(',').filter(kind=>allMotorKinds.includes(kind));
+const linkTypes=[...new Set(parsedTypes)];
+let sharedSelection;
+if(linkTypes.length){selectedMotorKinds=new Set(linkTypes);sharedSelection=linkTypes;}
+else if(allMotorKinds.includes(selectedKind)){selectedMotorKinds=new Set([selectedKind]);sharedSelection=selectedKind;}
+else{selectedMotorKinds=new Set(allMotorKinds);sharedSelection='random';}
+updateMotorFilterUI();
 const seedText=shared.get('seed'),quizText=shared.get('quiz');
 const isSeed=v=>v!==null&&/^\d{1,10}$/.test(v)&&Number(v)<=4294967295;
-newMotor({seed:isSeed(seedText)?Number(seedText):undefined,quizSeed:isSeed(quizText)?Number(quizText):undefined});
+newMotor({selection:sharedSelection,seed:isSeed(seedText)?Number(seedText):undefined,quizSeed:isSeed(quizText)?Number(quizText):undefined});
 switchMode('quiz');
 for(const el of document.querySelectorAll('[data-formula]')) { const make=summaryFormulas[el.dataset.formula]; if(make)el.innerHTML=mm.display(make()); }
 // Test-Schnittstelle für lokale automatisierte Funktionstests; keine Netzwerkanbindung.
-window.__motorlab={conceptOf,seeded,improveMCChoices,varyQuestion,makeSeed:()=>currentMotorSeed,quizSeed:()=>currentQuizSeed,quizProgressHTML,retryIncorrectQuestions,results:()=>results.map(r=>({...r})),makeMotor,createStandardModel,validateStandardModel,makeSwitchMotor,validateSwitchMotor,buildSwitchQuestions,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,motorWeights,multiQuestionGroups,switchMode,newMotor,selectMotor:(kind)=>{const select=$('#motorKind');select.value=kind;newMotor();}};
+window.__motorlab={conceptOf,seeded,improveMCChoices,varyQuestion,makeSeed:()=>currentMotorSeed,quizSeed:()=>currentQuizSeed,quizProgressHTML,retryIncorrectQuestions,results:()=>results.map(r=>({...r})),makeMotor,createStandardModel,validateStandardModel,makeSwitchMotor,validateSwitchMotor,buildSwitchQuestions,buildQuestions,checkNumber,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,motorWeights,multiQuestionGroups,switchMode,newMotor,
+ selectedMotorKinds:()=>activeMotorKinds(),generatedMotorKinds:()=>[...generatedMotorKinds],
+ setMotorKinds:(kinds)=>{if(!Array.isArray(kinds)||!kinds.length||kinds.some(k=>!allMotorKinds.includes(k)))throw Error('Ungültiger Motorfilter');selectedMotorKinds=new Set(kinds);updateMotorFilterUI();},
+ selectMotor:(kind)=>{selectedMotorKinds=new Set(kind==='random'?allMotorKinds:[kind]);if(!activeMotorKinds().length)throw Error('Unbekannte Motorart');updateMotorFilterUI();newMotor();}};
 </script>
 </body>
 </html>

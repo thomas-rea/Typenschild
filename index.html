@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#14251f">
+<script>(function(){try{if(localStorage.getItem('motortypenschild.theme')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23163f30'/%3E%3Ctext x='24' y='34' font-size='28' text-anchor='middle' fill='white'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
-<title>Motortypenschild verstehen · Lerntrainer V1.1.1</title>
+<title>Motortypenschild verstehen · Lerntrainer V1.1.2</title>
 
 <style>
 :root{color-scheme:light;--ink:#192922;--mute:#62746a;--bg:#f4f6f2;--paper:#fff;--line:#dce5df;--forest:#163f30;--green:#17774f;--soft:#eaf4ed;--red:#a53624;--redbg:#fceee9;--gold:#c09537;--rad:15px}
@@ -199,6 +200,69 @@ main.wrap{padding-top:14px}
 /* Release-Anzeige im Haupttrainer, unabhängig von Archivversionen. */
 .trainer-version{display:inline-flex;align-items:center;align-self:center;margin-right:auto;font-size:12px;color:#5a7064;white-space:nowrap;padding:4px 2px;font-variant-numeric:tabular-nums}
 @media(max-width:560px){.trainer-version{font-size:11px}}
+
+/* V1.1.2: Bedienung, gleich hohe Quizspalten und optionaler Dark Mode. */
+.plate-actions>.btn{min-height:43px;font-size:14px;padding:10px 14px}
+.plate-actions #newMotor{order:4}.plate-actions #shareMotor{order:3}.plate-actions #openWorksheetCode{order:2}.plate-actions #themeToggle{order:1}
+.plate-actions .motor-filter{order:0;margin-right:auto}
+.theme-toggle{min-width:99px}
+.quizframe{align-items:stretch}
+.quizframe>.card{height:100%}
+.quizside{display:flex;flex-direction:column}
+.quizside .quiz-note{margin-top:auto}
+.site-footer{color:var(--mute);font-size:12px;text-align:center;margin-top:32px;padding:16px;border-top:1px solid var(--line)}
+@media(max-width:760px){.quizframe>.card{height:auto}.quizside{display:block}.plate-actions .motor-filter{flex-basis:100%}}
+@media(max-width:520px){.plate-actions>.btn{flex:1 1 auto;min-height:42px;font-size:12px;padding:8px 10px}.plate-actions #newMotor{flex:1 1 100%}.plate-actions #themeToggle{min-width:0}}
+html[data-theme="dark"]{color-scheme:dark;--ink:#e6eee9;--mute:#aec2b6;--bg:#111c18;--paper:#1d2c25;--line:#3a5044;--forest:#b3edca;--green:#6ace9e;--soft:#2b4637;--red:#ffb1a2;--redbg:#452b2a;--gold:#e8ba70}
+html[data-theme="dark"] .card{box-shadow:0 7px 23px #0004}
+html[data-theme="dark"] .btn:not(.ghost){background:#26845a;border-color:#26845a;color:white}
+html[data-theme="dark"] .btn:not(.ghost):hover{background:#329667}
+html[data-theme="dark"] .btn.ghost{background:#23362b;border-color:#496354;color:#edf7f0}
+html[data-theme="dark"] .btn.ghost:hover{background:#314738}
+html[data-theme="dark"] .motor-filter-trigger{background:#24382c;color:#edf7f0;border-color:#597363}
+html[data-theme="dark"] .motor-filter-trigger:hover,html[data-theme="dark"] .motor-filter-trigger[aria-expanded=true]{background:#2c4737}
+html[data-theme="dark"] .motor-filter-trigger .filter-icon,html[data-theme="dark"] .motor-filter-trigger .filter-chevron{color:#b7d6c3}
+html[data-theme="dark"] .motor-filter-popover{background:#1e3027;border-color:#506859;color:#f1f7f2}
+html[data-theme="dark"] .motor-filter-item:hover{background:#304b3b}
+html[data-theme="dark"] .motor-filter-actions{border-color:#506859}
+html[data-theme="dark"] .tab{color:#b0c5b8}html[data-theme="dark"] .tab[aria-selected=true]{color:#8ae4b4}html[data-theme="dark"] .tab:hover{color:#b5f0ce}
+html[data-theme="dark"] .choice{background:#25382d;color:#eaf4ed;border-color:#4c6655}
+html[data-theme="dark"] .choice:hover:not(:disabled){background:#304c3b;border-color:#79b990}
+html[data-theme="dark"] .choice.correct{background:#204936;border-color:#64bc8b}
+html[data-theme="dark"] .choice.wrong{background:#55302a;border-color:#db7467}
+html[data-theme="dark"] .choice .idx{border-color:#7a9786}
+html[data-theme="dark"] .numberin,html[data-theme="dark"] .code-dialog input{background:#182820;color:#eef7f1;border-color:#597363}
+html[data-theme="dark"] .feedback{background:#204435;border-color:#498965}
+html[data-theme="dark"] .feedback.bad{background:#482e2a;border-color:#9e685d}
+html[data-theme="dark"] .feedback .ft{color:#9be6bb}html[data-theme="dark"] .feedback.bad .ft{color:#ffb5a7}
+html[data-theme="dark"] .feedback .step{background:#10261e;color:#eaf6ee}
+html[data-theme="dark"] .sstat,html[data-theme="dark"] .review-item{background:#263c2e}
+html[data-theme="dark"] .review-detail{background:#392922;border-color:#8e6355}
+html[data-theme="dark"] .review-detail summary{color:#ffbdac}
+html[data-theme="dark"] .review-detail .user-answer,html[data-theme="dark"] .review-detail .user-answer strong{color:#e3efea}
+html[data-theme="dark"] .math,html[data-theme="dark"] .year-overview details{background:#26382e;border-color:#4a6351}
+html[data-theme="dark"] .year-overview summary{color:#95ddae}
+html[data-theme="dark"] .note{background:#403621;color:#f7e5c0}
+html[data-theme="dark"] .pill{background:#264c36;color:#baf2cc;border-color:#538d63}
+html[data-theme="dark"] .fieldbtn{background:#24372c;color:#ebf4ed;border-color:#4a6652}
+html[data-theme="dark"] .fieldbtn[aria-pressed=true]{background:#2b593d;border-color:#7eba91}
+html[data-theme="dark"] .formula-line{background:#203228}
+html[data-theme="dark"] .minilabel,html[data-theme="dark"] .quick-item p{color:#aec8b8}
+html[data-theme="dark"] .quicknum{background:#2f5540;color:#a9ecc4}
+html[data-theme="dark"] .helpbox summary{color:#a5e9bd}
+html[data-theme="dark"] .connection-diagram{background:#263b2e;border-color:#597363}
+html[data-theme="dark"] .connection-diagram figcaption{color:#a5ecc2}
+html[data-theme="dark"] .connection-diagram p{color:#b8cfc0}
+html[data-theme="dark"] .connection-diagram svg,html[data-theme="dark"] .terminal-figure{background:#fffdf9;border-radius:6px}
+html[data-theme="dark"] .code-dialog{background:#1c3024;color:#edf8f0;border-color:#557662}
+html[data-theme="dark"] .code-dialog p{color:#b4ccbc}
+html[data-theme="dark"] .code-dialog .code-error{color:#ffb6a7}
+html[data-theme="dark"] #plateModal{background:#192820;color:#f2f7f2;border-color:#546e5c}
+html[data-theme="dark"] #plateModal .modal-head{background:#23382a;border-color:#506b55}
+html[data-theme="dark"] #plateModal .modal-help{color:#c2d0c5}
+html[data-theme="dark"] .progress .progress-segment:not(.right):not(.wrong){background:#4e6657}
+html[data-theme="dark"] a{color:#9de8bd}
+
 </style>
 <script>(function(){
  const params=new URLSearchParams(location.search),code=(params.get('code')||'').trim().toUpperCase();
@@ -208,7 +272,7 @@ main.wrap{padding-top:14px}
 </head>
 <body>
 
-<main class="wrap"><div class="plate-actions"><span class="trainer-version" aria-label="Lerntrainer Version 1.1.1">V1.1.1</span>
+<main class="wrap"><div class="plate-actions">
 <div class="motor-filter" id="motorFilter">
  <button type="button" class="motor-filter-trigger" id="motorFilterTrigger" aria-label="Motorarten auswählen" aria-controls="motorFilterPopover" aria-expanded="false" aria-haspopup="true"><span class="filter-icon" aria-hidden="true">☷</span><span class="filter-text" id="motorFilterText">Alle Motorarten</span><span class="filter-chevron" aria-hidden="true">▾</span></button>
  <div class="motor-filter-popover" id="motorFilterPopover" aria-label="Motorartenfilter" hidden>
@@ -223,15 +287,15 @@ main.wrap{padding-top:14px}
   <div class="motor-filter-actions"><button type="button" class="btn ghost sm" id="selectAllMotorKinds">Alle auswählen</button><button type="button" class="btn sm" id="closeMotorFilter">Fertig</button></div>
  </div>
 </div>
-<button type="button" class="btn ghost sm" id="openWorksheetCode">⌨ Blattcode</button><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button><button type="button" class="btn ghost sm" id="shareMotor" title="Diesen Motor und den aktuellen Fragen-Durchgang per Link teilen">↗ Übungslink</button><span id="shareState" class="sr-only" role="status" aria-live="polite"></span></div>
+<button type="button" class="btn ghost theme-toggle" id="themeToggle" aria-pressed="false" title="Dunkles Farbschema aktivieren">☾ Dunkel</button><button type="button" class="btn ghost" id="openWorksheetCode">⌨ Blattcode</button><button type="button" class="btn ghost" id="shareMotor" title="Diesen Motor und den aktuellen Fragen-Durchgang per Link teilen">↗ Übungslink</button><button type="button" class="btn" id="newMotor">↻ Neues Typenschild</button><span id="shareState" class="sr-only" role="status" aria-live="polite"></span></div>
 <dialog id="worksheetCodeDialog" class="code-dialog" aria-labelledby="codeDialogTitle">
 <form method="dialog" id="worksheetCodeForm"><h2 id="codeDialogTitle">Blattcode eingeben</h2>
 <p>Code vom Arbeitsblatt oder vom Lösungsblatt eingeben.</p>
-<label for="worksheetCodeInput">Blattcode</label><input id="worksheetCodeInput" autocomplete="off" spellcheck="false" maxlength="15" placeholder="A1-XXXX-XXXX-X" />
+<label for="worksheetCodeInput">Blattcode</label><input id="worksheetCodeInput" autocomplete="off" spellcheck="false" autocapitalize="characters" maxlength="32" placeholder="A1-XXXX-XXXX-X" inputmode="text" />
 <p id="worksheetCodeError" role="alert" class="code-error"></p>
 <div class="code-actions"><button type="button" class="btn ghost" id="cancelWorksheetCode">Abbrechen</button><button type="submit" class="btn">Öffnen</button></div></form></dialog>
 <div class="plate-wrap"><svg class="plate" id="plate" viewBox="0 0 1000 490" role="group" aria-label="Motortypenschild mit technischen Nenndaten" xmlns="http://www.w3.org/2000/svg"></svg></div>
-<div class="tabs" role="tablist" aria-label="Lernmodus wählen"><button type="button" id="tabLearn" class="tab" role="tab" aria-selected="false" aria-controls="learn">Schild verstehen</button><button type="button" id="tabQuiz" class="tab" role="tab" aria-selected="true" aria-controls="quiz">Prüfungsfragen</button></div>
+<div class="tabs" role="tablist" aria-label="Lernmodus wählen"><button type="button" id="tabQuiz" class="tab" role="tab" aria-selected="true" aria-controls="quiz">Prüfungsfragen</button><button type="button" id="tabLearn" class="tab" role="tab" aria-selected="false" aria-controls="learn">Schild verstehen</button></div>
 <section id="learn" class="panel" hidden role="tabpanel" aria-labelledby="tabLearn"><div class="learning"><div class="card"><h2 id="exTitle">Die Angaben auf dem Motorschild</h2><div id="exValue" class="bigvalue">Δ / Y</div><div id="exBody" class="info-text"></div><div id="exMath"></div><div id="exDiagram"></div><div id="exNote"></div></div><div class="card"><h3>Alle Angaben entdecken</h3><div class="field-nav" id="fieldNav"></div><div class="divider"></div><h3>Die wichtigsten Formeln</h3><div class="formula-stack"><div class="formula-line"><span class="name">Aufgenommene Wirkleistung</span><span class="val" data-formula="lineP"></span></div><div class="formula-line"><span class="name">Wirkungsgrad</span><span class="val" data-formula="eta"></span></div><div class="formula-line"><span class="name">Synchrondrehzahl</span><span class="val" data-formula="ns"></span></div><div class="formula-line"><span class="name">Schlupf</span><span class="val" data-formula="slip"></span></div><div class="formula-line torque-formula">
  <span class="name">Nenndrehmoment – allgemeine physikalische Gleichung</span>
  <span class="val" data-formula="torque"></span>
@@ -242,7 +306,8 @@ main.wrap{padding-top:14px}
   <div class="formula-unit"><b>Achtung: Diese Form darfst du nur mit P₂ in kW und n in min⁻¹ einsetzen.</b> Das Ergebnis ist dann in N·m. Bei anderen Einheiten musst du vorher umrechnen.</div>
  </div>
 </div></div><div class="helpbox">Für die Synchrondrehzahl bezeichnet <em>p</em> die Polpaarzahl. Beachte bei Zahlenwertgleichungen die ausdrücklich angegebenen Einheiten.</div></div></div></section>
-<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn ghost sm" id="restartQuiz">↻ Neue Fragen</button></div><div id="quizAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div><div class="quizframe"><div class="card" id="questionCard"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
+<section id="quiz" class="panel on" role="tabpanel" aria-labelledby="tabQuiz"><div class="quizhead"><div><h2>Prüfungsfragen zum aktuellen Motor</h2></div><button type="button" class="btn" id="restartQuiz">↻ Neue Fragen</button></div><div id="quizAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div><div class="quizframe"><div class="card" id="questionCard"></div><aside class="card quizside"><div class="smallstat"><div><div class="minilabel">Dein Durchgang</div><div class="statline"><span>Aufgabe</span><b id="qcount">1 / 15</b></div></div><div class="statblocks"><div class="sstat"><strong id="qright">0</strong><span>Richtig</span></div><div class="sstat"><strong id="qwrong">0</strong><span>Falsch</span></div></div></div><hr><div class="quiz-note"><h3>So funktioniert es</h3><p>Die Daten stehen im Motortypenschild. Rechenergebnisse werden mit praxisgerechter Rundung geprüft. Nach jeder Antwort gibt es eine individuelle Erklärung und den Rechenweg.</p></div></aside></div></section>
+<footer class="site-footer" aria-label="Versionsinformation">Motortypenschild-Lerntrainer · V1.1.2</footer>
 </main>
 <div class="tipfloat" id="tip" role="tooltip"></div>
 <dialog id="plateModal" aria-label="Vergrößerte Typenschildansicht">
@@ -2029,6 +2094,54 @@ if(shared.get('sheet')==='1'){
 
 for(const el of document.querySelectorAll('[data-formula]')) { const make=summaryFormulas[el.dataset.formula]; if(make)el.innerHTML=mm.display(make()); }
 // Test-Schnittstelle für lokale automatisierte Funktionstests; keine Netzwerkanbindung.
+
+// V1.1.2: Manuelles Eintippen sowie eingefuegte Codes werden einheitlich formatiert.
+function normalizeSheetCode(value){
+ const raw=String(value||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,11);
+ if(!raw)return '';
+ const prefixLength=raw.length>1&&raw[1]==='1'?2:1;
+ const head=raw.slice(0,prefixLength),body=raw.slice(prefixLength);
+ return head+(body.length?'-'+body.slice(0,4):'')+(body.length>4?'-'+body.slice(4,8):'')+(prefixLength===2&&body.length>8?'-'+body.slice(8,9):'');
+}
+const sheetCodeEntry=$('#worksheetCodeInput');
+function selectionForCodeChars(formatted,count){
+ if(count<=0)return 0;
+ let seen=0;
+ for(let i=0;i<formatted.length;i++){
+  if(/[A-Z0-9]/.test(formatted[i]))seen++;
+  if(seen===count){return i+1;}
+ }
+ return formatted.length;
+}
+sheetCodeEntry.addEventListener('input',()=>{
+ const position=sheetCodeEntry.selectionStart??sheetCodeEntry.value.length;
+ const count=sheetCodeEntry.value.slice(0,position).replace(/[^A-Za-z0-9]/g,'').length;
+ const formatted=normalizeSheetCode(sheetCodeEntry.value);
+ if(formatted!==sheetCodeEntry.value){sheetCodeEntry.value=formatted;const pos=selectionForCodeChars(formatted,count);sheetCodeEntry.setSelectionRange(pos,pos);}
+ $('#worksheetCodeError').textContent='';
+});
+sheetCodeEntry.addEventListener('keydown',event=>{
+ if(event.key!=='Backspace'||sheetCodeEntry.selectionStart!==sheetCodeEntry.selectionEnd)return;
+ const position=sheetCodeEntry.selectionStart;
+ if(position>0&&sheetCodeEntry.value[position-1]==='-'){
+  event.preventDefault();const raw=sheetCodeEntry.value.slice(0,position-1).replace(/[^A-Za-z0-9]/g,'');
+  const count=raw.length;
+  const all=sheetCodeEntry.value.replace(/[^A-Za-z0-9]/g,'');
+  sheetCodeEntry.value=normalizeSheetCode(all.slice(0,count-1)+all.slice(count));
+  const pos=selectionForCodeChars(sheetCodeEntry.value,count-1);sheetCodeEntry.setSelectionRange(pos,pos);
+ }
+});
+const trainerThemeToggle=$('#themeToggle');
+function applyTrainerTheme(theme){
+ const dark=theme==='dark';document.documentElement.dataset.theme=dark?'dark':'light';
+ trainerThemeToggle.setAttribute('aria-pressed',String(dark));
+ trainerThemeToggle.textContent=dark?'☀ Hell':'☾ Dunkel';
+ trainerThemeToggle.title=dark?'Helles Farbschema aktivieren':'Dunkles Farbschema aktivieren';
+ try{localStorage.setItem('motortypenschild.theme',dark?'dark':'light');}catch(e){}
+}
+trainerThemeToggle.addEventListener('click',()=>applyTrainerTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+applyTrainerTheme(document.documentElement.dataset.theme==='dark'?'dark':'light');
+
 window.__motorlab={makeWorksheetCode,parseWorksheetCode,worksheetSelection,worksheetTaskType,worksheetComplexity,conceptOf,seeded,improveMCChoices,varyQuestion,makeSeed:()=>currentMotorSeed,quizSeed:()=>currentQuizSeed,quizProgressHTML,retryIncorrectQuestions,results:()=>results.map(r=>({...r})),makeMotor,createStandardModel,validateStandardModel,makeSwitchMotor,validateSwitchMotor,buildSwitchQuestions,buildQuestions,checkNumber,parseNumericAnswer,plate:()=>motor,questions:()=>questions,startQuiz,questionGroups,usedQuestionIds:()=>[...usedQuestionIds],efficiencyMinimum,frameByPoles,motorWeights,multiQuestionGroups,switchMode,newMotor,
  selectedMotorKinds:()=>activeMotorKinds(),generatedMotorKinds:()=>[...generatedMotorKinds],
  setMotorKinds:(kinds)=>{if(!Array.isArray(kinds)||!kinds.length||kinds.some(k=>!allMotorKinds.includes(k)))throw Error('Ungültiger Motorfilter');selectedMotorKinds=new Set(kinds);updateMotorFilterUI();},

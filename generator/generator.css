@@ -137,3 +137,40 @@
 .paper-question.quick .short-work{margin-left:5.3mm;width:calc(100% - 5.3mm);height:13mm;flex:0 0 13mm;overflow:hidden}
 .paper-question.quick .short-work svg{display:block}
 .sheet-page.back .paper-question.quick{min-height:0!important}
+
+/* V1.1.2: Aktionen, QR-Text und optionales dunkles Interface. Das Druckdokument bleibt weiss. */
+.header-links{display:flex;align-items:center;gap:17px}
+.header-links .theme-toggle{border:1px solid #688875;background:#203c2b;color:#eaf8ee;border-radius:9px;padding:8px 11px;font-size:13px;font-weight:650}
+.header-links .theme-toggle:hover{background:#345a40}
+.output-actions{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.output-label{font-weight:750;font-size:13px;color:var(--muted);text-align:right}
+.preview-buttons .primary{min-height:43px}
+.preview-buttons .secondary-print{background:#236d55;border-color:#236d55;color:white}
+.preview-buttons .secondary-print:hover{background:#1a5543}
+.plate-qr{align-items:center!important}
+.plate-qr a.qr-link,.plate-qr a.qr-link:visited{justify-content:center!important;padding:0!important;align-self:center!important}
+.site-footer{border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:12px;margin:25px auto;padding:18px}
+@media(max-width:720px){.header-links{gap:9px}.header-links .theme-toggle{padding:7px 8px}.output-actions{align-items:stretch}.output-label{text-align:left}}
+html[data-theme="dark"]{color-scheme:dark;--ink:#e7f0e9;--muted:#aec7b7;--line:#3d5147;--paper:#1f3026;--bg:#101c17;--green:#7ed1a0;--forest:#afe9c7}
+html[data-theme="dark"] body{color:var(--ink)}
+html[data-theme="dark"] .card{background:#1e2e25;border-color:#435e4c;box-shadow:0 8px 20px #0003}
+html[data-theme="dark"] .type-row{background:#273b2d;border-color:#425a48}
+html[data-theme="dark"] .counter button,html[data-theme="dark"] .count-controls button{background:#314838;color:#f0fbf2;border-color:#607a65}
+html[data-theme="dark"] .counter input,html[data-theme="dark"] .count-controls input,html[data-theme="dark"] .field select{background:#15261c;color:#eff8f0;border-color:#617a69}
+html[data-theme="dark"] .summary{background:#2b4637;color:#b7f1cd}
+html[data-theme="dark"] .message{color:#b5d4be}
+html[data-theme="dark"] .warn{color:#ffb1a5}
+html[data-theme="dark"] .primary{background:#25845d;border-color:#25845d;color:#fff}
+html[data-theme="dark"] .primary:hover{background:#339f71}
+html[data-theme="dark"] .preview-buttons .secondary-print{background:#236c5a;border-color:#236c5a;color:#fff}
+html[data-theme="dark"] .preview-buttons .secondary-print:hover{background:#34836c}
+html[data-theme="dark"] .secondary{background:#263b30;border-color:#648673;color:#f0f7f2}
+html[data-theme="dark"] .secondary:hover{background:#345645}
+html[data-theme="dark"] .preview-toolbar p{color:#bbd0c0}
+html[data-theme="dark"] .intro p{color:#bcd3c3}
+/* Dark Mode beeinflusst niemals A4-/Loesungsseiten und PDF-Ausgabe. */
+@media print{
+ html[data-theme="dark"]{color-scheme:light}
+ html[data-theme="dark"] body{background:#fff!important;color:#111!important}
+ .site-footer{display:none!important}
+}

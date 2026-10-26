@@ -11,3 +11,10 @@ Für bereits erstellte Arbeitsblätter bleibt `/v1.0.0/` unverändert. Neu erste
 Die fachlichen Daten sind generierte Beispiele und ersetzen keine Herstellerunterlagen.
 
 Version 1.1.1: Anzeige der Softwareversion, Prüfung des geladenen Codeformats und Cache-Aktualisierung.
+
+## Bedienung ab V1.1.2
+
+Der Lerntrainer und der Arbeitsblatt-Generator bieten einen optionalen Dunkelmodus. Die Auswahl wird lokal im Browser gespeichert. Arbeitsblatt-PDFs bleiben unabhängig davon hell. Die Eingabe von Blattcodes fügt Bindestriche selbstständig ein und unterstützt eingefügte Codes.
+
+Die PDF-Ausgabe schlägt Dateien mit Dokumenttyp, Datum und einer Blattkennung vor. Für anklickbare Links im PDF beim Drucken im Browser „Als PDF speichern“ verwenden.
+

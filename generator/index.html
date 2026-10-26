@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#163f30">
+<script>(function(){try{if(localStorage.getItem('motortypenschild.theme')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}})();</script>
 <title>Arbeitsblatt-Generator · Motortypenschilder</title>
-<link rel="stylesheet" href="generator.css?v=1.1.1">
+<link rel="stylesheet" href="generator.css?v=1.1.2">
 </head>
 <body>
-<header class="top"><div class="shell top-line"><div class="brand"><span class="logo">⚡</span><div>Motortypenschild <small>Arbeitsblatt-Generator · V1.1.1</small></div></div><a href="../">↗ Zum Lerntrainer</a></div></header>
+<header class="top"><div class="shell top-line"><div class="brand"><span class="logo">⚡</span><div>Motortypenschild <small>Arbeitsblatt-Generator</small></div></div><div class="header-links"><button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">☾ Dunkel</button><a href="../">↗ Zum Lerntrainer</a></div></div></header>
 <main class="shell control-area" id="controlArea">
  <div class="intro"><h1>Arbeitsblätter erstellen</h1><p>Für jede Motorart ein realitätsnahes Typenschild mit passenden Aufgaben – wahlweise auf einer oder zwei A4-Seiten. Übungslinks öffnen dieselben Daten im Lerntrainer.</p></div>
  <div class="config-layout">
@@ -48,11 +49,12 @@
  </div>
  <section class="preview-toolbar" id="previewToolbar" hidden>
   <div><h2>Arbeitsblatt-Vorschau</h2><p>Für anklickbare Links: im Browser „Als PDF speichern“ wählen, nicht „Microsoft Print to PDF“ oder „PDF24-Drucker“. Beim erneuten Drucken einer bereits geöffneten PDF können Links verloren gehen.</p></div>
-  <div class="preview-buttons"><button class="primary" id="printSheets">Als PDF speichern / drucken</button><button class="secondary" id="printSolutions" hidden>Lösungen als PDF drucken</button><button class="secondary" id="printLinks" hidden>Lösungslinks als PDF drucken</button><button class="secondary" id="regenerate">Neu erstellen</button></div>
+  <div class="output-actions"><span class="output-label">Ausgabe</span><div class="preview-buttons"><button class="primary" id="printSheets">Aufgaben drucken / als PDF speichern</button><button class="primary secondary-print" id="printSolutions" hidden>Lösungen drucken / als PDF speichern</button><button class="primary secondary-print" id="printLinks" hidden>Lösungslinks drucken / als PDF speichern</button><button class="secondary" id="regenerate">Neu erstellen</button></div></div>
  </section>
 </main>
+<footer class="site-footer">Motortypenschild · Generator V1.1.2</footer>
 <div id="printRoot" aria-live="off"><div id="printSheetsRoot"></div><div id="printSolutionsRoot"></div><div id="printLinksRoot"></div></div>
-<iframe id="motorEngine" src="../v1.1.0/index.html?generator=v1.1.1" title="Interne Motordatenquelle" aria-hidden="true" tabindex="-1" hidden></iframe>
+<iframe id="motorEngine" src="../v1.1.0/index.html?generator=v1.1.2" title="Interne Motordatenquelle" aria-hidden="true" tabindex="-1" hidden></iframe>
 <script src="qr-engine.js"></script>
-<script src="generator.js?v=1.1.1"></script>
+<script src="generator.js?v=1.1.2"></script>
 </body></html>

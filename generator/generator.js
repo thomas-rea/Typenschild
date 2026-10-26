@@ -4,7 +4,7 @@
 const $=selector=>document.querySelector(selector);
 const labels={standard:'Standardmotor · modern',historical:'Standardmotor · historisch','dahlander-delta':'Dahlander Δ/YY','dahlander-star':'Dahlander Y/YY',dual:'Zwei getrennte Wicklungen'};
 const kinds=Object.keys(labels);
-const WORKSHEET_RELEASE='1.1.1';
+const WORKSHEET_RELEASE='1.1.2';
 const EXPECTED_CODE_PATTERN=/^[AL]1-[A-Z2-9]{4}-[A-Z2-9]{4}-[A-Z2-9]$/;
 const state={mode:'balanced',enabled:new Set(kinds),counts:{standard:1,historical:1,'dahlander-delta':1,'dahlander-star':1,dual:1},sheets:[],ready:false,generatedKey:null};
 const esc=text=>String(text??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -67,7 +67,7 @@ function activateMotorEngine(){
   if(!api||typeof api.newMotor!=='function'||typeof api.questions!=='function')return false;
   // Alte Generator- oder Archivdateien dürfen niemals unbemerkt alte A-/L-Codes drucken.
   if(typeof api.makeWorksheetCode!=='function'||typeof api.parseWorksheetCode!=='function'||typeof api.worksheetSelection!=='function'){
-   $('#status').textContent='Falsche Datenquelle geladen. Bitte das gesamte V1.1.1-Paket hochladen und neu laden (Strg+F5).';
+   $('#status').textContent='Falsche Datenquelle geladen. Bitte das gesamte V1.1.2-Paket hochladen und neu laden (Strg+F5).';
    return false;
   }
   const probeA=api.makeWorksheetCode('standard',0x12345678,10,false);
@@ -81,7 +81,7 @@ function activateMotorEngine(){
   }
 
   state.ready=true;
-  $('#status').textContent='Bereit · Generator V1.1.1 · neue Blattcodes: A1-… / L1-…';
+  $('#status').textContent='Bereit · Generator V1.1.2 · neue Blattcodes: A1-… / L1-…';
   updateStatus();
   return true;
  }catch(error){return false;}
@@ -259,17 +259,37 @@ function generate(){
   $('#printSolutions').hidden=solutionMode()!=='separate';
   $('#printLinks').hidden=solutionMode()!=='links';
   $('#previewToolbar').hidden=false;
-  $('#status').textContent=`V1.1.1 · ${sheets.length} Motoren und ${sheets.length*count} Aufgaben. Neue Codes: A1-/L1-. Druckformat A4.`;
+  $('#status').textContent=`V1.1.2 · ${sheets.length} Motoren und ${sheets.length*count} Aufgaben. Neue Codes: A1-/L1-. Druckformat A4.`;
   $('#previewToolbar').scrollIntoView({block:'start',behavior:'smooth'});
  }catch(error){console.error(error);$('#status').textContent='Erstellung fehlgeschlagen: '+error.message;}
  finally{updateStatus();}
 }
+let originalGeneratorTitle=document.title;
+function pdfName(mode){
+ const now=new Date();
+ const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+ const suffix=state.sheets[0]?.practiceCode.replace(/[^A-Z0-9]/g,'').slice(0,10)||'Blatt';
+ const type={worksheets:'Aufgaben',combined:'Aufgaben_und_Loesungen',solutions:'Loesungen',links:'Loesungslinks'}[mode]||'Dokument';
+ return `Motortypenschild_${type}_${date}_${suffix}`;
+}
 function printMode(mode){
  if(!state.sheets.length)return;
  document.body.dataset.printMode=mode;
- // Im PDF-Dialog „Als PDF speichern“ wählen; in Chrome/Firefox ggf. Kopf-/Fußzeilen deaktivieren.
+ // Firefox und Chromium schlagen haeufig document.title als PDF-Dateinamen vor.
+ // Der Browser kann den Namen aendern; das Druckbild bleibt unabhaengig vom Dark Mode.
+ document.title=pdfName(mode);
  window.print();
 }
+window.addEventListener('afterprint',()=>{document.title=originalGeneratorTitle;});
+const generatorThemeToggle=$('#themeToggle');
+function applyGeneratorTheme(mode){
+ const dark=mode==='dark';document.documentElement.dataset.theme=dark?'dark':'light';
+ generatorThemeToggle.textContent=dark?'☀ Hell':'☾ Dunkel';
+ generatorThemeToggle.setAttribute('aria-pressed',String(dark));
+ try{localStorage.setItem('motortypenschild.theme',dark?'dark':'light');}catch(e){}
+}
+generatorThemeToggle.addEventListener('click',()=>applyGeneratorTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+applyGeneratorTheme(document.documentElement.dataset.theme==='dark'?'dark':'light');
 $('#generate').onclick=generate;
 $('#regenerate').onclick=generate;
 $('#printSheets').onclick=()=>printMode(solutionMode()==='appendix'?'combined':'worksheets');

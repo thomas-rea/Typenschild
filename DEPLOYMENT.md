@@ -1,11 +1,10 @@
-# GitHub-Pages-Update V1.1.1
+# Veröffentlichung V1.1.2
 
-1. ZIP entpacken und den **Inhalt** auf Repository-Ebene hochladen. Ordnerstruktur nicht verändern.
-2. Besonders `index.html`, `generator/index.html`, `generator/generator.js` und `v1.1.0/index.html` vollständig ersetzen bzw. kontrollieren.
-3. `/v1.0.0/` und `/v1.1.0/` nach Ausgabe von Arbeitsblättern unverändert behalten.
-4. Im Browser `Strg+F5` auf `/Typenschild/generator/` drücken.
-5. Generator-Kopfzeile muss `V1.1.1` zeigen und Status `Bereit · ... A1-/L1-`.
-6. Eine Seite erzeugen: Blattcode muss `A1-XXXX-XXXX-X` lauten und PDF-Link zu `/v1.1.0/?code=A1-...` führen.
-7. Haupttrainer zeigt oben `V1.1.1`.
+1. Das Update-ZIP enthält die geänderten Dateien an ihren bestehenden Pfaden. Diese in das GitHub-Repository übernehmen und committen.
+2. Alternativ das vollständige GitHub-Pages-Paket entpacken und seinen Inhalt in das Repository-Stammverzeichnis übernehmen.
+3. Die Archivordner `v1.0.0/` und `v1.1.0/` unverändert beibehalten: Bereits ausgeteilte Blattcodes müssen weiterhin genau dieselben Aufgaben öffnen.
+4. Den Lerntrainer unter `/Typenschild/` und den Generator unter `/Typenschild/generator/` öffnen; gegebenenfalls mit `Strg+F5` neu laden.
+5. Den optionalen Dunkelmodus auf beiden Seiten prüfen. Beim Arbeitsblattdruck mit Firefox „Als PDF speichern“ wählen; dies erhält die anklickbaren Links in der Regel.
+6. Beim Ausgeben mehrerer Dokumente prüfen, ob der Browser den durch den Dokumenttitel vorgeschlagenen Dateinamen verwendet. Der Browser kann diesen Namen ändern.
 
-Wenn trotz neuer Dateien noch V1.0.2 angezeigt wird, liegt die alte `generator/index.html` auf GitHub Pages oder ein alter Seiteninhalt im Browsercache.
+**Wichtig:** Diese Version ändert weder Motor-/Fragengenerierung noch das Arbeitsblattcodeformat. Daher ist **kein neuer Archivordner** nötig.
